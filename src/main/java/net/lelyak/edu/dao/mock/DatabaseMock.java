@@ -1,5 +1,6 @@
 package net.lelyak.edu.dao.mock;
 
+import net.lelyak.edu.entity.Auditorium;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
 
@@ -10,6 +11,7 @@ public class DatabaseMock {
 
     private static Map<Integer, User> users = new HashMap<>();
     private static Map<Integer, Event> events = new HashMap<>();
+    private static Map<Integer, Auditorium> auditoriums = new HashMap<>();
 
     public static Map<Integer, User> getUsers() {
         return users;
@@ -17,5 +19,9 @@ public class DatabaseMock {
 
     public static Map<Integer, Event> getEvents() {
         return events;
+    }
+
+    public static Map<Integer, Auditorium> getAuditoriums() {
+        return auditoriums;
     }
 }

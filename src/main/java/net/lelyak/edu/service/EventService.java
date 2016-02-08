@@ -6,7 +6,6 @@ import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Rating;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -62,17 +61,13 @@ public class EventService {
     }
 
     public Set<Event> getForDateRange(Calendar from, Calendar to) {
-        Set<Event> result = Collections.emptySet();
-//        for (Event event : events.values()) {
         Set<Event> allEvents = getAll();
-        for (Event event : allEvents) {
-            Set<Calendar> eventDateTime = event.getEventDateTime();
-            result.addAll(eventDateTime.stream()
-                    .filter(date -> date.after(from) && date.before(to))
-                    .map(date -> event)
-                    .collect(Collectors.toSet()));
-        }
-        return result;
+        return allEvents.stream()
+                .filter(event -> event.getEventDateTime()
+                        .stream()
+                        .anyMatch(date -> date.after(from) && date.before(to))
+                )
+                .collect(Collectors.toSet());
     }
 
 

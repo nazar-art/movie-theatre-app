@@ -1,6 +1,7 @@
 package net.lelyak.edu.entity;
 
 public class Auditorium {
+    private Integer id;
     private String name;
     private Integer numberOfSeats;
     private Integer vipSeats;
@@ -9,6 +10,21 @@ public class Auditorium {
         this.name = name;
         this.numberOfSeats = numberOfSeats;
         this.vipSeats = vipSeats;
+    }
+
+    public Auditorium(int id, String name, Integer numberOfSeats, Integer vipSeats) {
+        this.id = id;
+        this.name = name;
+        this.numberOfSeats = numberOfSeats;
+        this.vipSeats = vipSeats;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
