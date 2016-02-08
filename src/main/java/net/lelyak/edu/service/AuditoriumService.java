@@ -3,7 +3,9 @@ package net.lelyak.edu.service;
 import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.Auditorium;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * AuditoriumService - Returns info about auditoriums and places
@@ -26,5 +28,28 @@ public class AuditoriumService {
         auditoriums.put(3, new Auditorium(3, "grey hall", 200, 60));
     }
 
+    public List<Auditorium> getAuditoriums() {
+        return auditoriums.values().stream()
+                .collect(Collectors.toList());
+    }
 
+    public int getSeatsNumber(Auditorium auditorium) {
+        return auditoriums.get(auditorium.getId())
+                .getNumberOfSeats();
+    }
+
+    public int getVipSeats(Auditorium auditorium) {
+        return auditoriums.get(auditorium.getId())
+                .getVipSeats();
+    }
+
+    public static void main(String[] args) {
+
+        AuditoriumService service = new AuditoriumService();
+        Auditorium auditorium = service.auditoriums.get(1);
+
+        System.out.println(service.getAuditoriums());
+        System.out.println(service.getSeatsNumber(auditorium));
+        System.out.println(service.getVipSeats(auditorium));
+    }
 }

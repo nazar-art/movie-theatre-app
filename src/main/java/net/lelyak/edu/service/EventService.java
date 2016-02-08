@@ -3,7 +3,7 @@ package net.lelyak.edu.service;
 import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.Auditorium;
 import net.lelyak.edu.entity.Event;
-import net.lelyak.edu.entity.Rating;
+import net.lelyak.edu.entity.EventRating;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -30,9 +30,9 @@ public class EventService {
     private Map<Integer, Event> events = DatabaseMock.getEvents();
 
     public EventService() {
-        events.put(1, new Event(1, "Green Mile", 60, Rating.HIGH));
-        events.put(2, new Event(2, "Gone by the wind", 50, Rating.MIDDLE));
-        events.put(3, new Event(3, "Mad Max: Furry road", 90, Rating.LOW));
+        events.put(1, new Event(1, "Green Mile", 60d, EventRating.HIGH));
+        events.put(2, new Event(2, "Gone by the wind", 50d, EventRating.MIDDLE));
+        events.put(3, new Event(3, "Mad Max: Furry road", 90d, EventRating.LOW));
     }
 
     public Event create(Event event) {

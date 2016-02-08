@@ -1,11 +1,22 @@
 package net.lelyak.edu.entity;
 
 public class Ticket {
+    private Integer id;
     private Event event;
     private Integer price;
     private User user;
 
+    public Ticket() {
+    }
+
     public Ticket(Event event, Integer price, User user) {
+        this.event = event;
+        this.price = price;
+        this.user = user;
+    }
+
+    public Ticket(int id, Event event, Integer price, User user) {
+        this.id = id;
         this.event = event;
         this.price = price;
         this.user = user;

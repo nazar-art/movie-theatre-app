@@ -7,25 +7,25 @@ public class Event {
 
     private Integer id;
     private String name;
-    private Integer price;
-    private Rating rating;
+    private Double price;
+    private EventRating eventRating;
 
     private Set<Calendar> eventDateTime;
 
     public Event() {
     }
 
-    public Event(String name, Integer price, Rating rating) {
+    public Event(String name, Double price, EventRating eventRating) {
         this.name = name;
         this.price = price;
-        this.rating = rating;
+        this.eventRating = eventRating;
     }
 
-    public Event(int id, String name, Integer price, Rating rating) {
+    public Event(int id, String name, Double price, EventRating eventRating) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.rating = rating;
+        this.eventRating = eventRating;
     }
 
 
@@ -46,20 +46,20 @@ public class Event {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Rating getRating() {
-        return rating;
+    public EventRating getEventRating() {
+        return eventRating;
     }
 
-    public void setRating(Rating rating) {
-        this.rating = rating;
+    public void setEventRating(EventRating eventRating) {
+        this.eventRating = eventRating;
     }
 
     public Set<Calendar> getEventDateTime() {
@@ -75,7 +75,7 @@ public class Event {
         return "Event{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
-                ", rating=" + rating +
+                ", eventRating=" + eventRating +
                 ", eventDateTime=" + eventDateTime +
                 '}';
     }

@@ -35,7 +35,7 @@ public class Auditorium {
         this.name = name;
     }
 
-    public Integer getNumberOfSeats() {
+    public int getNumberOfSeats() {
         return numberOfSeats;
     }
 
@@ -49,5 +49,15 @@ public class Auditorium {
 
     public void setVipSeats(Integer vipSeats) {
         this.vipSeats = vipSeats;
+    }
+
+    @Override
+    public String toString() {
+        return "Auditorium{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", numberOfSeats=" + numberOfSeats +
+                ", vipSeats=" + vipSeats +
+                '}';
     }
 }

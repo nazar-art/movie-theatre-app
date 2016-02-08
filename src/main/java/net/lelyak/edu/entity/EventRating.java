@@ -1,5 +1,5 @@
 package net.lelyak.edu.entity;
 
-public enum Rating {
+public enum EventRating {
     HIGH, MIDDLE, LOW
 }
