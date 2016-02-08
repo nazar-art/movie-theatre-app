@@ -1,12 +1,79 @@
 package net.lelyak.edu.service;
 
+import net.lelyak.edu.dao.mock.DatabaseMock;
+import net.lelyak.edu.entity.Auditorium;
+import net.lelyak.edu.entity.Event;
+import net.lelyak.edu.entity.Rating;
+
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
+
 /**
- * EventService - Manages events (movie shows). Event contains only basic information, like name, base price for tickets, rating (high, mid, low). Event can be presented on several dates and several times within each day. For each dateTime an Event will be presented only in single auditorium.
- * <p>
+ * EventService - Manages events (movie shows).
+ * Event contains only basic information, like name, base price for tickets, rating (high, mid, low).
+ * Event can be presented on several dates and several times within each day.
+ * For each dateTime an Event will be presented only in single auditorium.
+ *
  * create, remove, getByName, getAll
+ * assignAuditorium(event, auditorium, date) - assign auditorium for event for specific date.
+ * Only one auditorium for Event for specific dateTime
+ *
  * getForDateRange(from, to) - returns events for specified date range (OPTIONAL)
  * getNextEvents(to) - returns events from now till the ‘to’ date (OPTIONAL)
- * assignAuditorium(event, auditorium, date) - assign auditorium for event for specific date. Only one auditorium for Event for specific dateTime
  */
 public class EventService {
+
+    private Map<Integer, Event> events = DatabaseMock.getEvents();
+
+    public EventService() {
+        events.put(1, new Event(1, "Green Mile", 60, Rating.HIGH));
+        events.put(2, new Event(2, "Gone by the wind", 50, Rating.MIDDLE));
+        events.put(3, new Event(3, "Mad Max: Furry road", 90, Rating.LOW));
+    }
+
+    public Event create(Event event) {
+        return events.put(event.getId(), event);
+    }
+
+    public Event remove(Event event) {
+        return events.remove(event.getId());
+    }
+
+    public Set<Event> getAll() {
+        return events.values().stream()
+                .collect(toSet());
+    }
+
+    public Event getByName(String eventName) {
+        return events.values().stream()
+                .filter(e -> e.getName().equalsIgnoreCase(eventName))
+                .findFirst()
+                .get();
+    }
+
+    public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
+        // todo
+
+    }
+
+    public Set<Event> getForDateRange(Calendar from, Calendar to) {
+        Set<Event> result = Collections.emptySet();
+//        for (Event event : events.values()) {
+        Set<Event> allEvents = getAll();
+        for (Event event : allEvents) {
+            Set<Calendar> eventDateTime = event.getEventDateTime();
+            result.addAll(eventDateTime.stream()
+                    .filter(date -> date.after(from) && date.before(to))
+                    .map(date -> event)
+                    .collect(Collectors.toSet()));
+        }
+        return result;
+    }
+
+
 }

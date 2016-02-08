@@ -49,12 +49,11 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
-        return users.entrySet().stream()
-                .filter(e -> e.getValue().getEmail() != null)
-                .filter(e -> e.getValue().getEmail().equalsIgnoreCase(email))
+        return users.values().stream()
+                .filter(e -> e.getEmail() != null)
+                .filter(e -> e.getEmail().equalsIgnoreCase(email))
                 .findFirst()
-                .get()
-                .getValue();
+                .get();
         /*for (User user : users.values()) {
             if (user.getEmail() != null && user.getEmail().equals(email)) {
                 return user;
@@ -64,12 +63,11 @@ public class UserService {
     }
 
     public User getByName(String name) {
-        return users.entrySet().stream()
-                .filter(e -> e.getValue().getFirstName() != null)
-                .filter(e -> e.getValue().getFirstName().equalsIgnoreCase(name))
+        return users.values().stream()
+                .filter(e -> e.getFirstName() != null)
+                .filter(e -> e.getFirstName().equalsIgnoreCase(name))
                 .findFirst()
-                .get()
-                .getValue();
+                .get();
     }
 
     public Set<Ticket> getBookedTickets(User user) {

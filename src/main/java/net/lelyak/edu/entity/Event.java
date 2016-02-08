@@ -4,11 +4,13 @@ import java.util.Calendar;
 import java.util.Set;
 
 public class Event {
+
+    private Integer id;
     private String name;
     private Integer price;
     private Rating rating;
 
-    private Set<Calendar> eventTime;
+    private Set<Calendar> eventDateTime;
 
     public Event() {
     }
@@ -17,6 +19,23 @@ public class Event {
         this.name = name;
         this.price = price;
         this.rating = rating;
+    }
+
+    public Event(int id, String name, Integer price, Rating rating) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
+    }
+
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,12 +62,12 @@ public class Event {
         this.rating = rating;
     }
 
-    public Set<Calendar> getEventTime() {
-        return eventTime;
+    public Set<Calendar> getEventDateTime() {
+        return eventDateTime;
     }
 
-    public void setEventTime(Set<Calendar> eventTime) {
-        this.eventTime = eventTime;
+    public void setEventDateTime(Set<Calendar> eventDateTime) {
+        this.eventDateTime = eventDateTime;
     }
 
     @Override
@@ -57,7 +76,7 @@ public class Event {
                 "name='" + name + '\'' +
                 ", price=" + price +
                 ", rating=" + rating +
-                ", eventTime=" + eventTime +
+                ", eventDateTime=" + eventDateTime +
                 '}';
     }
 }
