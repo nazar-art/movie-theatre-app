@@ -48,9 +48,7 @@ public class UserService {
     }
 
     public User getById(int id) {
-        User user = users.get(id);
-        System.out.println(user);
-        return user;
+        return users.get(id);
     }
 
     public User getByEmail(String email) {

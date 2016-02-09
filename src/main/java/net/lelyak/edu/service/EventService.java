@@ -41,6 +41,10 @@ public class EventService {
         return events.put(event.getId(), event);
     }
 
+    public Event getById(int id) {
+        return events.get(id);
+    }
+
     public Event remove(Event event) {
         return events.remove(event.getId());
     }
@@ -52,6 +56,7 @@ public class EventService {
 
     public Event getByName(String eventName) {
         return events.values().stream()
+                .filter(e -> e.getName() != null)
                 .filter(e -> e.getName().equalsIgnoreCase(eventName))
                 .findFirst()
                 .get();

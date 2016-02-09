@@ -8,7 +8,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
 @Test
 @Listeners(TestNGListener.class)
 @ContextConfiguration(locations = "classpath:test-context.xml")
