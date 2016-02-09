@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 @Test
 @Listeners(TestNGListener.class)
-@ContextConfiguration(locations = "classpath:test-context.xml")
+@ContextConfiguration(locations = "classpath:spring-context.xml")
 public class BaseTest extends AbstractTestNGSpringContextTests {
 
     @Autowired

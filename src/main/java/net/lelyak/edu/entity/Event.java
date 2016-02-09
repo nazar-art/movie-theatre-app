@@ -66,8 +66,10 @@ public class Event {
         return eventDateTime;
     }
 
-    public void setEventDateTime(Set<Calendar> eventDateTime) {
-        this.eventDateTime = eventDateTime;
+    public void addEventDateTime(Calendar dateTime) {
+        if (!eventDateTime.contains(dateTime)) {
+            eventDateTime.add(dateTime);
+        }
     }
 
     @Override

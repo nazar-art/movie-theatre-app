@@ -6,9 +6,7 @@ import net.lelyak.edu.entity.EventRating;
 import net.lelyak.edu.utils.CommonIndexes;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
+import static org.testng.Assert.*;
 
 public class EventServicesTestCase extends BaseTest {
 
@@ -37,5 +35,11 @@ public class EventServicesTestCase extends BaseTest {
         assertNotNull(eventById);
     }
 
-
+    @Test
+    public void testGetByName() throws Exception {
+        String expectedName = "Green Mile";
+        Event event = eventService.getByName(expectedName);
+        assertNotNull(event);
+        assertEquals(event.getName(), expectedName, "names should be the same");
+    }
 }

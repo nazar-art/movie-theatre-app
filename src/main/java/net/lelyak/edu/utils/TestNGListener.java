@@ -2,10 +2,16 @@ package net.lelyak.edu.utils;
 
 import org.testng.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Nazar_Lelyak
  */
 public final class TestNGListener extends TestListenerAdapter implements IInvokedMethodListener, ISuiteListener {
+
+    private static List<String> exceptions;
+    private String currentMessage = "";
 
     /**
      * Test class
@@ -52,41 +58,68 @@ public final class TestNGListener extends TestListenerAdapter implements IInvoke
      */
     @Override
     public void onConfigurationSuccess(ITestResult itr) {
-        Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_SUCCESS, getMethodName(itr)));
-        processTestResult(itr);
+        String methodName = itr.getMethod().getMethodName();
+        if (methodName != null && !exceptionsList().contains(methodName)) {
+            Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_SUCCESS, getMethodName(itr)));
+            processTestResult(itr);
+        }
     }
 
     @Override
     public void onConfigurationFailure(ITestResult itr) {
-        Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_FAILED, getMethodName(itr)));
+        String methodName = itr.getMethod().getMethodName();
+        if (methodName != null && !exceptionsList().contains(methodName)) {
+            Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_FAILED, getMethodName(itr)));
+        }
     }
 
     @Override
     public void onConfigurationSkip(ITestResult itr) {
-        Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_SKIPPED, getMethodName(itr)));
+        String methodName = itr.getMethod().getMethodName();
+        if (methodName != null && !exceptionsList().contains(methodName)) {
+            Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_SKIPPED, getMethodName(itr)));
+        }
     }
 
     @Override
     public void beforeConfiguration(ITestResult tr) {
-        Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_STARTED, getMethodName(tr)));
+        String methodName = tr.getMethod().getMethodName();
+        if (methodName != null && !exceptionsList().contains(methodName)) {
+            Logger.info(buildMessage(Logger.PREFIX_CONFIGURATION_STARTED, getMethodName(tr)));
+        }
     }
 
     @Override
-    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        // Do nothing
+    public void beforeInvocation(IInvokedMethod method, ITestResult iTestResult) {
+        String methodName = iTestResult.getMethod().getMethodName();
+        if (methodName != null && !exceptionsList().contains(methodName)) {
+            if (!currentMessage.equals("START TEST CASE: " + methodName)) {
+                currentMessage = "START TEST CASE: " + methodName;
+                Logger.debug(currentMessage);
+            }
+        }
     }
 
     private boolean firstAttmptKey = true;
 
     @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-        int result = testResult.getStatus();
+    public void afterInvocation(IInvokedMethod method, ITestResult iTestResult) {
+        /*int result = testResult.getStatus();
 
         if (result == ITestResult.FAILURE && firstAttmptKey) {
             processFailure(testResult);
         }
 
-        firstAttmptKey = !firstAttmptKey;
+        firstAttmptKey = !firstAttmptKey;*/
+
+        String methodName = iTestResult.getMethod().getMethodName();
+        if (methodName != null && !exceptionsList().contains(methodName)) {
+            if (!currentMessage.equals("END TEST CASE: " + methodName)) {
+                currentMessage = "END TEST CASE: " + methodName;
+                Logger.debug(currentMessage);
+            }
+        }
+
     }
 
     public String buildMessage(String prefix, String msg) {
@@ -128,12 +161,24 @@ public final class TestNGListener extends TestListenerAdapter implements IInvoke
 
     @Override
     public void onStart(ISuite suite) {
-        Logger.info(buildMessage(Logger.PREFIX_TEST_SUITE_STARTED, suite.getName()));
+//        Logger.info(buildMessage(Logger.PREFIX_TEST_SUITE_STARTED, suite.getName()));
     }
 
     @Override
     public void onFinish(ISuite suite) {
-        Logger.info(buildMessage(Logger.PREFIX_TEST_SUITE_FINISHED, suite.getName()));
+//        Logger.info(buildMessage(Logger.PREFIX_TEST_SUITE_FINISHED, suite.getName()));
+    }
+
+    private List<String> exceptionsList() {
+        if (exceptions == null) {
+            exceptions = new ArrayList<>();
+            exceptions.add("springTestContextPrepareTestInstance");
+            exceptions.add("springTestContextBeforeTestMethod");
+            exceptions.add("springTestContextBeforeTestClass");
+            exceptions.add("springTestContextAfterTestMethod");
+            exceptions.add("springTestContextAfterTestClass");
+        }
+        return exceptions;
     }
 
 }

@@ -29,7 +29,7 @@ public final class Logger {
     /**
      * Logger
      */
-    private static final org.apache.log4j.Logger LOGGER = LogManager.getLogger("WlcClaLog");
+    private static final org.apache.log4j.Logger LOGGER = LogManager.getLogger("SpringCore");
 
     public static void info(String msg) {
         LOGGER.info(msg);
