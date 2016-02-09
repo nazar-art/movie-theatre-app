@@ -178,6 +178,12 @@
             <version>19.0</version>
         </dependency>
 
+        <!--DB-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.191</version>
+        </dependency>
     </dependencies>
 
 </project>
