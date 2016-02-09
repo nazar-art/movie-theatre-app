@@ -2,6 +2,7 @@ package net.lelyak.edu.service;
 
 import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.Auditorium;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  *
  * getAuditoriums(), getSeatsNumber(), getVipSeats()
  */
+@Service
 public class AuditoriumService {
 
     private final Map<Integer, Auditorium> auditoriums = DatabaseMock.getAuditoriums();
@@ -44,7 +46,6 @@ public class AuditoriumService {
     }
 
     public static void main(String[] args) {
-
         AuditoriumService service = new AuditoriumService();
         Auditorium auditorium = service.auditoriums.get(1);
 

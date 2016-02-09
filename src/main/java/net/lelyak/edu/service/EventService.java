@@ -4,6 +4,7 @@ import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.Auditorium;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.EventRating;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -25,6 +26,7 @@ import static java.util.stream.Collectors.toSet;
  * getForDateRange(from, to) - returns events for specified date range (OPTIONAL)
  * getNextEvents(to) - returns events from now till the ‘to’ date (OPTIONAL)
  */
+@Service
 public class EventService {
 
     private Map<Integer, Event> events = DatabaseMock.getEvents();

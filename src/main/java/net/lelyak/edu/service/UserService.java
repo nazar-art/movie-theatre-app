@@ -6,6 +6,7 @@ import net.lelyak.edu.entity.Role;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.CommonIndexes;
+import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,11 +16,13 @@ import java.util.*;
  * UserService - Manages registered users
  * register, remove, getById, getUserByEmail, getUsersByName, getBookedTickets
  */
+@Service
 public class UserService {
     private final int USER = CommonIndexes.ONE.getIndex();
-    private Map<Integer, User> users = DatabaseMock.getUsers();
+    private Map<Integer, User> users;
 
     public UserService() {
+        users = DatabaseMock.getUsers();
         users.put(1, new User(1, "Garry", "Potter", Gender.MALE));
         users.put(2, new User(2, "Ron", "Weasley", Gender.MALE));
         users.put(3, new User(3, "Germiona", "Grendjer", "grendjer@gmail.com",
@@ -45,7 +48,9 @@ public class UserService {
     }
 
     public User getById(int id) {
-        return users.get(id);
+        User user = users.get(id);
+        System.out.println(user);
+        return user;
     }
 
     public User getByEmail(String email) {
@@ -75,6 +80,7 @@ public class UserService {
         return byId.getBookedTickets();
     }
 
+
     private Gender getGender(String gender) {
         for (Gender temporaryGender : Gender.values()) {
             if (gender.equalsIgnoreCase(temporaryGender.toString())) {
@@ -95,24 +101,5 @@ public class UserService {
             e.printStackTrace();
         }
         return birthday;
-    }
-
-
-    public static void main(String[] args) {
-        UserService userService = new UserService();
-        User byEmail = userService.getByEmail("grendjer@gmail.com");
-        System.out.println(byEmail.getFirstName());
-
-        User byId = userService.getById(1);
-        System.out.println(byId.getFirstName());
-
-        System.out.println(userService.getByName("ron").getFirstName());
-
-        System.out.println(userService.getBookedTickets(DatabaseMock.getUsers().get(3)));
-
-        User user = new User("Severun", "Snoup", Gender.MALE);
-        user.setId(5);
-        userService.register(user);
-        System.out.println(DatabaseMock.getUsers().get(5).getFirstName());
     }
 }

@@ -3,6 +3,7 @@ package net.lelyak.edu.service;
 import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.*;
 import net.lelyak.edu.utils.Logger;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
  *
  * getTicketsForEvent(event, date) - get all purchased tickets for event for specific date
  */
+@Service
 public class BookingService {
 
     public BookingService() {

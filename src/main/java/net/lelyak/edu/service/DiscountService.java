@@ -2,6 +2,7 @@ package net.lelyak.edu.service;
 
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 
@@ -20,6 +21,7 @@ import java.util.Calendar;
  * Define DiscountService with all strategies as separate beans in separate configuration file
  * (either separate XML or separate Java config class)
  */
+@Service
 public class DiscountService {
 
     public static final int HALF_PRICE_TICKET_DELIMITER = 10;
