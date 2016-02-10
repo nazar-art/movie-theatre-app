@@ -1,5 +1,7 @@
 package net.lelyak.edu.entity;
 
+import net.lelyak.edu.utils.Logger;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -113,6 +115,7 @@ public class User {
     public void addTicket(Ticket ticket) {
         if (ticket != null && !bookedTickets.contains(ticket)) {
             bookedTickets.add(ticket);
+            Logger.info("Add one ticket: " + ticket + " to user: " + this.toString());
             ticket.setUser(this);
         }
     }

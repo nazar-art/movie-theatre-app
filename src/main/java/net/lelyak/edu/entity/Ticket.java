@@ -3,19 +3,19 @@ package net.lelyak.edu.entity;
 public class Ticket {
     private Integer id;
     private Event event;
-    private Integer price;
+    private Double price;
     private User user;
 
     public Ticket() {
     }
 
-    public Ticket(Event event, Integer price, User user) {
+    public Ticket(Event event, Double price, User user) {
         this.event = event;
         this.price = price;
         this.user = user;
     }
 
-    public Ticket(int id, Event event, Integer price, User user) {
+    public Ticket(int id, Event event, Double price, User user) {
         this.id = id;
         this.event = event;
         this.price = price;
@@ -30,11 +30,11 @@ public class Ticket {
         this.event = event;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

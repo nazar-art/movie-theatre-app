@@ -4,12 +4,13 @@ import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.CommonIndexes;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.testng.Assert.assertNotNull;
 
 public class BookingServiceTestCase extends BaseTest {
 
@@ -26,6 +27,6 @@ public class BookingServiceTestCase extends BaseTest {
     @Test
     public void testGetTicketPrice() throws Exception {
         List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
-        Assert.assertNotNull(ticketsForUser);
+        assertNotNull(ticketsForUser);
     }
 }

@@ -1,12 +1,10 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.Auditorium;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -23,26 +21,24 @@ import java.util.stream.Collectors;
 @Service
 public class AuditoriumService {
 
-    private final Map<Integer, Auditorium> auditoriums = DatabaseMock.getAuditoriums();
+    @Autowired
+    private List<Auditorium> auditoriums;
 
-    public AuditoriumService() {
-        auditoriums.put(1, new Auditorium(1, "blue hall", 120, Arrays.asList("1", "3", "6", "8")));
-        auditoriums.put(2, new Auditorium(2, "yellow hall", 150, Arrays.asList("2", "4", "6", "8")));
-        auditoriums.put(3, new Auditorium(3, "grey hall", 200, Arrays.asList("5", "10", "15", "20")));
+    @Autowired
+    public AuditoriumService(List<Auditorium> auditoriums) {
+        this.auditoriums = auditoriums;
     }
 
     public List<Auditorium> getAuditoriums() {
-        return auditoriums.values().stream()
+        return auditoriums.stream()
                 .collect(Collectors.toList());
     }
 
     public int getSeatsNumber(Auditorium auditorium) {
-        return auditoriums.get(auditorium.getId())
-                .getNumberOfSeats();
+        return auditorium.getNumberOfSeats();
     }
 
     public List<String> getVipSeats(Auditorium auditorium) {
-        return auditoriums.get(auditorium.getId())
-                .getVipSeats();
+        return auditorium.getVipSeats();
     }
 }

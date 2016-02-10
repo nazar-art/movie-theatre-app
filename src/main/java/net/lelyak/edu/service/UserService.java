@@ -27,7 +27,7 @@ public class UserService {
         users.put(2, new User(2, "Ron", "Weasley", Gender.MALE));
         users.put(3, new User(3, "Germiona", "Grendjer", "grendjer@gmail.com",
                 new HashSet<Ticket>(Collections.singletonList(
-                        new Ticket(DatabaseMock.getEvents().get(1), 30, users.get(1))))));
+                        new Ticket(DatabaseMock.getEvents().get(1), 30d, users.get(1))))));
     }
 
     public User register(User user) {
