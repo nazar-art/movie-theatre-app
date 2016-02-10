@@ -30,8 +30,8 @@
         </property>
     </bean>
 
-    <!--<bean class="net.lelyak.edu.entity.Auditorium"
-    p:name="${auditorium.name}" p:numberOfSeats=""/>-->
+    <bean id="birthdayStrategy" class="net.lelyak.edu.discounts.BirthdayDiscount"/>
+    <bean id="halfPriceStrategy" class="net.lelyak.edu.discounts.HalfPriceTicketDiscount"/>
 
     <bean class="net.lelyak.edu.service.AuditoriumService"/>
     <bean class="net.lelyak.edu.service.BookingService"/>

@@ -1,18 +1,20 @@
 package net.lelyak.edu.entity;
 
+import java.util.List;
+
 public class Auditorium {
     private Integer id;
     private String name;
     private Integer numberOfSeats;
-    private Integer vipSeats;
+    private List<String> vipSeats;
 
-    public Auditorium(String name, Integer numberOfSeats, Integer vipSeats) {
+    public Auditorium(String name, Integer numberOfSeats, List<String> vipSeats) {
         this.name = name;
         this.numberOfSeats = numberOfSeats;
         this.vipSeats = vipSeats;
     }
 
-    public Auditorium(int id, String name, Integer numberOfSeats, Integer vipSeats) {
+    public Auditorium(int id, String name, Integer numberOfSeats, List<String> vipSeats) {
         this.id = id;
         this.name = name;
         this.numberOfSeats = numberOfSeats;
@@ -43,11 +45,11 @@ public class Auditorium {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public Integer getVipSeats() {
+    public List<String> getVipSeats() {
         return vipSeats;
     }
 
-    public void setVipSeats(Integer vipSeats) {
+    public void setVipSeats(List<String> vipSeats) {
         this.vipSeats = vipSeats;
     }
 

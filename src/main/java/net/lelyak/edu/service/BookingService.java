@@ -3,10 +3,13 @@ package net.lelyak.edu.service;
 import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.*;
 import net.lelyak.edu.utils.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * BookingService - Manages tickets, prices, bookings
@@ -26,6 +29,10 @@ import java.util.stream.Collectors;
 @Service
 public class BookingService {
 
+    @Autowired
+    @Qualifier(value = "discountService")
+    private DiscountService discountService;
+
     public BookingService() {
     }
 
@@ -36,7 +43,9 @@ public class BookingService {
 
         basePrice = priceBySeatType(seatType, basePrice);
         priceByMovieRating(basePrice, rating);
-        // todo calculate discount for user ???
+
+        double discount = discountService.getDiscount(user, event, date);
+        basePrice *= basePrice * discount;
 
         return basePrice;
     }
@@ -57,7 +66,7 @@ public class BookingService {
         result.addAll(tickets.stream()
                 .filter(ticket -> ticket.getEvent() != null
                         && ticket.getEvent().getEventDateTime().contains(date))
-                .collect(Collectors.toList()));
+                .collect(toList()));
         return result;
     }
 
@@ -77,5 +86,13 @@ public class BookingService {
                 break;
         }
         return price;
+    }
+
+    public List<Ticket> getTicketsForUser(User user) {
+        Collection<Ticket> allTickets = DatabaseMock.getTickets().values();
+        return allTickets.stream()
+                .filter(e -> e.getUser() != null)
+                .filter(e -> Objects.equals(e.getUser().getId(), user.getId()))
+                .collect(toList());
     }
 }
