@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 /**
  * BookingService - Manages tickets, prices, bookings
  *
- * getTicketPrice(event, date, time, seats, user) - returns price for ticket for specified event on specific date and time for specified seats.
+ * getTicketPrice(event, dateTime, time, seats, user) - returns price for ticket for specified event on specific dateTime and time for specified seats.
  * User is needed to calculate discount (see below)
  * + Event is needed to get base price, rating
  * + Vip seats should cost more than regular seats (For example, 2xBasePrice)
@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
  * If user is registered, then booking information is stored for that user.
  * Purchased tickets for particular event should be stored
  *
- * getTicketsForEvent(event, date) - get all purchased tickets for event for specific date
+ * getTicketsForEvent(event, dateTime) - get all purchased tickets for event for specific dateTime
  */
 @Service
 public class BookingService {
@@ -36,15 +36,14 @@ public class BookingService {
     public BookingService() {
     }
 
-    public Double getTicketPrice(Event event, Calendar date, Calendar time,
-                               SeatType seatType, User user) {
+    public Double getTicketPrice(Event event, Calendar dateTime, SeatType seatType, User user) {
         Double basePrice = event.getPrice();
         EventRating rating = event.getEventRating();
 
         basePrice = priceBySeatType(seatType, basePrice);
-        priceByMovieRating(basePrice, rating);
+        basePrice = priceByMovieRating(basePrice, rating);
 
-        double discount = discountService.getDiscount(user, event, date);
+        double discount = discountService.getDiscount(user, event, dateTime);
         basePrice *= basePrice * discount;
 
         return basePrice;

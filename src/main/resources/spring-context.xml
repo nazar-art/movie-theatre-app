@@ -14,14 +14,19 @@
 
     <import resource="strategy.xml"/>
     <import resource="auditorium.xml"/>
+    <import resource="db-context.xml"/>
+    <import resource="aspect-context.xml"/>
+
+    <context:annotation-config/>
     <context:component-scan base-package="net.lelyak.edu"/>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:auditorium1.properties</value>
-                <value>classpath:auditorium2.properties</value>
-                <value>classpath:auditorium3.properties</value>
+                <value>classpath:properties/auditorium1.properties</value>
+                <value>classpath:properties/auditorium2.properties</value>
+                <value>classpath:properties/auditorium3.properties</value>
+                <value>classpath:db/dp.properties</value>
             </list>
         </property>
         <property name="ignoreResourceNotFound" value="true"/>
@@ -31,21 +36,8 @@
         </property>
     </bean>
 
-    <bean id="auditorium1" class="net.lelyak.edu.entity.Auditorium"
-          c:name="${auditorium1.name}" c:numberOfSeats="${auditorium1.number-of-seats}" c:vipSeats="${auditorium1.vip-seats}"/>
-    <bean id="auditorium2" class="net.lelyak.edu.entity.Auditorium"
-          c:name="${auditorium2.name}" c:numberOfSeats="${auditorium2.number-of-seats}" c:vipSeats="${auditorium2.vip-seats}"/>
-    <bean id="auditorium3" class="net.lelyak.edu.entity.Auditorium"
-          c:name="${auditorium3.name}" c:numberOfSeats="${auditorium3.number-of-seats}" c:vipSeats="${auditorium3.vip-seats}"/>
-
-    <util:list id="auditoriumsList">
-        <ref bean="auditorium1"/>
-        <ref bean="auditorium2"/>
-        <ref bean="auditorium3"/>
-    </util:list>
-
     <bean class="net.lelyak.edu.service.AuditoriumService">
-        <constructor-arg ref="auditoriumsList"/>
+        <constructor-arg name="auditoriums" ref="auditoriumsList"/>
     </bean>
     <bean class="net.lelyak.edu.service.BookingService"/>
     <bean class="net.lelyak.edu.service.EventService"/>

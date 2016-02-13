@@ -18,14 +18,16 @@ import java.util.*;
  */
 @Service
 public class UserService {
-    private final int USER = CommonIndexes.ONE.getIndex();
+    private final int USER_INDEX = CommonIndexes.ONE.getIndex();
+    private final int ADMIN_INDEX = CommonIndexes.ZERO.getIndex();
+
     private Map<Integer, User> users;
 
     public UserService() {
         users = DatabaseMock.getUsers();
-        users.put(1, new User(1, "Garry", "Potter", Gender.MALE));
-        users.put(2, new User(2, "Ron", "Weasley", Gender.MALE));
-        users.put(3, new User(3, "Germiona", "Grendjer", "grendjer@gmail.com",
+        users.put(1, new User(1, "Garry Potter", Gender.MALE));
+        users.put(2, new User(2, "Ron Weasley", Gender.MALE));
+        users.put(3, new User(3, "Germiona Grendjer", "grendjer@gmail.com",
                 new HashSet<Ticket>(Collections.singletonList(
                         new Ticket(DatabaseMock.getEvents().get(1), 30d, users.get(1))))));
     }
@@ -38,7 +40,7 @@ public class UserService {
         user.setGender(getGender(gender));
         user.setBirthday(toDateFormat(date));
         Role registeredUser = new Role();
-        registeredUser.setId(USER);
+        registeredUser.setId(USER_INDEX);
         user.setRole(registeredUser);
         return register(user);
     }
@@ -67,8 +69,8 @@ public class UserService {
 
     public User getByName(String name) {
         return users.values().stream()
-                .filter(e -> e.getFirstName() != null)
-                .filter(e -> e.getFirstName().equalsIgnoreCase(name))
+                .filter(e -> e.getName() != null)
+                .filter(e -> e.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .get();
     }

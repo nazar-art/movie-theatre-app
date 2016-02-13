@@ -1,20 +1,26 @@
 package net.lelyak.edu.entity;
 
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
+@Component
 public class Auditorium {
     private Integer id;
     private String name;
     private Integer numberOfSeats;
-    private List<String> vipSeats;
+    private Set<String> vipSeats;
 
-    public Auditorium(String name, Integer numberOfSeats, List<String> vipSeats) {
+    public Auditorium() {
+    }
+
+    public Auditorium(String name, Integer numberOfSeats, Set<String> vipSeats) {
         this.name = name;
         this.numberOfSeats = numberOfSeats;
         this.vipSeats = vipSeats;
     }
 
-    public Auditorium(int id, String name, Integer numberOfSeats, List<String> vipSeats) {
+    public Auditorium(int id, String name, Integer numberOfSeats, Set<String> vipSeats) {
         this.id = id;
         this.name = name;
         this.numberOfSeats = numberOfSeats;
@@ -45,11 +51,11 @@ public class Auditorium {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public List<String> getVipSeats() {
+    public Set<String> getVipSeats() {
         return vipSeats;
     }
 
-    public void setVipSeats(List<String> vipSeats) {
+    public void setVipSeats(Set<String> vipSeats) {
         this.vipSeats = vipSeats;
     }
 

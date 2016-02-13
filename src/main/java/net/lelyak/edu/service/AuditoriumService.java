@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -21,7 +22,6 @@ import java.util.stream.Collectors;
 @Service
 public class AuditoriumService {
 
-    @Autowired
     private List<Auditorium> auditoriums;
 
     @Autowired
@@ -38,7 +38,7 @@ public class AuditoriumService {
         return auditorium.getNumberOfSeats();
     }
 
-    public List<String> getVipSeats(Auditorium auditorium) {
+    public Set<String> getVipSeats(Auditorium auditorium) {
         return auditorium.getVipSeats();
     }
 }

@@ -1,11 +1,11 @@
 package net.lelyak.edu.service;
 
 import net.lelyak.edu.dao.mock.DatabaseMock;
-import net.lelyak.edu.entity.Auditorium;
-import net.lelyak.edu.entity.Event;
-import net.lelyak.edu.entity.EventRating;
+import net.lelyak.edu.entity.*;
+import net.lelyak.edu.utils.Logger;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.Set;
@@ -37,8 +37,24 @@ public class EventService {
         events.put(3, new Event(3, "Mad Max: Furry road", 90d, EventRating.LOW));
     }
 
+    /**
+     * @deprecated Just use {@link #create(Event, User)} instead.
+     * It can check if thisUser has access for event creation.
+     * @param event new event instance.
+     * @return newly created event.
+     */
+    @Deprecated
     public Event create(Event event) {
         return events.put(event.getId(), event);
+    }
+
+    public void create(Event event, User thisUser) {
+        if (thisUser.getRole() != null && thisUser.getRole().getRole().equalsIgnoreCase("admin")) {
+             events.put(event.getId(), event);
+            Logger.info(String.format("User: %s has already created event: %s", thisUser.getName(), event.getName()));
+        } else {
+            Logger.warn("User: %s doesn't have permission for creating event");
+        }
     }
 
     public Event getById(int id) {
@@ -55,6 +71,7 @@ public class EventService {
     }
 
     public Event getByName(String eventName) {
+        Logger.info("EventService.getByName called for: " + eventName);
         return events.values().stream()
                 .filter(e -> e.getName() != null)
                 .filter(e -> e.getName().equalsIgnoreCase(eventName))
@@ -63,7 +80,11 @@ public class EventService {
     }
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
-        // todo
+        if (!event.getEventDateTime().contains(date)) {
+            event.addEventDateTime(date);
+            Logger.info(String.format("Auditorium: %s is assigned for event: %s on %s",
+                    auditorium.getName(), event.getName(), formatDate(date)));
+        }
 
     }
 
@@ -77,5 +98,9 @@ public class EventService {
                 .collect(Collectors.toSet());
     }
 
+    private String formatDate(Calendar date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(date);
+    }
 
 }

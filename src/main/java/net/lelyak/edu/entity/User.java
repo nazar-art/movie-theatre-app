@@ -8,41 +8,33 @@ import java.util.Set;
 
 public class User {
     private Integer id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private Gender gender;
     private Calendar birthday;
-
     private String email;
-    private String password;
-
     private Role role;
 
     private Set<Ticket> bookedTickets = new HashSet<>();
 
-    public User() {
-    }
-
-    public User(String firstName, String lastName, Gender gender) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String name, Gender gender) {
+        this.name = name;
         this.gender = gender;
     }
 
-    public User(int id, String firstName, String lastName, Gender gender) {
+    public User(int id, String name, Gender gender) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.gender = gender;
     }
 
-    public User(int id, String firstName, String lastName, String email, Set<Ticket> bookedTickets) {
+    public User(int id, String name, String email, Set<Ticket> bookedTickets) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.email = email;
         this.bookedTickets = bookedTickets;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -52,20 +44,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -74,14 +58,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Calendar getBirthday() {
@@ -124,10 +100,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", birthday=" + birthday +
                 ", gender=" + gender +
                 ", role=" + role +

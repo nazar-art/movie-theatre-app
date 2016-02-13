@@ -1,6 +1,7 @@
 package net.lelyak.edu.tests;
 
 import net.lelyak.edu.BaseTest;
+import net.lelyak.edu.aspects.CounterAspect;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.EventRating;
 import net.lelyak.edu.utils.CommonIndexes;
@@ -42,4 +43,20 @@ public class EventServicesTestCase extends BaseTest {
         assertNotNull(event);
         assertEquals(event.getName(), expectedName, "names should be the same");
     }
+
+    @Test // todo this method fails now
+    public void testGetByNameCounterForEvent() throws Exception {
+        CounterAspect counterAspect = new CounterAspect();
+
+        String expectedName = "Green Mile";
+        Event event = eventService.getByName(expectedName);
+        eventService.getByName(expectedName);
+        eventService.getByName(expectedName);
+
+        int actualCallTimes = counterAspect.getEventCallByNameMap().get(event);
+
+        assertEquals(actualCallTimes, 3, "getByName() should be called 3 times");
+    }
+
+
 }
