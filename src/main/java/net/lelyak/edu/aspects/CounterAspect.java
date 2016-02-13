@@ -2,6 +2,7 @@ package net.lelyak.edu.aspects;
 
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.SeatType;
+import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -80,17 +81,21 @@ public class CounterAspect {
     }
 
     @AfterReturning(
-            pointcut = "ticketBookingCounterForEvent()",
-            returning = "returnValue"
-    )
-    public void countTicketBookingForEvent(JoinPoint joinPoint, Object returnValue) {
+            pointcut = "ticketBookingCounterForEvent() && args(user, ticket)",
+            argNames = "joinPoint,user,ticket")
+    public void countTicketBookingForEvent(JoinPoint joinPoint, User user, Ticket ticket) {
+        Event event = ticket.getEvent();
 
+        if (!bookTicketCallMap.containsKey(event)) {
+            bookTicketCallMap.put(event, 1);
+            Logger.info(String.format("Book ticket for Event: %s is called FIRST time", event.getName()));
+
+        } else {
+            Integer oldIndex = bookTicketCallMap.get(event);
+            int newIndex = oldIndex + 1;
+            bookTicketCallMap.put(event, newIndex);
+            Logger.info(String.format("Book Ticket for Event: %s is called: %s times", event.getName(), newIndex));        }
     }
-
-
-
-
-
 
     public Map<Event, Integer> getEventCallByNameMap() {
         return eventCallByNameMap;
