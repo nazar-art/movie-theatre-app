@@ -22,8 +22,7 @@ public class AuditoriumServiceTestCase extends BaseTest {
         int seatsNumber = auditoriumService.getSeatsNumber(auditorium);
         assertNotNull(seatsNumber);
 
-        Set<String> vipSeats = auditoriumService.getVipSeats(auditorium);
-//        List<String> vipSeats = auditoriumService.getVipSeats(auditorium);
+        Set<Integer> vipSeats = auditoriumService.getVipSeats(auditorium);
         assertNotNull(vipSeats);
     }
 

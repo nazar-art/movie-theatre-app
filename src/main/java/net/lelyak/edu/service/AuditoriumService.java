@@ -38,7 +38,7 @@ public class AuditoriumService {
         return auditorium.getNumberOfSeats();
     }
 
-    public Set<String> getVipSeats(Auditorium auditorium) {
+    public Set<Integer> getVipSeats(Auditorium auditorium) {
         return auditorium.getVipSeats();
     }
 }

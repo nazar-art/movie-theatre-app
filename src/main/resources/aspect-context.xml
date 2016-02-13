@@ -8,8 +8,10 @@
  		http://www.springframework.org/schema/aop
  		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
-    <bean class="net.lelyak.edu.aspects.CounterAspect"/>
-
     <aop:aspectj-autoproxy/>
+
+    <bean class="net.lelyak.edu.aspects.CounterAspect"/>
+    <bean class="net.lelyak.edu.aspects.DiscountAspect"/>
+    <bean class="net.lelyak.edu.aspects.LuckyWinnerAspect"/>
 
 </beans>

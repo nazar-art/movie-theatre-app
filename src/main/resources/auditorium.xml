@@ -13,35 +13,12 @@
  		http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <bean id="auditorium1" class="net.lelyak.edu.entity.Auditorium">
-        <property name="name" value="${auditorium1.name}"/>
-        <property name="numberOfSeats" value="${auditorium1.number-of-seats}"/>
-        <property name="vipSeats">
-            <bean class="org.springframework.util.StringUtils" factory-method="commaDelimitedListToSet">
-                <constructor-arg type="java.lang.String" value="${auditorium1.vip-seats}"/>
-            </bean>
-        </property>
-    </bean>
-
-    <bean id="auditorium2" class="net.lelyak.edu.entity.Auditorium">
-        <property name="name" value="${auditorium2.name}"/>
-        <property name="numberOfSeats" value="${auditorium2.number-of-seats}"/>
-        <property name="vipSeats">
-            <bean class="org.springframework.util.StringUtils" factory-method="commaDelimitedListToSet">
-                <constructor-arg type="java.lang.String" value="${auditorium2.vip-seats}"/>
-            </bean>
-        </property>
-    </bean>
-
-    <bean id="auditorium3" class="net.lelyak.edu.entity.Auditorium">
-        <property name="name" value="${auditorium3.name}"/>
-        <property name="numberOfSeats" value="${auditorium3.number-of-seats}"/>
-        <property name="vipSeats">
-            <bean class="org.springframework.util.StringUtils" factory-method="commaDelimitedListToSet">
-                <constructor-arg type="java.lang.String" value="${auditorium3.vip-seats}"/>
-            </bean>
-        </property>
-    </bean>
+    <bean id="auditorium1" class="net.lelyak.edu.entity.Auditorium"
+          c:name="${auditorium1.name}" c:numberOfSeats="${auditorium1.number-of-seats}" c:vipSeats="${auditorium1.vip-seats}"/>
+    <bean id="auditorium2" class="net.lelyak.edu.entity.Auditorium"
+          c:name="${auditorium2.name}" c:numberOfSeats="${auditorium2.number-of-seats}" c:vipSeats="${auditorium2.vip-seats}"/>
+    <bean id="auditorium3" class="net.lelyak.edu.entity.Auditorium"
+          c:name="${auditorium3.name}" c:numberOfSeats="${auditorium3.number-of-seats}" c:vipSeats="${auditorium3.vip-seats}"/>
 
     <util:list id="auditoriumsList">
         <ref bean="auditorium1"/>
@@ -49,4 +26,6 @@
         <ref bean="auditorium3"/>
     </util:list>
 
+    <bean id="conversionService"
+          class="org.springframework.context.support.ConversionServiceFactoryBean" />
 </beans>
