@@ -18,7 +18,7 @@ public class BookingServiceTestCase extends BaseTest {
     private Ticket ticket;
 
     @BeforeMethod
-    public void setUp() throws Exception {
+    public void setUp() {
         user = userService.getById(CommonIndexes.THREE.getIndex());
         Set<Ticket> bookedTickets = user.getBookedTickets();
         ticket = bookedTickets.iterator().next();
