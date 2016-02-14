@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import java.util.Calendar;
 import java.util.List;
 
-public class HalfPriceTicketDiscount {
+public class HalfPriceTicketDiscount implements IDiscountStrategy {
 
     private final static double HALF_PRICE_DISCOUNT = .5;
 
@@ -18,6 +18,7 @@ public class HalfPriceTicketDiscount {
     @Qualifier(value = "bookingService")
     private BookingService bookingServices;
 
+    @Override
     public double getDiscount(User user, Event event, Calendar date) {
         List<Ticket> tickets = bookingServices.getTicketsForUser(user);
 

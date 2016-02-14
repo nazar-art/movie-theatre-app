@@ -8,13 +8,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class BirthdayDiscount {
+public class BirthdayDiscount implements IDiscountStrategy {
 
 	private static final double DISCOUNT = .05;
 
     private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-	public double getDiscount(User user, Event event, Calendar date) {
+	@Override
+    public double getDiscount(User user, Event event, Calendar date) {
         Calendar birthday = user.getBirthday();
         Calendar today = Calendar.getInstance();
 
