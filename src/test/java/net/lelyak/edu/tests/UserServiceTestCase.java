@@ -25,18 +25,14 @@ public class UserServiceTestCase extends BaseTest {
         User userById = userService.getById(CommonIndexes.ONE.getIndex());
 
         String actualFirstName = userById.getName();
-//        Gender actualGender = userById.getGender();
 
         assertEquals(actualFirstName, "Garry Potter");
-//        assertEquals(actualGender, Gender.MALE);
     }
 
     @Test
     public void testGetUserByName() throws Exception {
         User ron = userService.getByName("Ron Weasley");
-//        Gender ronGender = ron.getGender();
         String lastName = ron.getName();
-//        assertEquals(ronGender, Gender.MALE);
         assertEquals(lastName, "Ron Weasley");
     }
 
@@ -51,7 +47,6 @@ public class UserServiceTestCase extends BaseTest {
 
         User createdUser = userService.getById(userIndex);
         assertEquals(createdUser.getName(), userName);
-//        assertEquals(createdUser.getGender(), Gender.MALE);
 
         userService.remove(newUser);
 
