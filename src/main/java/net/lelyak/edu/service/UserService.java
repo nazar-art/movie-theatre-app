@@ -25,8 +25,8 @@ public class UserService {
 
     public UserService() {
         users = DatabaseMock.getUsers();
-        users.put(1, new User(1, "Garry Potter", Gender.MALE));
-        users.put(2, new User(2, "Ron Weasley", Gender.MALE));
+        users.put(1, new User(1, "Garry Potter"));
+        users.put(2, new User(2, "Ron Weasley"));
         users.put(3, new User(3, "Germiona Grendjer", "grendjer@gmail.com",
                 new HashSet<Ticket>(Collections.singletonList(
                         new Ticket(DatabaseMock.getEvents().get(1), 30d, users.get(1))))));
@@ -37,7 +37,6 @@ public class UserService {
     }
 
     public User register(User user, String date, String gender) {
-        user.setGender(getGender(gender));
         user.setBirthday(toDateFormat(date));
         Role registeredUser = new Role();
         registeredUser.setId(USER_INDEX);

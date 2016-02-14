@@ -9,22 +9,22 @@ import java.util.Set;
 public class User {
     private Integer id;
     private String name;
-    private Gender gender;
+//    private Gender gender;
     private Calendar birthday;
     private String email;
     private Role role;
 
     private Set<Ticket> bookedTickets = new HashSet<>();
 
-    public User(String name, Gender gender) {
+    public User(String name/*, Gender gender*/) {
         this.name = name;
-        this.gender = gender;
+//        this.gender = gender;
     }
 
-    public User(int id, String name, Gender gender) {
+    public User(int id, String name/*, Gender gender*/) {
         this.id = id;
         this.name = name;
-        this.gender = gender;
+//        this.gender = gender;
     }
 
     public User(int id, String name, String email, Set<Ticket> bookedTickets) {
@@ -68,13 +68,13 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Gender getGender() {
+    /*public Gender getGender() {
         return gender;
     }
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
+    }*/
 
     public Role getRole() {
         return role;
@@ -103,7 +103,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthday=" + birthday +
-                ", gender=" + gender +
                 ", role=" + role +
                 ", bookedTickets=" + bookedTickets +
                 '}';

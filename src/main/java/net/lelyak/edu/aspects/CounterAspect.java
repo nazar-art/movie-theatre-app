@@ -26,21 +26,31 @@ public class CounterAspect {
 
     private Map<Event, Integer> eventCallByNameMap = new HashMap<>();
     private Map<Event, Integer> eventPriceCallMap = new HashMap<>();
-    private Map<Event, Integer> bookTicketCallMap = new HashMap<>();
+    private Map<Event, Integer> eventBookTicketCallMap = new HashMap<>();
 
-    @Pointcut("execution(* *..EventService.getByName(..))")
+    /**
+     * Pointcuts:
+     */
+//    @Pointcut("execution(* net.lelyak.edu.service.EventService.getByName(..))")
+//    @Pointcut("execution(* *..EventService.getByName(..))")
+//    @Pointcut("execution(* *..EventService.getByName(*))")
+    @Pointcut("execution(* * ..EventService.getByName(..))")
+//    @Pointcut("execution(* *.getByName(..)) && within(*..EventService)")
     public void accessEventByName() {
     }
 
-    @Pointcut("execution(* *..BookingService.getTicketPrice(..))")
-    public void eventPriceQueryCounter() {
+    @Pointcut("execution(* * ..BookingService.getTicketPrice(..))")
+    public void accessEventPrice() {
     }
 
-    @Pointcut("execution(* *..BookingService.bookTicket(..))")
-    public void ticketBookingCounterForEvent() {
+    @Pointcut("execution(* * ..BookingService.bookTicket(..))")
+    public void accessEventTicketBooking() {
     }
 
 
+    /**
+     * Advices:
+     */
     @AfterReturning(
             pointcut = "accessEventByName()",
             returning = "event"
@@ -61,7 +71,7 @@ public class CounterAspect {
     }
 
     @AfterReturning(
-            pointcut = "eventPriceQueryCounter() && args(event, dateTime, seatType, user)",
+            pointcut = "accessEventPrice() && args(event, dateTime, seatType, user)",
             argNames = "joinPoint,event,dateTime,seatType,user")
     public void countEventPriceQueryCounter(JoinPoint joinPoint, Event event, Calendar dateTime, SeatType seatType, User user) {
 
@@ -81,21 +91,22 @@ public class CounterAspect {
     }
 
     @AfterReturning(
-            pointcut = "ticketBookingCounterForEvent() && args(user, ticket)",
+            pointcut = "accessEventTicketBooking() && args(user, ticket)",
             argNames = "joinPoint,user,ticket")
     public void countTicketBookingForEvent(JoinPoint joinPoint, User user, Ticket ticket) {
         Event event = ticket.getEvent();
 
-        if (!bookTicketCallMap.containsKey(event)) {
-            bookTicketCallMap.put(event, 1);
+        if (!eventBookTicketCallMap.containsKey(event)) {
+            eventBookTicketCallMap.put(event, 1);
             Logger.info(String.format("Book ticket for Event: %s is called FIRST time", event.getName()));
 
         } else {
-            Integer oldIndex = bookTicketCallMap.get(event);
+            Integer oldIndex = eventBookTicketCallMap.get(event);
             int newIndex = oldIndex + 1;
-            bookTicketCallMap.put(event, newIndex);
+            eventBookTicketCallMap.put(event, newIndex);
             Logger.info(String.format("Book Ticket for Event: %s is called: %s times", event.getName(), newIndex));        }
     }
+
 
     public Map<Event, Integer> getEventCallByNameMap() {
         return eventCallByNameMap;
@@ -105,7 +116,7 @@ public class CounterAspect {
         return eventPriceCallMap;
     }
 
-    public Map<Event, Integer> getBookTicketCallMap() {
-        return bookTicketCallMap;
+    public Map<Event, Integer> getEventBookTicketCallMap() {
+        return eventBookTicketCallMap;
     }
 }

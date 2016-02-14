@@ -1,7 +1,6 @@
 package net.lelyak.edu.tests;
 
 import net.lelyak.edu.BaseTest;
-import net.lelyak.edu.entity.Gender;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.CommonIndexes;
@@ -26,18 +25,18 @@ public class UserServiceTestCase extends BaseTest {
         User userById = userService.getById(CommonIndexes.ONE.getIndex());
 
         String actualFirstName = userById.getName();
-        Gender actualGender = userById.getGender();
+//        Gender actualGender = userById.getGender();
 
         assertEquals(actualFirstName, "Garry Potter");
-        assertEquals(actualGender, Gender.MALE);
+//        assertEquals(actualGender, Gender.MALE);
     }
 
     @Test
     public void testGetUserByName() throws Exception {
         User ron = userService.getByName("Ron Weasley");
-        Gender ronGender = ron.getGender();
+//        Gender ronGender = ron.getGender();
         String lastName = ron.getName();
-        assertEquals(ronGender, Gender.MALE);
+//        assertEquals(ronGender, Gender.MALE);
         assertEquals(lastName, "Ron Weasley");
     }
 
@@ -46,13 +45,13 @@ public class UserServiceTestCase extends BaseTest {
         int userIndex = CommonIndexes.NINE.getIndex();
         String userName = "Christofor";
 
-        User newUser = new User(userName, Gender.MALE);
+        User newUser = new User(userName/*, Gender.MALE*/);
         newUser.setId(userIndex);
         userService.register(newUser);
 
         User createdUser = userService.getById(userIndex);
         assertEquals(createdUser.getName(), userName);
-        assertEquals(createdUser.getGender(), Gender.MALE);
+//        assertEquals(createdUser.getGender(), Gender.MALE);
 
         userService.remove(newUser);
 
