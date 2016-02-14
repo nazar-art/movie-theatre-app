@@ -48,6 +48,11 @@ public class DiscountAspect {
 
         discountTotalCounter = discountTotalCounter + 1;
         Logger.info(String.format("Discount calculation is called: %s times", discountTotalCounter));
+
+        // todo test this approach
+        /*discountTotalCounter = userDiscountMap.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();*/
     }
 
     public int getDiscountTotalCounter() {
