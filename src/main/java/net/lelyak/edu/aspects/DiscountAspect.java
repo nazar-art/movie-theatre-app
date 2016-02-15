@@ -45,14 +45,13 @@ public class DiscountAspect {
     @AfterReturning(pointcut = "accessGetDiscount() && args(user, event, date)",
             returning = "discount", argNames = "user,event,date,discount")
     public void countTotalDiscountCall(User user, Event event, Calendar date, Double discount) {
+//        discountTotalCounter = discountTotalCounter + 1;
 
-        discountTotalCounter = discountTotalCounter + 1;
-        Logger.info(String.format("Discount calculation is called: %s times", discountTotalCounter));
-
-        // todo test this approach
-        /*discountTotalCounter = userDiscountMap.values().stream()
+        discountTotalCounter = userDiscountMap.values().stream()
                 .mapToInt(Integer::intValue)
-                .sum();*/
+                .sum();
+        Logger.info(String.format("Discount calculation is called: %s time/s", discountTotalCounter));
+
     }
 
     public int getDiscountTotalCounter() {
