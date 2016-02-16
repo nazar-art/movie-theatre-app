@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * AuditoriumService - Returns info about auditoriums and places
@@ -30,8 +29,7 @@ public class AuditoriumService {
     }
 
     public List<Auditorium> getAuditoriums() {
-        return auditoriums.stream()
-                .collect(Collectors.toList());
+        return auditoriums;
     }
 
     public int getSeatsNumber(Auditorium auditorium) {
