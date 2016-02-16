@@ -3,6 +3,7 @@ package net.lelyak.edu.service;
 import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.*;
 import net.lelyak.edu.utils.Logger;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -93,5 +94,17 @@ public class BookingService {
                 .filter(e -> e.getUser() != null)
                 .filter(e -> Objects.equals(e.getUser().getId(), user.getId()))
                 .collect(toList());
+    }
+
+    public boolean checkLucky(User user) {
+        boolean result = RandomUtils.nextBoolean();
+        String userName = user.getName();
+
+        if (result) {
+            Logger.info(String.format("This user: %s is very lucky today!!", userName.toUpperCase()));
+        } else {
+            Logger.info(String.format("This user: %s you will win next time!", userName));
+        }
+        return result;
     }
 }

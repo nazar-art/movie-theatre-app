@@ -4,6 +4,7 @@ import net.lelyak.edu.utils.Logger;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class User {
@@ -12,7 +13,6 @@ public class User {
     private Calendar birthday;
     private String email;
     private Role role;
-
     private Set<Ticket> bookedTickets = new HashSet<>();
 
     public User(String name) {
@@ -83,6 +83,26 @@ public class User {
             Logger.info("Add one ticket: " + ticket + " to user: " + this.toString());
             ticket.setUser(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(birthday, user.birthday) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+        if (this.id != null) {
+            return this.id;
+        }
+        return Objects.hash(name, birthday, email, role);
     }
 
     @Override

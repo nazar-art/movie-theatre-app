@@ -98,13 +98,13 @@ public class CounterAspect {
 
         if (!eventBookTicketCallMap.containsKey(event)) {
             eventBookTicketCallMap.put(event, 1);
-            Logger.info(String.format("Book ticket for Event: %s is called FIRST time", event.getName()));
+            Logger.info(String.format("Book ticket for Event: [%s] is called FIRST time", event.getName()));
 
         } else {
             Integer oldIndex = eventBookTicketCallMap.get(event);
             int newIndex = oldIndex + 1;
             eventBookTicketCallMap.put(event, newIndex);
-            Logger.info(String.format("Book Ticket for Event: %s is called: %s times", event.getName(), newIndex));        }
+            Logger.info(String.format("Book Ticket for Event: [%s] is called: %s times", event.getName(), newIndex));        }
     }
 
 
