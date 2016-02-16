@@ -28,8 +28,6 @@ public class Event {
         this.eventRating = eventRating;
     }
 
-
-
     public Integer getId() {
         return id;
     }
