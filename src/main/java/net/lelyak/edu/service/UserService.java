@@ -1,7 +1,6 @@
 package net.lelyak.edu.service;
 
 import net.lelyak.edu.dao.mock.DatabaseMock;
-import net.lelyak.edu.entity.Gender;
 import net.lelyak.edu.entity.Role;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
@@ -77,16 +76,6 @@ public class UserService {
     public Set<Ticket> getBookedTickets(User user) {
         User byId = getById(user.getId());
         return byId.getBookedTickets();
-    }
-
-
-    private Gender getGender(String gender) {
-        for (Gender temporaryGender : Gender.values()) {
-            if (gender.equalsIgnoreCase(temporaryGender.toString())) {
-                return temporaryGender;
-            }
-        }
-        return Gender.UNSPECIFIED;
     }
 
     private Calendar toDateFormat(String date) {
