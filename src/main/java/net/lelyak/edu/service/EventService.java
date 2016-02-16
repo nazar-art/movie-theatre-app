@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ import static java.util.stream.Collectors.toSet;
 @Service
 public class EventService {
 
-    private Map<Integer, Event> events = DatabaseMock.getEvents();
+    private Map<Integer, Event> events = Collections.synchronizedMap(DatabaseMock.getEvents());
 
     public EventService() {
         events.put(1, new Event(1, "Green Mile", 60d, EventRating.HIGH));
@@ -72,11 +73,17 @@ public class EventService {
 
     public Event getByName(String eventName) {
         Logger.info("EventService.getByName called for: " + eventName);
-        return events.values().stream()
-                .filter(e -> e.getName() != null)
-                .filter(e -> e.getName().equalsIgnoreCase(eventName))
-                .findFirst()
-                .get();
+        /*return events.values().stream()
+                .filter(e -> e.getName() != null
+                        && e.getName().equalsIgnoreCase(eventName))
+                .findAny()
+                .get();*/
+        for (Event event : events.values()) {
+            if (event.getName() != null && event.getName().equalsIgnoreCase(eventName)) {
+                return event;
+            }
+        }
+        return null;
     }
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {

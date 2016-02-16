@@ -15,10 +15,10 @@
     <import resource="db-context.xml"/>
     <import resource="auditorium.xml"/>
 
-    <!--Moved to Java Config - net.lelyak.edu.aspects.AspectConfiguration -->
+    <!--Moved to Java Config - net.lelyak.edu.config.AspectConfiguration -->
     <!--<import resource="aspect-context.xml"/>-->
 
-    <!--Moved to annotation configuration - net.lelyak.edu.discounts.DiscountConfiguration -->
+    <!--Moved to annotation configuration - net.lelyak.edu.config.DiscountConfiguration -->
     <!--<import resource="strategy.xml"/>-->
 
     <context:annotation-config/>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
 <suite name="Suite for MovieTheatre Application"
        parallel="false" skipfailedinvocationcounts="false"
-       data-provider-thread-count="10" group-by-instances="false"
+       group-by-instances="false"
        preserve-order="true" allow-return-values="false">
 
     <!--if you just run this suite without Maven uncomment `listeners block` for logging-->

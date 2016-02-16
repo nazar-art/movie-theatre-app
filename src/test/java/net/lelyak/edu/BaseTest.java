@@ -6,18 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
 
-@Test
 @Listeners(TestNGListener.class)
 @ContextConfiguration(locations = "classpath:spring-context.xml")
 public class BaseTest extends AbstractTestNGSpringContextTests {
 
     private EmbeddedDatabase db;
 
-    @BeforeClass
+    @BeforeSuite
     public void setUp() {
         //db = new EmbeddedDatabaseBuilder().addDefaultScripts().build();
         /*db = new EmbeddedDatabaseBuilder()

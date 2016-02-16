@@ -1,5 +1,8 @@
-package net.lelyak.edu.aspects;
+package net.lelyak.edu.config;
 
+import net.lelyak.edu.aspects.CounterAspect;
+import net.lelyak.edu.aspects.DiscountAspect;
+import net.lelyak.edu.aspects.LuckyWinnerAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
