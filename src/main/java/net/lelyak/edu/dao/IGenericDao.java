@@ -2,7 +2,7 @@ package net.lelyak.edu.dao;
 
 import java.util.List;
 
-public interface GenericDao<E, I> {
+public interface IGenericDao<E, I> {
 
     Integer create(E entity);
 

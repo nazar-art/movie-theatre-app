@@ -15,7 +15,8 @@
     <import resource="strategy.xml"/>
     <import resource="auditorium.xml"/>
     <import resource="db-context.xml"/>
-    <import resource="aspect-context.xml"/>
+    <!--Moved to Java Config - net.lelyak.edu.aspects.AspectConfiguration -->
+    <!--<import resource="aspect-context.xml"/>-->
 
     <context:annotation-config/>
     <context:component-scan base-package="net.lelyak.edu"/>

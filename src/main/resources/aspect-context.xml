@@ -10,9 +10,8 @@
 
     <aop:aspectj-autoproxy/>
 
-    <!--Moved to Java Config - net.lelyak.edu.aspects.AspectConfiguration -->
-    <!--<bean class="net.lelyak.edu.aspects.CounterAspect"/>
+    <bean class="net.lelyak.edu.aspects.CounterAspect"/>
     <bean class="net.lelyak.edu.aspects.DiscountAspect"/>
-    <bean class="net.lelyak.edu.aspects.LuckyWinnerAspect"/>-->
+    <bean class="net.lelyak.edu.aspects.LuckyWinnerAspect"/>
 
 </beans>
