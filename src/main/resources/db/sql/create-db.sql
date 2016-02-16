@@ -45,5 +45,5 @@ CREATE TABLE Tickets (
 ----------------------
 -- Define foreign keys
 ----------------------
-ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);
-ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Events (user_id);
+--ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);
+--ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Events (user_id);

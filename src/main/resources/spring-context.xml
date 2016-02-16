@@ -40,11 +40,11 @@
         </property>
     </bean>
 
-    <bean class="net.lelyak.edu.service.AuditoriumService">
+    <!--<bean class="net.lelyak.edu.service.AuditoriumService">
         <constructor-arg name="auditoriums" ref="auditoriumsList"/>
     </bean>
     <bean class="net.lelyak.edu.service.BookingService"/>
     <bean class="net.lelyak.edu.service.EventService"/>
-    <bean class="net.lelyak.edu.service.UserService"/>
+    <bean class="net.lelyak.edu.service.UserService"/>-->
 
 </beans>
