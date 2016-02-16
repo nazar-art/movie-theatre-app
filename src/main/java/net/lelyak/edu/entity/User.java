@@ -31,8 +31,6 @@ public class User {
         this.bookedTickets = bookedTickets;
     }
 
-
-
     public Integer getId() {
         return id;
     }

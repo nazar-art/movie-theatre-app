@@ -1,6 +1,7 @@
 package net.lelyak.edu.entity;
 
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Set;
 
 public class Event {
@@ -9,7 +10,6 @@ public class Event {
     private String name;
     private Double price;
     private EventRating eventRating;
-
     private Set<Calendar> eventDateTime;
 
     public Event() {
@@ -70,6 +70,25 @@ public class Event {
         if (!eventDateTime.contains(dateTime)) {
             eventDateTime.add(dateTime);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id) &&
+                Objects.equals(name, event.name) &&
+                Objects.equals(price, event.price) &&
+                eventRating == event.eventRating;
+    }
+
+    @Override
+    public int hashCode() {
+        if (this.id != null) {
+            return id;
+        }
+        return Objects.hash(name, price, eventRating);
     }
 
     @Override
