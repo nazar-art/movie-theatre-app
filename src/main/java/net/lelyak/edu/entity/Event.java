@@ -64,7 +64,7 @@ public class Event {
         return eventDateTime;
     }
 
-    public void addEventDateTime(Calendar dateTime) {
+    public void setEventDateTime(Calendar dateTime) {
         if (!eventDateTime.contains(dateTime)) {
             eventDateTime.add(dateTime);
         }

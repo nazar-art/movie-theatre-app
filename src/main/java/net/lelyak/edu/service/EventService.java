@@ -53,7 +53,7 @@ public class EventService {
              events.put(event.getId(), event);
             Logger.info(String.format("User: %s has already created event: %s", thisUser.getName(), event.getName()));
         } else {
-            Logger.warn("User: %s doesn't have permission for creating event");
+            Logger.warn(String.format("User: %s doesn't have permission for creating events", thisUser.getName()));
         }
     }
 
@@ -81,7 +81,7 @@ public class EventService {
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
         if (!event.getEventDateTime().contains(date)) {
-            event.addEventDateTime(date);
+            event.setEventDateTime(date);
             Logger.info(String.format("Auditorium: %s is assigned for event: %s on %s",
                     auditorium.getName(), event.getName(), formatDate(date)));
         }

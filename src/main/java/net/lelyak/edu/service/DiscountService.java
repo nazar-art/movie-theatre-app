@@ -1,12 +1,13 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.discounts.BirthdayDiscount;
-import net.lelyak.edu.discounts.HalfPriceTicketDiscount;
+import net.lelyak.edu.discounts.IDiscountStrategy;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * DiscountService - Counts different discounts for purchased tickets
@@ -26,14 +27,15 @@ import java.util.Calendar;
 @Service
 public class DiscountService {
 
-    private BirthdayDiscount birthdayDiscount;
-    private HalfPriceTicketDiscount halfPriceTicketDiscount;
+    @Resource(name = "discountStrategies")
+    private List<IDiscountStrategy> discountStrategies;
 
     public double getDiscount(User user, Event event, Calendar date) {
         double discount = 1;
 
-        discount *= birthdayDiscount.getDiscount(user, event, date);
-        discount *= halfPriceTicketDiscount.getDiscount(user, event, date);
+        for (IDiscountStrategy strategy : discountStrategies) {
+            discount *= strategy.getDiscount(user, event, date);
+        }
 
         return 1 - discount;
     }

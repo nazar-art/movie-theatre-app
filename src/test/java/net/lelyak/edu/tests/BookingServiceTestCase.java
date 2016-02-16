@@ -21,7 +21,7 @@ public class BookingServiceTestCase extends BaseTest {
     private User user;
     private Ticket ticket;
 
-    @BeforeMethod
+    @BeforeMethod(description = "prepare some test data")
     public void setUp() {
         user = userService.getById(CommonIndexes.THREE.getIndex());
         Set<Ticket> bookedTickets = user.getBookedTickets();
