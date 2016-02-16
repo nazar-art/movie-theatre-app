@@ -98,10 +98,10 @@ public class BookingService {
 
     public boolean checkLucky(User user) {
         boolean result = RandomUtils.nextBoolean();
-        String userName = user.getName();
+        String userName = user.getName().toUpperCase();
 
         if (result) {
-            Logger.info(String.format("This user: %s is very lucky today!!", userName.toUpperCase()));
+            Logger.info(String.format("This user: %s is very lucky today !!!", userName));
         } else {
             Logger.info(String.format("This user: %s you will win next time!", userName));
         }
