@@ -73,17 +73,17 @@ public class EventService {
 
     public Event getByName(String eventName) {
         Logger.info("EventService.getByName called for: " + eventName);
-        /*return events.values().stream()
+        return events.values().stream()
                 .filter(e -> e.getName() != null
                         && e.getName().equalsIgnoreCase(eventName))
                 .findAny()
-                .get();*/
-        for (Event event : events.values()) {
+                .get();
+        /*for (Event event : events.values()) {
             if (event.getName() != null && event.getName().equalsIgnoreCase(eventName)) {
                 return event;
             }
         }
-        return null;
+        return null;*/
     }
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
