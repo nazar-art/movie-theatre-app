@@ -35,7 +35,7 @@
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
 
-                    <!--<suiteXmlFiles>
+                    <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
@@ -46,10 +46,9 @@
                         </property>
                         <property>
                             <name>listener</name>
-                            &lt;!&ndash;todo update listener here&ndash;&gt;
-                            <value>.TestNGListener,org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter</value>
+                            <value>net.lelyak.edu.utils.TestNGListener,org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter</value>
                         </property>
-                    </properties>-->
+                    </properties>
 
                     <systemProperties>
                         <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>

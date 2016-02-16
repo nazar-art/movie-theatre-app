@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite for MovieTheatre Application"
+       parallel="false" skipfailedinvocationcounts="false"
+       data-provider-thread-count="10" group-by-instances="false"
+       preserve-order="true" allow-return-values="false">
+
+    <!--if you just run this suite without Maven uncomment `listeners block` for logging-->
+    <!--<listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter" />
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+        <listener class-name="net.lelyak.edu.utils.TestNGListener" />
+    </listeners>-->
+
+    <test name="Unit tests for Movie Theatre Application">
+        <classes>
+            <class name="net.lelyak.edu.tests.AuditoriumServiceTestCase"/>
+            <class name="net.lelyak.edu.tests.BookingServiceTestCase"/>
+            <class name="net.lelyak.edu.tests.EventServicesTestCase"/>
+            <class name="net.lelyak.edu.tests.UserServiceTestCase"/>
+        </classes>
+    </test>
+</suite>
