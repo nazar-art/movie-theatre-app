@@ -5,7 +5,6 @@ import net.lelyak.edu.entity.SeatType;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -31,11 +30,11 @@ public class CounterAspect {
     /**
      * Pointcuts:
      */
-//    @Pointcut("execution(* net.lelyak.edu.service.EventService.getByName(..))")
-//    @Pointcut("execution(* *..EventService.getByName(..))")
-//    @Pointcut("execution(* *..EventService.getByName(*))")
+//    @Pointcut("execution(* net.lelyak.edu.service.EventService.getEventByName(..))")
+//    @Pointcut("execution(* *..EventService.getEventByName(..))")
+//    @Pointcut("execution(* *..EventService.getEventByName(*))")
     @Pointcut("execution(* * ..EventService.getByName(..))")
-//    @Pointcut("execution(* *.getByName(..)) && within(*..EventService)")
+//    @Pointcut("execution(* *.getEventByName(..)) && within(*..EventService)")
     public void accessEventByName() {
     }
 
@@ -60,20 +59,20 @@ public class CounterAspect {
         if (!eventCallByNameMap.containsKey(event)) {
 
             eventCallByNameMap.put(event, 1);
-            Logger.info(String.format("Event: %s is called FIRST time", event.getName()));
+            Logger.info(String.format("Event: %s is called by name FIRST time", event.getName()));
         } else {
 
             Integer oldValue = eventCallByNameMap.get(event);
             Integer newValue = oldValue + 1;
             eventCallByNameMap.put(event, newValue);
-            Logger.info(String.format("Event: %s is called: %s times", event.getName(), newValue));
+            Logger.info(String.format("Event: %s is called by name: %s times", event.getName(), newValue));
         }
     }
 
     @AfterReturning(
             pointcut = "accessEventPrice() && args(event, dateTime, seatType, user)",
-            argNames = "joinPoint,event,dateTime,seatType,user")
-    public void countEventPriceQueryCounter(JoinPoint joinPoint, Event event, Calendar dateTime, SeatType seatType, User user) {
+            argNames = "event,dateTime,seatType,user")
+    public void countEventPriceQueryCounter(Event event, Calendar dateTime, SeatType seatType, User user) {
 
         if (!eventPriceCallMap.containsKey(event)) {
             eventPriceCallMap.put(event, 1);
@@ -92,8 +91,8 @@ public class CounterAspect {
 
     @AfterReturning(
             pointcut = "accessEventTicketBooking() && args(user, ticket)",
-            argNames = "joinPoint,user,ticket")
-    public void countTicketBookingForEvent(JoinPoint joinPoint, User user, Ticket ticket) {
+            argNames = "user,ticket")
+    public void countTicketBookingForEvent(User user, Ticket ticket) {
         Event event = ticket.getEvent();
 
         if (!eventBookTicketCallMap.containsKey(event)) {

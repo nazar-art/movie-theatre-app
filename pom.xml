@@ -39,7 +39,7 @@
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
-                    <properties>
+                    <!--<properties>
                         <property>
                             <name>usedefaultlisteners</name>
                             <value>false</value>
@@ -48,7 +48,7 @@
                             <name>listener</name>
                             <value>net.lelyak.edu.utils.TestNGListener,org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter</value>
                         </property>
-                    </properties>
+                    </properties>-->
 
                     <systemProperties>
                         <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>

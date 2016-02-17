@@ -19,7 +19,7 @@ public class EventServicesTestCase extends BaseTest {
         testEvent.setId(eventId);
 
         eventService.create(testEvent);
-        Event actualResult = eventService.getByName(eventName);
+        Event actualResult = eventService.getEventByName(eventName);
         assertNotNull(actualResult);
 
         String actualName = actualResult.getName();
@@ -38,11 +38,11 @@ public class EventServicesTestCase extends BaseTest {
     @Test
     public void testGetByName() throws Exception {
         String expectedName = "Green Mile";
-        Event event = eventService.getByName(expectedName);
+        Event event = eventService.getEventByName(expectedName);
         // just for testing aspect
-//        eventService.getByName(expectedName);
-//        eventService.getByName(expectedName);
-//        eventService.getByName(expectedName);
+//        eventService.getEventByName(expectedName);
+//        eventService.getEventByName(expectedName);
+//        eventService.getEventByName(expectedName);
         //
         assertNotNull(event);
         assertEquals(event.getName(), expectedName, "names should be the same");

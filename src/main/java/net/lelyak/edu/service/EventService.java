@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toSet;
  * Event can be presented on several dates and several times within each day.
  * For each dateTime an Event will be presented only in single auditorium.
  *
- * create, remove, getByName, getAll
+ * create, remove, getEventByName, getAll
  * assignAuditorium(event, auditorium, date) - assign auditorium for event for specific date.
  * Only one auditorium for Event for specific dateTime
  *
@@ -71,9 +71,9 @@ public class EventService {
                 .collect(toSet());
     }
 
-    public Event getByName(String eventName) {
-        Logger.info("EventService.getByName called for: " + eventName);
-        return events.values().stream()
+    public Event getEventByName(String eventName) {
+        Logger.info("EventService.getEventByName called for: " + eventName);
+        return events.values().parallelStream()
                 .filter(e -> e.getName() != null
                         && e.getName().equalsIgnoreCase(eventName))
                 .findAny()
