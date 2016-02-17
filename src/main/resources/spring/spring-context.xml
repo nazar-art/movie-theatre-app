@@ -13,18 +13,15 @@
  		http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="../db/db-context.xml"/>
-    <import resource="auditorium.xml"/>
-
-    <!--Moved to Java Config - net.lelyak.edu.config.AspectConfiguration -->
-    <!--<import resource="aspect-context.xml"/>-->
-
-    <!--Moved to annotation configuration - net.lelyak.edu.config.DiscountConfiguration -->
-    <!--<import resource="strategy.xml"/>-->
-
-    <context:annotation-config/>
+    <!--<context:annotation-config/>-->
     <context:component-scan base-package="net.lelyak.edu"/>
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+
+    <!--<import resource="auditorium.xml"/>-->
+    <!--<import resource="aspect-context.xml"/>-->
+    <!--<import resource="strategy.xml"/>-->
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:properties/auditorium1.properties</value>
@@ -39,8 +36,7 @@
                     static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
         </property>
     </bean>
-
-    <!--<bean class="net.lelyak.edu.service.AuditoriumService">
+    <bean class="net.lelyak.edu.service.AuditoriumService">
         <constructor-arg name="auditoriums" ref="auditoriumsList"/>
     </bean>
     <bean class="net.lelyak.edu.service.BookingService"/>
