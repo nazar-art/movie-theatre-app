@@ -1,13 +1,16 @@
 package net.lelyak.edu.config;
 
 import net.lelyak.edu.entity.Auditorium;
-import net.lelyak.edu.utils.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 @Configuration
 @PropertySource({"classpath:properties/auditorium1.properties",
@@ -28,14 +31,23 @@ public class AuditoriumConfiguration {
         String nameString = env.getProperty(prefix + ".name");
         String strNumberOfSeats = env.getProperty(prefix + ".number-of-seats");
         String vipSeatsString = env.getProperty(prefix + ".vip-seats");
-        Logger.warn("VIP values: " + vipSeatsString);
+        Set<Integer> integerSet = processVipSeats(vipSeatsString);
 
         Auditorium auditorium = new Auditorium();
         auditorium.setName(nameString);
         auditorium.setNumberOfSeats(Integer.valueOf(strNumberOfSeats));
-        // todo find solution how to set Set here
-//        auditorium.setVipSeats(vipSeatsString, Set.<Integer>.class);
+        auditorium.setVipSeats(integerSet);
         return auditorium;
+    }
+
+    private Set<Integer> processVipSeats(String vipSeatsString) {
+        Set<Integer> result = new HashSet<>();
+        StringTokenizer tokenizer = new StringTokenizer(vipSeatsString, ",");
+        while (tokenizer.hasMoreTokens()) {
+            String s = tokenizer.nextToken();
+            result.add(Integer.valueOf(s));
+        }
+        return result;
     }
 
     @Bean

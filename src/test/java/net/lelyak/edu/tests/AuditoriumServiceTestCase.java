@@ -6,6 +6,7 @@ import net.lelyak.edu.utils.CommonIndexes;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.Assert.assertNotNull;
 
@@ -21,8 +22,8 @@ public class AuditoriumServiceTestCase extends BaseTest {
         int seatsNumber = auditoriumService.getSeatsNumber(auditorium);
         assertNotNull(seatsNumber);
 
-        /*Set<Integer> vipSeats = auditoriumService.getVipSeats(auditorium);
-        assertNotNull(vipSeats);*/
+        Set<Integer> vipSeats = auditoriumService.getVipSeats(auditorium);
+        assertNotNull(vipSeats);
     }
 
 

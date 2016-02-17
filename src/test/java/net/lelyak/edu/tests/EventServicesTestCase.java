@@ -35,7 +35,7 @@ public class EventServicesTestCase extends BaseTest {
         assertNotNull(eventById);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testGetByName() throws Exception {
         String expectedName = "Green Mile";
         Event event = eventService.getEventByName(expectedName);
