@@ -12,7 +12,7 @@
  		http://www.springframework.org/schema/context
  		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="db-context.xml"/>
+    <import resource="../db/db-context.xml"/>
     <import resource="auditorium.xml"/>
 
     <!--Moved to Java Config - net.lelyak.edu.config.AspectConfiguration -->

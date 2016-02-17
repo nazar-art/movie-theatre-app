@@ -1,38 +1,36 @@
 package net.lelyak.edu.config;
 
 import net.lelyak.edu.entity.Auditorium;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class AuditoriumConfiguration {
 
-    @Bean
+//    @Bean
     public Auditorium auditorium1() {
         return new Auditorium();
     }
 
-    @Bean
+//    @Bean
     public Auditorium auditorium2() {
         return new Auditorium();
     }
 
-    @Bean
+//    @Bean
     public Auditorium auditorium3() {
         return new Auditorium();
     }
 
-    @Bean
+//    @Bean
     public List<Auditorium> auditoriumsList() {
         return Arrays.asList(auditorium1(), auditorium2(), auditorium3());
     }
 
-    @Bean
+//    @Bean
     public ConversionService conversionService() {
         return new DefaultConversionService();
     }

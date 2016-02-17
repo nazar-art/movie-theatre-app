@@ -5,6 +5,7 @@ import net.lelyak.edu.entity.Role;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.CommonIndexes;
+import net.lelyak.edu.utils.Logger;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -17,8 +18,8 @@ import java.util.*;
  */
 @Service
 public class UserService {
-    private final int USER_INDEX = CommonIndexes.ONE.getIndex();
-    private final int ADMIN_INDEX = CommonIndexes.ZERO.getIndex();
+    private final int USER_INDEX = CommonIndexes.TWO.getIndex();
+    private final int ADMIN_INDEX = CommonIndexes.ONE.getIndex();
 
     private Map<Integer, User> users;
 
@@ -35,7 +36,7 @@ public class UserService {
         return users.put(user.getId(), user);
     }
 
-    public User register(User user, String date, String gender) {
+    public User register(User user, String date) {
         user.setBirthday(toDateFormat(date));
         Role registeredUser = new Role();
         registeredUser.setId(USER_INDEX);
@@ -52,6 +53,7 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
+        Logger.info("Looking for the user with mail: " + email);
         return users.values().stream()
                 .filter(e -> e.getEmail() != null)
                 .filter(e -> e.getEmail().equalsIgnoreCase(email))
@@ -66,6 +68,7 @@ public class UserService {
     }
 
     public User getByName(String name) {
+        Logger.info("Looking for the user with name: " + name);
         return users.values().stream()
                 .filter(e -> e.getName() != null)
                 .filter(e -> e.getName().equalsIgnoreCase(name))

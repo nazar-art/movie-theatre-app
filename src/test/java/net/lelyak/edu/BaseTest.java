@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 
 @Listeners({TestNGListener.class, org.uncommons.reportng.HTMLReporter.class, org.uncommons.reportng.JUnitXMLReporter.class})
-@ContextConfiguration(locations = "classpath:spring-context.xml")
+@ContextConfiguration(locations = "classpath:spring/spring-context.xml")
 public class BaseTest extends AbstractTestNGSpringContextTests {
 
     private EmbeddedDatabase db;

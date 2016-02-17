@@ -1,3 +1,10 @@
+-----------------------
+-- Create Roles table
+-----------------------
+CREATE TABLE Roles (
+  role_id        INTEGER PRIMARY KEY,
+  role_name      VARCHAR(30),
+);
 
 ----------------------
 -- Create Users table
@@ -7,7 +14,7 @@ CREATE TABLE Users (
   user_name      VARCHAR(30),
   user_birthday  DATETIME,
   user_email     VARCHAR(30),
-  user_role      VARCHAR(20),
+  role_id        VARCHAR(20),
 );
 
 ----------------------
@@ -47,3 +54,4 @@ CREATE TABLE Tickets (
 ----------------------
 --ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);
 --ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Events (user_id);
+--ALTER TABLE Tickets ADD CONSTRAINT FK_Users_Roles FOREIGN KEY (role_id) REFERENCES Events (role_id);
