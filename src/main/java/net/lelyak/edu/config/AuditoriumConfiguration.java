@@ -8,9 +8,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 @Configuration
 @PropertySource({"classpath:properties/auditorium1.properties",
@@ -30,24 +30,15 @@ public class AuditoriumConfiguration {
     private Auditorium createAuditorium(String prefix) {
         String nameString = env.getProperty(prefix + ".name");
         String strNumberOfSeats = env.getProperty(prefix + ".number-of-seats");
-        String vipSeatsString = env.getProperty(prefix + ".vip-seats");
-        Set<Integer> integerSet = processVipSeats(vipSeatsString);
+
+        Integer[] integers = env.getProperty(prefix + ".vip-seats", Integer[].class);
+        Set<Integer> integerSet = Arrays.stream(integers).collect(Collectors.toSet());
 
         Auditorium auditorium = new Auditorium();
         auditorium.setName(nameString);
         auditorium.setNumberOfSeats(Integer.valueOf(strNumberOfSeats));
         auditorium.setVipSeats(integerSet);
         return auditorium;
-    }
-
-    private Set<Integer> processVipSeats(String vipSeatsString) {
-        Set<Integer> result = new HashSet<>();
-        StringTokenizer tokenizer = new StringTokenizer(vipSeatsString, ",");
-        while (tokenizer.hasMoreTokens()) {
-            String s = tokenizer.nextToken();
-            result.add(Integer.valueOf(s));
-        }
-        return result;
     }
 
     @Bean
