@@ -30,7 +30,6 @@ public class AuditoriumConfiguration {
     private Auditorium createAuditorium(String prefix) {
         String nameString = env.getProperty(prefix + ".name");
         String strNumberOfSeats = env.getProperty(prefix + ".number-of-seats");
-
         Integer[] integers = env.getProperty(prefix + ".vip-seats", Integer[].class);
         Set<Integer> integerSet = Arrays.stream(integers).collect(Collectors.toSet());
 
