@@ -23,7 +23,8 @@ public class LuckyWinnerAspect {
     public void accessEventTicketBooking() {
     }
 
-    @Around("accessEventTicketBooking() && args(user, ticket)")
+    @Around(value = "accessEventTicketBooking() && args(user, ticket)",
+            argNames = "joinPoint,user,ticket")
     public void checkLuckyUser(ProceedingJoinPoint joinPoint, User user, Ticket ticket) {
         Object targetClass = joinPoint.getTarget();
         Class<?> bookingServiceClass = targetClass.getClass();
@@ -37,13 +38,11 @@ public class LuckyWinnerAspect {
                 // set ticket price to 0
                 ticket.setPrice(0D);
                 Logger.debug("Ticket price is set to: " + ticket.getPrice());
-
             }
 
             joinPoint.proceed(new Object[]{user, ticket});
         } catch (Throwable throwable) {
             Logger.error("Exception during checkLucky user: " + throwable.getMessage());
-            throwable.printStackTrace();
         }
     }
 

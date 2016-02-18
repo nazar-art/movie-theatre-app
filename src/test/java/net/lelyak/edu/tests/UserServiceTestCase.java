@@ -12,12 +12,18 @@ import static org.testng.Assert.*;
 
 public class UserServiceTestCase extends BaseTest {
 
+    public static final String RON_WEASLEY_NAME = "Ron Weasley";
+    public static final String TEST_EMAIL = "grendjer@gmail.com";
+    public static final String GERMIONA_GRENDJER_NAME = "Germiona Grendjer";
+    public static final String GARRY_POTTER_NAME = "Garry Potter";
+    public static final String CHRISTOFOR_NAME = "Christofor";
+
     @Test
     public void testGetUserByMail() throws Exception {
-        User byEmail = userService.getByEmail("grendjer@gmail.com");
+        User byEmail = userService.getByEmail(TEST_EMAIL);
         String actualName = byEmail.getName();
 
-        assertEquals(actualName, "Germiona Grendjer", "first name is not as expected");
+        assertEquals(actualName, GERMIONA_GRENDJER_NAME, "first name is not as expected");
     }
 
     @Test
@@ -26,22 +32,22 @@ public class UserServiceTestCase extends BaseTest {
 
         String actualFirstName = userById.getName();
 
-        assertEquals(actualFirstName, "Garry Potter");
+        assertEquals(actualFirstName, GARRY_POTTER_NAME);
     }
 
     @Test
     public void testGetUserByName() throws Exception {
-        User ron = userService.getByName("Ron Weasley");
+        User ron = userService.getByName(RON_WEASLEY_NAME);
         String lastName = ron.getName();
-        assertEquals(lastName, "Ron Weasley");
+        assertEquals(lastName, RON_WEASLEY_NAME);
     }
 
     @Test
     public void testRegisterAndRemoveNewUser() throws Exception {
         int userIndex = CommonIndexes.NINE.getIndex();
-        String userName = "Christofor";
+        String userName = CHRISTOFOR_NAME;
 
-        User newUser = new User(userName/*, Gender.MALE*/);
+        User newUser = new User(userName);
         newUser.setId(userIndex);
         userService.register(newUser);
 

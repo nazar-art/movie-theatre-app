@@ -26,5 +26,4 @@ public class AspectConfiguration {
         return new LuckyWinnerAspect();
     }
 
-
 }
