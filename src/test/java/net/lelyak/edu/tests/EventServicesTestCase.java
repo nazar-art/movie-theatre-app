@@ -26,16 +26,16 @@ public class EventServicesTestCase extends BaseTest {
         assertEquals(actualName, eventName);
 
         eventService.remove(testEvent);
-        assertNull(eventService.getById(eventId), "assert is not removed");
+        assertNull(eventService.getById(eventId), "event is not removed");
     }
 
     @Test
     public void testGetById() throws Exception {
-        Event eventById = eventService.getById(CommonIndexes.ONE.getIndex());
+        Event eventById = eventService.getById(1);
         assertNotNull(eventById);
     }
 
-    @Test(enabled = false)
+    @Test/*(enabled = false)*/
     public void testGetByName() throws Exception {
         String expectedName = "Green Mile";
         Event event = eventService.getEventByName(expectedName);

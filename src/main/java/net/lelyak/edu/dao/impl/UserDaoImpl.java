@@ -29,7 +29,7 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
                 .addValue("role", entity.getRole())
                 .addValue("tickets", entity.getBookedTickets().toString());
 
-        Logger.info("Create user: " + entity);
+        Logger.info("Save user: " + entity);
         return getNamedParameterJdbcTemplate()
                 .update(SQLStatements.INSERT_INTO_USERS, parameterSource);
     }
@@ -62,8 +62,11 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
     public void delete(Integer id) {
         String sql = SQLStatements.DELETE_FROM_USERS + " WHERE user_id=:id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
-        getNamedParameterJdbcTemplate().update(sql, parameterSource);
-        Logger.info("Delete User with id: " + id);
+
+        Logger.info("Delete following User: " + read(id));
+
+        getNamedParameterJdbcTemplate()
+                .update(sql, parameterSource);
     }
 
     @Override
@@ -72,22 +75,21 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
                 .query(SQLStatements.SELECT_FROM_USERS, new UserMapper());
     }
 
-    public int totalUsersCount() {
+    @Override
+    public int getTotalCount() {
         int total = getJdbcTemplate().queryForInt(SQLStatements.TOTAL_COUNT_FROM_USERS);
         Logger.info("Total Users count: " + total);
         return total;
     }
 
-    // todo add findByName(), findByEmail()
-
-    public User findByName(String name) {
+    public User getByName(String name) {
         String sql = SQLStatements.SELECT_FROM_USERS + "WHERE user_name=:name";
         SqlParameterSource parameterSource = new MapSqlParameterSource("name", name);
         return getNamedParameterJdbcTemplate()
                 .queryForObject(sql, parameterSource, new UserMapper());
     }
 
-    public User findByEmail(String email) {
+    public User getByEmail(String email) {
         String sql = SQLStatements.SELECT_FROM_USERS + "WHERE user_email=:email";
         SqlParameterSource parameterSource = new MapSqlParameterSource("email", email);
         return getNamedParameterJdbcTemplate()
@@ -102,11 +104,11 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
             Calendar calendar = Calendar.getInstance();
+            Date userBirthday = rs.getDate("user_birthday");
+            calendar.setTime(userBirthday);
 
             user.setId(rs.getInt("user_id"));
             user.setName(rs.getString("user_name"));
-            Date userBirthday = rs.getDate("user_birthday");
-            calendar.setTime(userBirthday);
             user.setBirthday(calendar);
             user.setEmail(rs.getString("user_email"));
             user.setRole(rs.getString("user_role"));

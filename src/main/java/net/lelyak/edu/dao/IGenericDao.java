@@ -13,4 +13,6 @@ public interface IGenericDao<ENTITY, ID> {
     void delete(ID id);
 
     List<ENTITY> getAll();
+
+    int getTotalCount();
 }

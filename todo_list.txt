@@ -1,0 +1,2 @@
+1. Configure saving for Set of Tickets -
+2. Configure saving for Set of Events

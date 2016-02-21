@@ -1,36 +1,41 @@
 package net.lelyak.edu.service;
 
+import net.lelyak.edu.dao.impl.EventDaoImpl;
 import net.lelyak.edu.dao.mock.DatabaseMock;
-import net.lelyak.edu.entity.*;
+import net.lelyak.edu.entity.Auditorium;
+import net.lelyak.edu.entity.Event;
+import net.lelyak.edu.entity.EventRating;
+import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toSet;
 
 /**
  * EventService - Manages events (movie shows).
  * Event contains only basic information, like name, base price for tickets, rating (high, mid, low).
  * Event can be presented on several dates and several times within each day.
  * For each dateTime an Event will be presented only in single auditorium.
- *
+ * <p>
  * create, remove, getEventByName, getAll
  * assignAuditorium(event, auditorium, date) - assign auditorium for event for specific date.
  * Only one auditorium for Event for specific dateTime
- *
+ * <p>
  * getForDateRange(from, to) - returns events for specified date range (OPTIONAL)
  * getNextEvents(to) - returns events from now till the ‘to’ date (OPTIONAL)
  */
 @Service
 public class EventService {
 
-    private Map<Integer, Event> events = Collections.synchronizedMap(DatabaseMock.getEvents());
+    private Map<Integer, Event> events = DatabaseMock.getEvents();
+    @Autowired
+    private EventDaoImpl eventDao;
+
 
     public EventService() {
         events.put(1, new Event(1, "Green Mile", 60d, EventRating.HIGH));
@@ -39,51 +44,56 @@ public class EventService {
     }
 
     /**
-     * @deprecated Just use {@link #create(Event, User)} instead.
-     * It can check if thisUser has access for event creation.
      * @param event new event instance.
      * @return newly created event.
+     * @deprecated Just use {@link #create(Event, User)} instead.
+     * It can check if thisUser has access for event creation.
      */
     @Deprecated
-    public Event create(Event event) {
-        return events.put(event.getId(), event);
+    public int create(Event event) {
+//        return events.put(event.getId(), event);
+        return eventDao.create(event);
     }
 
-    public void create(Event event, User thisUser) {
+    public int create(Event event, User thisUser) {
+        int result = -1;
         if (thisUser.getRole() != null && thisUser.getRole().equalsIgnoreCase("admin")) {
-             events.put(event.getId(), event);
+
+//            events.put(event.getId(), event);
+            result = eventDao.create(event);
+
             Logger.info(String.format("User: %s has already created event: %s", thisUser.getName(), event.getName()));
         } else {
             Logger.warn(String.format("User: %s doesn't have permission for creating events", thisUser.getName()));
         }
+        return result;
     }
 
     public Event getById(int id) {
-        return events.get(id);
+//        return events.get(id);
+        return eventDao.read(id);
     }
 
-    public Event remove(Event event) {
-        return events.remove(event.getId());
+    public void remove(Event event) {
+//        return events.remove(event.getId());
+        eventDao.delete(event.getId());
     }
 
     public Set<Event> getAll() {
-        return events.values().stream()
-                .collect(toSet());
+        /*return events.values().stream()
+                .collect(toSet());*/
+        return eventDao.getAll().stream()
+                .collect(Collectors.toSet());
     }
 
     public Event getEventByName(String eventName) {
         Logger.info("EventService.getEventByName called for: " + eventName);
-        return events.values().parallelStream()
+        /*return events.values().parallelStream()
                 .filter(e -> e.getName() != null
                         && e.getName().equalsIgnoreCase(eventName))
                 .findAny()
-                .get();
-        /*for (Event event : events.values()) {
-            if (event.getName() != null && event.getName().equalsIgnoreCase(eventName)) {
-                return event;
-            }
-        }
-        return null;*/
+                .get();*/
+        return eventDao.getByName(eventName);
     }
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
@@ -106,7 +116,7 @@ public class EventService {
     }
 
     private String formatDate(Calendar date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(date);
     }
 

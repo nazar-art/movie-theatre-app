@@ -15,10 +15,10 @@ CREATE TABLE Users (
 ----------------------
 CREATE TABLE Events (
   event_id       INTEGER PRIMARY KEY NOT NULL,
-  event_name     VARCHAR(30),
-  event_price    DECIMAL(8,2),
-  event_rating   VARCHAR(30),
-  event_date     DATETIME,
+  event_name     VARCHAR(30) NULL,
+  event_price    DECIMAL(8,2) NULL,
+  event_rating   VARCHAR(60) NULL,
+  event_date     VARCHAR(300) NULL,
 );
 
 ---------------------------

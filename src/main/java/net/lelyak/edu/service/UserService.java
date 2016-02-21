@@ -64,7 +64,7 @@ public class UserService {
                 .filter(e -> e.getEmail().equalsIgnoreCase(email))
                 .findFirst()
                 .get();*/
-        return userDao.findByEmail(email);
+        return userDao.getByEmail(email);
     }
 
     public User getByName(String name) {
@@ -74,11 +74,11 @@ public class UserService {
                 .filter(e -> e.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .get();*/
-        return userDao.findByName(name);
+        return userDao.getByName(name);
     }
 
     public int getTotalUsersCount() {
-        return userDao.totalUsersCount();
+        return userDao.getTotalCount();
     }
 
     public Set<Ticket> getBookedTickets(User user) {

@@ -12,11 +12,11 @@ INSERT INTO Users VALUES (5, 'Severus Snape', '1980-05-01', 'snape@gmail.com', '
 -- Populate Events table
 ------------------------
 INSERT INTO Events (event_id, event_name, event_price, event_rating, event_date)
-VALUES (1, 'Green Mile', 60.0, 'EventRating.HIGH', '2016-02-28');
+VALUES (1, 'Green Mile', 60.0, 'high', '2016-02-28');
 INSERT INTO Events (event_id, event_name, event_price, event_rating, event_date)
-VALUES (2, 'Gone by the wind', 50.0, 'EventRating.MIDDLE', '2016-02-28');
+VALUES (2, 'Gone by the wind', 50.0, 'middle', '2016-02-28');
 INSERT INTO Events (event_id, event_name, event_price, event_rating, event_date)
-VALUES (3, 'Mad Max: Furry road', 90.0, 'EventRating.LOW', '2016-02-28')
+VALUES (3, 'Mad Max: Furry road', 90.0, 'low', '2016-02-28')
 
 
 
