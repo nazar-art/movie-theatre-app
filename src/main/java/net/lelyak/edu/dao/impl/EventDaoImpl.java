@@ -21,7 +21,7 @@ import java.util.List;
 public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDao<Event, Integer> {
 
     @Override
-    public Integer create(Event event) {
+    public Integer save(Event event) {
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", event.getId())
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
@@ -34,7 +34,7 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
     }
 
     @Override
-    public Event read(Integer id) {
+    public Event getById(Integer id) {
         String sql = SQLStatements.SELECT_FROM_EVENTS + " WHERE event_id=:id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
         return getNamedParameterJdbcTemplate()
@@ -58,7 +58,7 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
         String sql = SQLStatements.DELETE_FROM_EVENTS + " WHERE event_id=:id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
 
-        Logger.info("Delete following event: " + read(id));
+        Logger.info("Delete following event: " + getById(id));
 
         getNamedParameterJdbcTemplate()
                 .update(sql, parameterSource);
@@ -76,7 +76,6 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
         Logger.info("Total count for Events: " + total);
         return total;
     }
-
 
     public Event getByName(String name) {
         String sql = SQLStatements.SELECT_FROM_EVENTS + " where event_name=:name";

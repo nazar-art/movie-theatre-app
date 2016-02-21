@@ -51,11 +51,10 @@ public class BookingService {
     }
 
     public void bookTicket(User user, Ticket ticket) {
-        Set<Ticket> tickets = user.getBookedTickets();
-        if (!tickets.contains(ticket)) {
+        if (ticket.getUser() == null) {
             user.addTicket(ticket);
         } else {
-            Logger.warn("Ticket: %s is booked by user: %s", ticket, user);
+            Logger.warn("Ticket: %s has already booked by another user: %s", ticket, ticket.getUser());
         }
     }
 

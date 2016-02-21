@@ -20,14 +20,13 @@ import java.util.List;
 public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDao<User, Integer> {
 
     @Override
-    public Integer create(User entity) {
+    public Integer save(User entity) {
         SqlParameterSource parameterSource =
                 new MapSqlParameterSource("id", entity.getId())
                 .addValue("name", entity.getName())
                 .addValue("birthday", entity.getBirthday())
                 .addValue("email", entity.getEmail())
-                .addValue("role", entity.getRole())
-                .addValue("tickets", entity.getBookedTickets().toString());
+                .addValue("role", entity.getRole());
 
         Logger.info("Save user: " + entity);
         return getNamedParameterJdbcTemplate()
@@ -35,7 +34,7 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
     }
 
     @Override
-    public User read(Integer id) {
+    public User getById(Integer id) {
         Logger.debug("Looking for user with id: " + id);
         String sql = SQLStatements.SELECT_FROM_USERS + " WHERE user_id=:id";
         SqlParameterSource paramSource = new MapSqlParameterSource("id", id);
@@ -49,8 +48,7 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
                 .addValue("name", entity.getName())
                 .addValue("birthday", entity.getBirthday())
                 .addValue("email", entity.getEmail())
-                .addValue("role", entity.getRole())
-                .addValue("tickets", entity.getBookedTickets());
+                .addValue("role", entity.getRole());
 
         getNamedParameterJdbcTemplate()
                 .update(SQLStatements.UPDATE_USERS, parameterSource);
@@ -63,7 +61,7 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
         String sql = SQLStatements.DELETE_FROM_USERS + " WHERE user_id=:id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
 
-        Logger.info("Delete following User: " + read(id));
+        Logger.info("Delete following User: " + getById(id));
 
         getNamedParameterJdbcTemplate()
                 .update(sql, parameterSource);
@@ -75,6 +73,13 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
                 .query(SQLStatements.SELECT_FROM_USERS, new UserMapper());
     }
 
+    public User getByName(String name) {
+        String sql = SQLStatements.SELECT_FROM_USERS + " WHERE user_name=:name";
+        SqlParameterSource parameterSource = new MapSqlParameterSource("name", name);
+        return getNamedParameterJdbcTemplate()
+                .queryForObject(sql, parameterSource, new UserMapper());
+    }
+
     @Override
     public int getTotalCount() {
         int total = getJdbcTemplate().queryForInt(SQLStatements.TOTAL_COUNT_FROM_USERS);
@@ -82,20 +87,12 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
         return total;
     }
 
-    public User getByName(String name) {
-        String sql = SQLStatements.SELECT_FROM_USERS + "WHERE user_name=:name";
-        SqlParameterSource parameterSource = new MapSqlParameterSource("name", name);
-        return getNamedParameterJdbcTemplate()
-                .queryForObject(sql, parameterSource, new UserMapper());
-    }
-
     public User getByEmail(String email) {
-        String sql = SQLStatements.SELECT_FROM_USERS + "WHERE user_email=:email";
+        String sql = SQLStatements.SELECT_FROM_USERS + " WHERE user_email=:email";
         SqlParameterSource parameterSource = new MapSqlParameterSource("email", email);
         return getNamedParameterJdbcTemplate()
                 .queryForObject(sql, parameterSource, new UserMapper());
     }
-
 
 
     private final class UserMapper implements RowMapper<User> {
@@ -112,8 +109,6 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
             user.setBirthday(calendar);
             user.setEmail(rs.getString("user_email"));
             user.setRole(rs.getString("user_role"));
-            // todo find solution for this case
-//            user.addTicket(rs.getString("user_tickets"));
             return user;
         }
     }

@@ -7,7 +7,7 @@ import net.lelyak.edu.utils.CommonIndexes;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
-import java.util.Set;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -84,7 +84,8 @@ public class UserServiceTestCase extends BaseTest {
         int userIndex = CommonIndexes.THREE.getIndex();
         User testUser = userService.getById(userIndex);
 
-        Set<Ticket> bookedTickets = userService.getBookedTickets(testUser);
-        assertNotNull(bookedTickets, "booked tickets for user can not be null");
+//        Set<Ticket> bookedTickets = userService.getBookedTickets(testUser);
+        List<Ticket> ticketsForUser = bookingService.getTicketsForUser(testUser);
+        assertNotNull(ticketsForUser, "booked tickets for user can not be null");
     }
 }

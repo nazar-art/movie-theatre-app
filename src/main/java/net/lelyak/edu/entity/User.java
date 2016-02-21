@@ -1,11 +1,7 @@
 package net.lelyak.edu.entity;
 
-import net.lelyak.edu.utils.Logger;
-
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class User {
     private Integer id;
@@ -13,7 +9,6 @@ public class User {
     private Calendar birthday;
     private String email;
     private String role;
-    private Set<Ticket> bookedTickets = new HashSet<>();
 
     public User() {
     }
@@ -27,11 +22,10 @@ public class User {
         this.name = name;
     }
 
-    public User(int id, String name, String email, Set<Ticket> bookedTickets) {
+    public User(int id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.bookedTickets = bookedTickets;
     }
 
     public Integer getId() {
@@ -74,20 +68,8 @@ public class User {
         this.role = role;
     }
 
-    public Set<Ticket> getBookedTickets() {
-        return bookedTickets;
-    }
-
     public void addTicket(Ticket ticket) {
-        if (ticket != null && !bookedTickets.contains(ticket)) {
-            bookedTickets.add(ticket);
-            Logger.info("Add one ticket: " + ticket + " to user: " + this.toString());
-            ticket.setUser(this);
-        }
-    }
-
-    public void setBookedTickets(Set<Ticket> bookedTickets) {
-        this.bookedTickets = bookedTickets;
+        ticket.setUser(this);
     }
 
     @Override
@@ -118,7 +100,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", birthday=" + birthday +
                 ", role=" + role +
-                ", bookedTickets=" + bookedTickets +
                 '}';
     }
 }

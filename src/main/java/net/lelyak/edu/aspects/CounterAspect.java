@@ -23,9 +23,9 @@ import java.util.Map;
 @Aspect
 public class CounterAspect {
 
-    private Map<Event, Integer> eventCallByNameMap = new HashMap<>();
-    private Map<Event, Integer> eventPriceCallMap = new HashMap<>();
-    private Map<Event, Integer> eventBookTicketCallMap = new HashMap<>();
+    private Map<Integer, Integer> eventCallByNameMap = new HashMap<>();
+    private Map<Integer, Integer> eventPriceCallMap = new HashMap<>();
+    private Map<Integer, Integer> eventBookTicketCallMap = new HashMap<>();
 
     /**
      * Pointcuts:
@@ -58,13 +58,13 @@ public class CounterAspect {
 
         if (!eventCallByNameMap.containsKey(event)) {
 
-            eventCallByNameMap.put(event, 1);
+            eventCallByNameMap.put(event.getId(), 1);
             Logger.info(String.format("Event: %s is called by name FIRST time", event.getName()));
         } else {
 
             Integer oldValue = eventCallByNameMap.get(event);
             Integer newValue = oldValue + 1;
-            eventCallByNameMap.put(event, newValue);
+            eventCallByNameMap.put(event.getId(), newValue);
             Logger.info(String.format("Event: %s is called by name: %s times", event.getName(), newValue));
         }
     }
@@ -75,14 +75,14 @@ public class CounterAspect {
     public void countEventPriceQueryCounter(Event event, Calendar dateTime, SeatType seatType, User user) {
 
         if (!eventPriceCallMap.containsKey(event)) {
-            eventPriceCallMap.put(event, 1);
+            eventPriceCallMap.put(event.getId(), 1);
             Logger.info(String.format("Ticket price for Event: %s is called FIRST time",
                     event.getName()));
 
         } else {
             Integer oldIndex = eventPriceCallMap.get(event);
             int newIndex = oldIndex + 1;
-            eventPriceCallMap.put(event, newIndex);
+            eventPriceCallMap.put(event.getId(), newIndex);
             Logger.info(String.format("Ticket price for Event: %s is called: %s times",
                     event.getName(), newIndex));
         }
@@ -96,26 +96,26 @@ public class CounterAspect {
         Event event = ticket.getEvent();
 
         if (!eventBookTicketCallMap.containsKey(event)) {
-            eventBookTicketCallMap.put(event, 1);
+            eventBookTicketCallMap.put(event.getId(), 1);
             Logger.info(String.format("Book ticket for Event: [%s] is called FIRST time", event.getName()));
 
         } else {
             Integer oldIndex = eventBookTicketCallMap.get(event);
             int newIndex = oldIndex + 1;
-            eventBookTicketCallMap.put(event, newIndex);
+            eventBookTicketCallMap.put(event.getId(), newIndex);
             Logger.info(String.format("Book Ticket for Event: [%s] is called: %s times", event.getName(), newIndex));        }
     }
 
 
-    public Map<Event, Integer> getEventCallByNameMap() {
+    public Map<Integer, Integer> getEventCallByNameMap() {
         return eventCallByNameMap;
     }
 
-    public Map<Event, Integer> getEventPriceCallMap() {
+    public Map<Integer, Integer> getEventPriceCallMap() {
         return eventPriceCallMap;
     }
 
-    public Map<Event, Integer> getEventBookTicketCallMap() {
+    public Map<Integer, Integer> getEventBookTicketCallMap() {
         return eventBookTicketCallMap;
     }
 }

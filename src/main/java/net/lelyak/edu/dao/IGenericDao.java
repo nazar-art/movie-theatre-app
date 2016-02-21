@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface IGenericDao<ENTITY, ID> {
 
-    Integer create(ENTITY entity);
+    Integer save(ENTITY entity);
 
-    ENTITY read(ID id);
+    ENTITY getById(ID id);
 
     void update(ENTITY entity);
 

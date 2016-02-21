@@ -45,7 +45,7 @@
 
     <!--CREATE AND FILL TEST DATA-->
     <!--<jdbc:embedded-database id="moviedb" type="H2">
-        <jdbc:script location="classpath:db/sql/create-db.sql" />
+        <jdbc:script location="classpath:db/sql/save-db.sql" />
         <jdbc:script location="classpath:db/sql/insert-data.sql" />
     </jdbc:embedded-database>-->
 </beans>

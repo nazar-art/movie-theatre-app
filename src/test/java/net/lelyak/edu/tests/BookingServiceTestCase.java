@@ -19,13 +19,10 @@ import static org.testng.Assert.assertTrue;
 public class BookingServiceTestCase extends BaseTest {
 
     private User user;
-    private Ticket ticket;
 
     @BeforeMethod(description = "prepare some test data")
     public void setUp() {
         user = userService.getById(CommonIndexes.THREE.getIndex());
-        Set<Ticket> bookedTickets = user.getBookedTickets();
-        ticket = bookedTickets.iterator().next();
     }
 
     @Test
@@ -52,8 +49,9 @@ public class BookingServiceTestCase extends BaseTest {
 
         bookingService.bookTicket(user, testTicket);
 
-        Set<Ticket> userTickets = user.getBookedTickets();
-        Optional<Ticket> bookedTestTicket = userTickets.stream()
+        List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
+
+        Optional<Ticket> bookedTestTicket = ticketsForUser.stream()
                 .filter(ticket -> ticket.getEvent().getName().equalsIgnoreCase(testEventName)
                         && ticket.getEvent().getPrice().equals(testEventPrice))
                 .findAny();

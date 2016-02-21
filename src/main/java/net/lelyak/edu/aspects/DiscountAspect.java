@@ -18,7 +18,7 @@ import java.util.Map;
 public class DiscountAspect {
 
     private int discountTotalCounter = 0;
-    private Map<User, Integer> userDiscountMap = new HashMap<>();
+    private Map<Integer, Integer> userDiscountMap = new HashMap<>();
 
     @Pointcut("execution(* * ..DiscountService.getDiscount(..))")
     public void accessGetDiscount() {
@@ -30,14 +30,14 @@ public class DiscountAspect {
     public void countDiscountCallForeachUser(User user, Event event, Calendar date) {
 
         if (!userDiscountMap.containsKey(user)) {
-            userDiscountMap.put(user, 1);
+            userDiscountMap.put(user.getId(), 1);
             Logger.info(String.format("Discount for User: %s is called FIRST time", user.getName()));
 
         } else {
             Integer oldIndex = userDiscountMap.get(user);
             int newIndex = oldIndex + 1;
 
-            userDiscountMap.put(user, newIndex);
+            userDiscountMap.put(user.getId(), newIndex);
             Logger.info(String.format("Discount for User: %s is called: %s times", user.getName(), newIndex));
         }
     }
@@ -58,7 +58,7 @@ public class DiscountAspect {
         return discountTotalCounter;
     }
 
-    public Map<User, Integer> getUserDiscountMap() {
+    public Map<Integer, Integer> getUserDiscountMap() {
         return userDiscountMap;
     }
 }

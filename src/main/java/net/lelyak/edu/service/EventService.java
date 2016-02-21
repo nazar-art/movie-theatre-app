@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
  * Event can be presented on several dates and several times within each day.
  * For each dateTime an Event will be presented only in single auditorium.
  * <p>
- * create, remove, getEventByName, getAll
+ * save, remove, getEventByName, getAll
  * assignAuditorium(event, auditorium, date) - assign auditorium for event for specific date.
  * Only one auditorium for Event for specific dateTime
  * <p>
@@ -52,7 +50,7 @@ public class EventService {
     @Deprecated
     public int create(Event event) {
 //        return events.put(event.getId(), event);
-        return eventDao.create(event);
+        return eventDao.save(event);
     }
 
     public int create(Event event, User thisUser) {
@@ -60,7 +58,7 @@ public class EventService {
         if (thisUser.getRole() != null && thisUser.getRole().equalsIgnoreCase("admin")) {
 
 //            events.put(event.getId(), event);
-            result = eventDao.create(event);
+            result = eventDao.save(event);
 
             Logger.info(String.format("User: %s has already created event: %s", thisUser.getName(), event.getName()));
         } else {
@@ -71,7 +69,7 @@ public class EventService {
 
     public Event getById(int id) {
 //        return events.get(id);
-        return eventDao.read(id);
+        return eventDao.getById(id);
     }
 
     public void remove(Event event) {
@@ -113,6 +111,15 @@ public class EventService {
                         .anyMatch(date -> date.after(from) && date.before(to))
                 )
                 .collect(Collectors.toSet());
+    }
+
+    public Collection<Event> getNextEvents(Date to){
+        Date now  = new Date();
+        return eventDao.getAll().stream()
+                .filter(event -> event.getEventDateTime()
+                        .stream()
+                        .anyMatch(c -> c.before(to) && c.after(now)))
+                .collect(Collectors.toList());
     }
 
     private String formatDate(Calendar date) {

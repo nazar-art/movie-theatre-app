@@ -7,7 +7,6 @@ CREATE TABLE Users (
   user_birthday  DATETIME NULL,
   user_email     VARCHAR(30) NULL,
   user_role      VARCHAR(20) NULL,
-  user_tickets   VARCHAR(300) NULL,
 );
 
 ----------------------
@@ -36,8 +35,8 @@ CREATE TABLE Auditoriums (
 -----------------------
 CREATE TABLE Tickets (
   tick_id        INTEGER PRIMARY KEY NOT NULL,
-  event_id       VARCHAR(30),
   tick_price     DECIMAL(8,2),
+  event_id       INTEGER,
   user_id        INTEGER,
 );
 
@@ -46,8 +45,8 @@ CREATE TABLE Tickets (
 ----------------------
 -- Define foreign keys
 ----------------------
---ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);
---ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Events (user_id);
+ALTER TABLE Tickets
+ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Users (user_id);
 
---ALTER TABLE Users
---ADD CONSTRAINT FK_Users_Tickets FOREIGN KEY (user_tickets) REFERENCES Tickets (tick_id);
+ALTER TABLE Tickets
+ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);
