@@ -3,7 +3,6 @@ package net.lelyak.edu.tests;
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
-import net.lelyak.edu.utils.CommonIndexes;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
@@ -33,7 +32,7 @@ public class UserServiceTestCase extends BaseTest {
 
     @Test
     public void testUserById() throws Exception {
-        User userById = userService.getById(CommonIndexes.ONE.getIndex());
+        User userById = userService.getById(1);
 
         String actualFirstName = userById.getName();
 
@@ -81,7 +80,7 @@ public class UserServiceTestCase extends BaseTest {
 
     @Test
     public void testGetUserBookedTickets() throws Exception {
-        int userIndex = CommonIndexes.THREE.getIndex();
+        int userIndex = 3;
         User testUser = userService.getById(userIndex);
 
 //        Set<Ticket> bookedTickets = userService.getBookedTickets(testUser);

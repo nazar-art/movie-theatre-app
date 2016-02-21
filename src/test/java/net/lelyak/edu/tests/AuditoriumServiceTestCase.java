@@ -2,7 +2,6 @@ package net.lelyak.edu.tests;
 
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Auditorium;
-import net.lelyak.edu.utils.CommonIndexes;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class AuditoriumServiceTestCase extends BaseTest {
         List<Auditorium> auditoriums = auditoriumService.getAuditoriums();
         assertNotNull(auditoriums);
 
-        Auditorium auditorium = auditoriums.get(CommonIndexes.ONE.getIndex());
+        Auditorium auditorium = auditoriums.get(1);
 
         int seatsNumber = auditoriumService.getSeatsNumber(auditorium);
         assertNotNull(seatsNumber);

@@ -3,7 +3,6 @@ package net.lelyak.edu.tests;
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.EventRating;
-import net.lelyak.edu.utils.CommonIndexes;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -13,7 +12,7 @@ public class EventServicesTestCase extends BaseTest {
     @Test
     public void testCreateAndRemoveNewEvent() throws Exception {
         String eventName = "homework";
-        int eventId = CommonIndexes.SEVEN.getIndex();
+        int eventId = 7;
 
         Event testEvent = new Event(eventName, 1d, EventRating.LOW);
         testEvent.setId(eventId);

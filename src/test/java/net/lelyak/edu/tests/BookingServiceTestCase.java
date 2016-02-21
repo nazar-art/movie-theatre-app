@@ -4,7 +4,6 @@ import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
-import net.lelyak.edu.utils.CommonIndexes;
 import net.lelyak.edu.utils.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,7 +21,7 @@ public class BookingServiceTestCase extends BaseTest {
 
     @BeforeMethod(description = "prepare some test data")
     public void setUp() {
-        user = userService.getById(CommonIndexes.THREE.getIndex());
+        user = userService.getById(3);
     }
 
     @Test
