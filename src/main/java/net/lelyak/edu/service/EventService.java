@@ -50,7 +50,7 @@ public class EventService {
     }
 
     public void create(Event event, User thisUser) {
-        if (thisUser.getRole() != null && thisUser.getRole().getRole().equalsIgnoreCase("admin")) {
+        if (thisUser.getRole() != null && thisUser.getRole().equalsIgnoreCase("admin")) {
              events.put(event.getId(), event);
             Logger.info(String.format("User: %s has already created event: %s", thisUser.getName(), event.getName()));
         } else {

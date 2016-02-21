@@ -1,27 +1,20 @@
------------------------
--- Create Roles table
------------------------
-CREATE TABLE Roles (
-  role_id        INTEGER PRIMARY KEY,
-  role_name      VARCHAR(30),
-);
-
 ----------------------
 -- Create Users table
 ----------------------
 CREATE TABLE Users (
-  user_id        INTEGER PRIMARY KEY,
-  user_name      VARCHAR(30),
-  user_birthday  DATETIME,
-  user_email     VARCHAR(30),
-  role_id        VARCHAR(20),
+  user_id        INTEGER PRIMARY KEY NOT NULL,
+  user_name      VARCHAR(30) NULL,
+  user_birthday  DATETIME NULL,
+  user_email     VARCHAR(30) NULL,
+  user_role      VARCHAR(20) NULL,
+  user_tickets   VARCHAR(300) NULL,
 );
 
 ----------------------
 -- Create Events table
 ----------------------
 CREATE TABLE Events (
-  event_id       INTEGER PRIMARY KEY,
+  event_id       INTEGER PRIMARY KEY NOT NULL,
   event_name     VARCHAR(30),
   event_price    DECIMAL(8,2),
   event_rating   VARCHAR(30),
@@ -32,7 +25,7 @@ CREATE TABLE Events (
 -- Create Auditoriums table
 ---------------------------
 CREATE TABLE Auditoriums (
-  aud_id         INTEGER PRIMARY KEY,
+  aud_id         INTEGER PRIMARY KEY NOT NULL,
   aud_name       VARCHAR(30),
   aud_seats      INTEGER,
   aud_vip        INTEGER,
@@ -42,16 +35,19 @@ CREATE TABLE Auditoriums (
 -- Create Tickets table
 -----------------------
 CREATE TABLE Tickets (
-  tick_id        INTEGER PRIMARY KEY,
+  tick_id        INTEGER PRIMARY KEY NOT NULL,
   event_id       VARCHAR(30),
   tick_price     DECIMAL(8,2),
   user_id        INTEGER,
 );
 
+--todo add tables + DAO layer for AOP info
 
 ----------------------
 -- Define foreign keys
 ----------------------
 --ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);
 --ALTER TABLE Tickets ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Events (user_id);
---ALTER TABLE Tickets ADD CONSTRAINT FK_Users_Roles FOREIGN KEY (role_id) REFERENCES Events (role_id);
+
+--ALTER TABLE Users
+--ADD CONSTRAINT FK_Users_Tickets FOREIGN KEY (user_tickets) REFERENCES Tickets (tick_id);

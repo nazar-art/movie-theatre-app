@@ -2,15 +2,15 @@ package net.lelyak.edu.dao;
 
 import java.util.List;
 
-public interface IGenericDao<E, I> {
+public interface IGenericDao<ENTITY, ID> {
 
-    Integer create(E entity);
+    Integer create(ENTITY entity);
 
-    E read(I id);
+    ENTITY read(ID id);
 
-    void update(E entity);
+    void update(ENTITY entity);
 
-    void delete(E entity);
+    void delete(ID id);
 
-    List<E> getAll();
+    List<ENTITY> getAll();
 }

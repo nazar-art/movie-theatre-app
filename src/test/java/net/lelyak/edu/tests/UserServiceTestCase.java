@@ -4,26 +4,31 @@ import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.CommonIndexes;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
 import java.util.Set;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class UserServiceTestCase extends BaseTest {
 
-    public static final String RON_WEASLEY_NAME = "Ron Weasley";
     public static final String TEST_EMAIL = "grendjer@gmail.com";
-    public static final String GERMIONA_GRENDJER_NAME = "Germiona Grendjer";
-    public static final String GARRY_POTTER_NAME = "Garry Potter";
-    public static final String CHRISTOFOR_NAME = "Christofor";
+    public static final String TEST_NAME_GERMIONA = "Germiona Grendjer";
+    public static final String TEST_NAME_GARRY_POTTER = "Garry Potter";
+    public static final String TEST_NAME_RON_WEASLEY = "Ron Weasley";
+
+    public static final String TEST_NAME_CHRISTOFOR_COLUMB = "Christofor Columb";
+    public static final String COLUMB_BIRTHDAY_DATE = "31/10/1940";
+    public static final int TEST_ID_CHRISTOFOR_COLUMB = 8888;
 
     @Test
     public void testGetUserByMail() throws Exception {
         User byEmail = userService.getByEmail(TEST_EMAIL);
         String actualName = byEmail.getName();
 
-        assertEquals(actualName, GERMIONA_GRENDJER_NAME, "first name is not as expected");
+        assertEquals(actualName, TEST_NAME_GERMIONA, "first name is not as expected");
     }
 
     @Test
@@ -32,31 +37,46 @@ public class UserServiceTestCase extends BaseTest {
 
         String actualFirstName = userById.getName();
 
-        assertEquals(actualFirstName, GARRY_POTTER_NAME);
+        assertEquals(actualFirstName, TEST_NAME_GARRY_POTTER);
     }
 
     @Test
     public void testGetUserByName() throws Exception {
-        User ron = userService.getByName(RON_WEASLEY_NAME);
+        User ron = userService.getByName(TEST_NAME_RON_WEASLEY);
         String lastName = ron.getName();
-        assertEquals(lastName, RON_WEASLEY_NAME);
+        assertEquals(lastName, TEST_NAME_RON_WEASLEY);
+    }
+
+    @Test(expectedExceptions = EmptyResultDataAccessException.class)
+    public void testRegisterAndRemoveNewUser() throws Exception {
+        User newUser = new User();
+        newUser.setId(TEST_ID_CHRISTOFOR_COLUMB);
+        newUser.setName(TEST_NAME_CHRISTOFOR_COLUMB);
+
+        userService.register(newUser, COLUMB_BIRTHDAY_DATE);
+
+        User createdUser = userService.getById(TEST_ID_CHRISTOFOR_COLUMB);
+        assertEquals(createdUser.getName(), TEST_NAME_CHRISTOFOR_COLUMB);
+
+        userService.remove(newUser);
+        // expecting to catch exception here, coz user is not presented at DB
+        userService.getById(TEST_ID_CHRISTOFOR_COLUMB);
     }
 
     @Test
-    public void testRegisterAndRemoveNewUser() throws Exception {
-        int userIndex = CommonIndexes.NINE.getIndex();
-        String userName = CHRISTOFOR_NAME;
+    public void testUserCount() throws Exception {
+        User newUser = new User();
+        newUser.setId(TEST_ID_CHRISTOFOR_COLUMB);
+        newUser.setName(TEST_NAME_CHRISTOFOR_COLUMB);
 
-        User newUser = new User(userName);
-        newUser.setId(userIndex);
-        userService.register(newUser);
-
-        User createdUser = userService.getById(userIndex);
-        assertEquals(createdUser.getName(), userName);
+        int countBeforeInsert = userService.getTotalUsersCount();
+        userService.register(newUser, COLUMB_BIRTHDAY_DATE);
+        int countAfterInsert = userService.getTotalUsersCount();
+        assertEquals(countAfterInsert, countBeforeInsert + 1, "total user count is not incremented after saving new user");
 
         userService.remove(newUser);
-
-        assertNull(userService.getById(userIndex), "user can't be returned it should be null");
+        int countAfterRemove = userService.getTotalUsersCount();
+        assertEquals(countAfterRemove, countBeforeInsert, "total user is not decrementing after removing some user");
     }
 
     @Test

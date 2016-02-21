@@ -12,8 +12,11 @@ public class User {
     private String name;
     private Calendar birthday;
     private String email;
-    private Role role;
+    private String role;
     private Set<Ticket> bookedTickets = new HashSet<>();
+
+    public User() {
+    }
 
     public User(String name) {
         this.name = name;
@@ -63,11 +66,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -81,6 +84,10 @@ public class User {
             Logger.info("Add one ticket: " + ticket + " to user: " + this.toString());
             ticket.setUser(this);
         }
+    }
+
+    public void setBookedTickets(Set<Ticket> bookedTickets) {
+        this.bookedTickets = bookedTickets;
     }
 
     @Override

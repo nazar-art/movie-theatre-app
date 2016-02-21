@@ -1,17 +1,12 @@
-------------------------
--- Populate Roles table
-------------------------
-INSERT INTO Roles (role_id, role_name) VALUES (1, 'admin');
-INSERT INTO Roles (role_id, role_name) VALUES (2, 'user');
 
 ------------------------
 -- Populate Users table
 ------------------------
-INSERT INTO Users VALUES (1, 'Garry Potter', '2001-05-01', 'potter@gmail.com', 'admin');
-INSERT INTO Users VALUES (2, 'Ron Weasley',  '2000-05-01', 'ron@gmail.com', 'user');
-INSERT INTO Users VALUES (3, 'Germiona Grendjer', '2000-05-01', 'germiona@gmail.com', 'user');
-INSERT INTO Users VALUES (4, 'Rubeus Hagrid', '1972-05-01', 'hagrid@gmail.com', 'user');
-INSERT INTO Users VALUES (5, 'Severus Snape', '1980-05-01', 'snape@gmail.com', 'user');
+INSERT INTO Users VALUES (1, 'Garry Potter', '2001-05-01', 'potter@gmail.com', 'admin', NULL);
+INSERT INTO Users VALUES (2, 'Ron Weasley',  '2000-05-01', 'ron@gmail.com', 'user', NULL);
+INSERT INTO Users VALUES (3, 'Germiona Grendjer', '2000-05-01', 'germiona@gmail.com', 'user', NULL);
+INSERT INTO Users VALUES (4, 'Rubeus Hagrid', '1972-05-01', 'hagrid@gmail.com', 'user', NULL);
+INSERT INTO Users VALUES (5, 'Severus Snape', '1980-05-01', 'snape@gmail.com', 'user', NULL);
 
 ------------------------
 -- Populate Events table

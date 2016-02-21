@@ -1,11 +1,12 @@
 package net.lelyak.edu.service;
 
+import net.lelyak.edu.dao.impl.UserDaoImpl;
 import net.lelyak.edu.dao.mock.DatabaseMock;
-import net.lelyak.edu.entity.Role;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
-import net.lelyak.edu.utils.CommonIndexes;
 import net.lelyak.edu.utils.Logger;
+import org.apache.commons.lang.Validate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -18,9 +19,9 @@ import java.util.*;
  */
 @Service
 public class UserService {
-    private final int USER_INDEX = CommonIndexes.TWO.getIndex();
-    private final int ADMIN_INDEX = CommonIndexes.ONE.getIndex();
 
+    @Autowired
+    private UserDaoImpl userDao;
     private Map<Integer, User> users;
 
     public UserService() {
@@ -32,48 +33,52 @@ public class UserService {
                         new Ticket(DatabaseMock.getEvents().get(1), 30d, users.get(3))))));
     }
 
-    public User register(User user) {
-        return users.put(user.getId(), user);
+    public Integer register(User user) {
+//        return users.put(user.getId(), user);
+        return userDao.create(user);
     }
 
-    public User register(User user, String date) {
-        user.setBirthday(toDateFormat(date));
-        Role registeredUser = new Role();
-        registeredUser.setId(USER_INDEX);
-        user.setRole(registeredUser);
+    public Integer register(User user, String userBirthday) {
+        Validate.notNull(user, "user can not be null for registration");
+        Validate.notNull(userBirthday, "userBirthday can not be null");
+
+        user.setRole("user");
+        user.setBirthday(toDateFormat(userBirthday));
         return register(user);
     }
 
     public void remove(User user) {
-        users.remove(user.getId());
+//        users.remove(user.getId());
+        userDao.delete(user.getId());
     }
 
     public User getById(int id) {
-        return users.get(id);
+//        return users.get(id);
+        return userDao.read(id);
     }
 
     public User getByEmail(String email) {
         Logger.info("Looking for the user with mail: " + email);
-        return users.values().stream()
+        /*return users.values().stream()
                 .filter(e -> e.getEmail() != null)
                 .filter(e -> e.getEmail().equalsIgnoreCase(email))
                 .findFirst()
-                .get();
-        /*for (User user : users.values()) {
-            if (user.getEmail() != null && user.getEmail().equals(email)) {
-                return user;
-            }
-        }
-        return null;*/
+                .get();*/
+        return userDao.findByEmail(email);
     }
 
     public User getByName(String name) {
         Logger.info("Looking for the user with name: " + name);
-        return users.values().stream()
+        /*return users.values().stream()
                 .filter(e -> e.getName() != null)
                 .filter(e -> e.getName().equalsIgnoreCase(name))
                 .findFirst()
-                .get();
+                .get();*/
+        return userDao.findByName(name);
+    }
+
+    public int getTotalUsersCount() {
+        return userDao.totalUsersCount();
     }
 
     public Set<Ticket> getBookedTickets(User user) {

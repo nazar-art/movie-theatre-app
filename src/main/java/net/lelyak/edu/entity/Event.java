@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Event {
-
     private Integer id;
     private String name;
     private Double price;
