@@ -11,10 +11,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
 @Repository
@@ -26,7 +24,7 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
                 .addValue("rating", event.getEventRating().getName().toUpperCase())
-                .addValue("date", event.getEventDateTime().toString());
+                .addValue("air", event.getDateTime().toString());
 
         Logger.info("Save event: " + event);
         return getNamedParameterJdbcTemplate()
@@ -47,7 +45,7 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
                 .addValue("rating", event.getEventRating())
-                .addValue("date", event.getEventDateTime());
+                .addValue("date", event.getDateTime());
 
         getNamedParameterJdbcTemplate().update(SQLStatements.UPDATE_EVENTS, parameterSource);
         Logger.info("Update Event: " + event.getName());
@@ -90,15 +88,12 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
         public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
             Event event = new Event();
             String eventRating = rs.getString("event_rating");
-            Calendar calendar = Calendar.getInstance();
-            Date eventDate = rs.getDate("event_date"); // todo configure Set<Date>, coz it is saved like String
-            calendar.setTime(eventDate);
 
             event.setId(rs.getInt("event_id"));
             event.setName(rs.getString("event_name"));
             event.setPrice(rs.getDouble("event_price"));
             event.setEventRating(EventRating.valueOf(eventRating.toUpperCase()));
-            event.setEventDateTime(calendar);
+            event.setDateTime(rs.getDate("event_date"));
 
             return null;
         }

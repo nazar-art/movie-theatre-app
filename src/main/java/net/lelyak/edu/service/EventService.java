@@ -30,9 +30,9 @@ import java.util.stream.Collectors;
 @Service
 public class EventService {
 
-    private Map<Integer, Event> events = DatabaseMock.getEvents();
     @Autowired
     private EventDaoImpl eventDao;
+    private Map<Integer, Event> events = DatabaseMock.getEvents();
 
 
     public EventService() {
@@ -95,30 +95,27 @@ public class EventService {
     }
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
-        if (!event.getEventDateTime().contains(date)) {
-            event.setEventDateTime(date);
+        if (!event.getDateTime().equals(date.getTime())) {
+            event.setDateTime(date.getTime());
             Logger.info(String.format("Auditorium: %s is assigned for event: %s on %s",
                     auditorium.getName(), event.getName(), formatDate(date)));
         }
 
     }
 
-    public Set<Event> getForDateRange(Calendar from, Calendar to) {
+    public Collection<Event> getForDateRange(Date from, Date to) {
         Set<Event> allEvents = getAll();
         return allEvents.stream()
-                .filter(event -> event.getEventDateTime()
-                        .stream()
-                        .anyMatch(date -> date.after(from) && date.before(to))
-                )
-                .collect(Collectors.toSet());
+                .filter(event -> event.getDateTime().after(from)
+                        && event.getDateTime().before(to))
+                .collect(Collectors.toList());
     }
 
     public Collection<Event> getNextEvents(Date to){
         Date now  = new Date();
         return eventDao.getAll().stream()
-                .filter(event -> event.getEventDateTime()
-                        .stream()
-                        .anyMatch(c -> c.before(to) && c.after(now)))
+                .filter(event -> event.getDateTime().before(to)
+                        && event.getDateTime().after(now))
                 .collect(Collectors.toList());
     }
 

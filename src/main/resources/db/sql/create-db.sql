@@ -17,7 +17,7 @@ CREATE TABLE Events (
   event_name     VARCHAR(30) NULL,
   event_price    DECIMAL(8,2) NULL,
   event_rating   VARCHAR(60) NULL,
-  event_date     VARCHAR(300) NULL,
+  event_date     DATETIME NULL,
 );
 
 ---------------------------
@@ -42,11 +42,12 @@ CREATE TABLE Tickets (
 
 --todo add tables + DAO layer for AOP info
 
+
+
 ----------------------
 -- Define foreign keys
 ----------------------
 ALTER TABLE Tickets
 ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Users (user_id);
-
 ALTER TABLE Tickets
 ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);

@@ -64,7 +64,7 @@ public class BookingService {
 
         result.addAll(tickets.stream()
                 .filter(ticket -> ticket.getEvent() != null
-                        && ticket.getEvent().getEventDateTime().contains(date))
+                        && ticket.getEvent().getDateTime().equals(date.getTime()))
                 .collect(toList()));
         return result;
     }

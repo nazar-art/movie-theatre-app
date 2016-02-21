@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 
 @Repository
 public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDao<Ticket, Integer> {
-
     @Autowired
     private EventDaoImpl eventDao;
     @Autowired
@@ -29,7 +28,7 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
     public Integer save(Ticket ticket) {
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", ticket.getId())
                 .addValue("price", ticket.getPrice())
-                .addValue("event", ticket.getEvent().getId()) // todo verify if id is enough or save full object
+                .addValue("event", ticket.getEvent().getId()) // todo verify if id is enough otherwise save full object
                 .addValue("user", ticket.getUser().getId());
 
         Logger.info("Save ticket: " + ticket);

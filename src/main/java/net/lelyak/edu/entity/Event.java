@@ -1,15 +1,14 @@
 package net.lelyak.edu.entity;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 
 public class Event {
     private Integer id;
     private String name;
     private Double price;
     private EventRating eventRating;
-    private Set<Calendar> eventDateTime;
+    private Date dateTime;
 
     public Event() {
     }
@@ -59,14 +58,12 @@ public class Event {
         this.eventRating = eventRating;
     }
 
-    public Set<Calendar> getEventDateTime() {
-        return eventDateTime;
+    public Date getDateTime() {
+        return dateTime;
     }
 
-    public void setEventDateTime(Calendar dateTime) {
-        if (!eventDateTime.contains(dateTime)) {
-            eventDateTime.add(dateTime);
-        }
+    public void setDateTime(Date date) {
+            this.dateTime = date;
     }
 
     @Override
@@ -94,7 +91,7 @@ public class Event {
                 "name='" + name + '\'' +
                 ", price=" + price +
                 ", eventRating=" + eventRating +
-                ", eventDateTime=" + eventDateTime +
+                ", date=" + dateTime +
                 '}';
     }
 }
