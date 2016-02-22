@@ -15,10 +15,10 @@
 
     <test name="Unit tests for Movie Theatre Application">
         <classes>
-            <class name="net.lelyak.edu.tests.AuditoriumServiceTestCase"/>
-            <class name="net.lelyak.edu.tests.BookingServiceTestCase"/>
-            <class name="net.lelyak.edu.tests.EventServicesTestCase"/>
-            <class name="net.lelyak.edu.tests.UserServiceTestCase"/>
+            <class name="net.lelyak.edu.tests.services.AuditoriumServiceTestCase"/>
+            <class name="net.lelyak.edu.tests.services.BookingServiceTestCase"/>
+            <class name="net.lelyak.edu.tests.services.EventServicesTestCase"/>
+            <class name="net.lelyak.edu.tests.services.UserServiceTestCase"/>
         </classes>
     </test>
 </suite>

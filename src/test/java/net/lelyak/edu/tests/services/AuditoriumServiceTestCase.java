@@ -1,4 +1,4 @@
-package net.lelyak.edu.tests;
+package net.lelyak.edu.tests.services;
 
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Auditorium;

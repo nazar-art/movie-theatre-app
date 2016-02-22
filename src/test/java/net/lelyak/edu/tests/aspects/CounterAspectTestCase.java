@@ -1,4 +1,4 @@
-package net.lelyak.edu.tests;
+package net.lelyak.edu.tests.aspects;
 
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.aspects.CounterAspect;
