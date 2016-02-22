@@ -6,7 +6,7 @@ import net.lelyak.edu.entity.User;
 import net.lelyak.edu.service.BookingService;
 
 import javax.annotation.Resource;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HalfPriceTicketDiscount implements IDiscountStrategy {
@@ -17,7 +17,7 @@ public class HalfPriceTicketDiscount implements IDiscountStrategy {
     private BookingService bookingServices;
 
     @Override
-    public double getDiscount(User user, Event event, Calendar date) {
+    public double getDiscount(User user, Event event, Date date) {
         List<Ticket> tickets = bookingServices.getTicketsForUser(user);
 
         if (!tickets.isEmpty()

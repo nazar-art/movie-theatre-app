@@ -99,10 +99,11 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 ", eventRating=" + eventRating +
-                ", date=" + dateTime +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }

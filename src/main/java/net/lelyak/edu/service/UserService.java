@@ -9,9 +9,7 @@ import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,12 +39,12 @@ public class UserService {
         return userDao.save(user);
     }
 
-    public Integer register(User user, String userBirthday) {
+    public Integer register(User user, Date userBirthday) {
         Validate.notNull(user, "user can not be null for registration");
         Validate.notNull(userBirthday, "userBirthday can not be null");
 
         user.setRole("user");
-        user.setBirthday(toDateFormat(userBirthday));
+        user.setBirthday(userBirthday);
         return register(user);
     }
 
@@ -90,7 +88,7 @@ public class UserService {
 //        return byId.getBookedTickets();
     }
 
-    private Calendar toDateFormat(String date) {
+    /*private Calendar toDateFormat(String date) {
         Calendar birthday = null;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -101,5 +99,5 @@ public class UserService {
             e.printStackTrace();
         }
         return birthday;
-    }
+    }*/
 }

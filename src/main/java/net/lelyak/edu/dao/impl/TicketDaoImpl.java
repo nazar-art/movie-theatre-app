@@ -2,10 +2,13 @@ package net.lelyak.edu.dao.impl;
 
 import net.lelyak.edu.dao.IGenericDao;
 import net.lelyak.edu.dao.NamedParameterJdbcDaoImpl;
+import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
+import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
 import net.lelyak.edu.utils.SQLStatements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -19,8 +22,10 @@ import java.util.stream.Collectors;
 
 @Repository
 public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDao<Ticket, Integer> {
+
     @Autowired
     private EventDaoImpl eventDao;
+
     @Autowired
     private UserDaoImpl userDao;
 
@@ -28,10 +33,18 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
     public Integer save(Ticket ticket) {
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", ticket.getId())
                 .addValue("price", ticket.getPrice())
-                .addValue("event", ticket.getEvent().getId()) // todo verify if id is enough otherwise save full object
+                .addValue("event", ticket.getEvent().getId())
                 .addValue("user", ticket.getUser().getId());
 
         Logger.info("Save ticket: " + ticket);
+
+        if (ticket.getEvent() != null && isTicketPresentedInDB(ticket.getEvent().getId())) {
+            eventDao.save(ticket.getEvent());
+        }
+        if (ticket.getUser() != null && isUserPresentedInDB(ticket.getUser().getId())) {
+            userDao.save(ticket.getUser());
+        }
+
         return getNamedParameterJdbcTemplate()
                 .update(SQLStatements.INSERT_INTO_TICKETS, parameterSource);
     }
@@ -49,6 +62,7 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
                 .addValue("price", ticket.getPrice())
                 .addValue("event", ticket.getEvent().getId())
                 .addValue("user", ticket.getUser().getId());
+
         getNamedParameterJdbcTemplate().update(SQLStatements.UPDATE_TICKETS, parameterSource);
         Logger.info("Update Ticket: " + ticket);
     }
@@ -80,9 +94,41 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
     }
 
     public List<Ticket> getByUserId(Integer userId) {
-        return getAll().stream()
+        Logger.info("All tickets: " + getAll());
+
+        List<Ticket> tickets = getAll().stream()
                 .filter(t -> t.getUser() != null && Objects.equals(t.getUser().getId(), userId))
                 .collect(Collectors.toList());
+        Logger.info("All user tickets: " + tickets);
+        return tickets;
+    }
+
+    private boolean isTicketPresentedInDB(Integer id) {
+        boolean result;
+        try {
+            Event event = eventDao.getById(id);
+            result = true;
+            Logger.debug("Event is presented at DB - " + event);
+
+        } catch (EmptyResultDataAccessException ignore) {
+            Logger.debug(String.format("Event with id: %s is not presented at DB", id));
+            result = false;
+        }
+        return result;
+    }
+
+    private boolean isUserPresentedInDB(Integer id) {
+        boolean result;
+        try {
+            User user = userDao.getById(id);
+            result = true;
+            Logger.debug("User is presented at DB - " + user);
+
+        } catch (EmptyResultDataAccessException ignore) {
+            Logger.debug(String.format("User with id: %s is not presented at DB", id));
+            result = false;
+        }
+        return result;
     }
 
     public final class TicketMapper implements RowMapper<Ticket> {
@@ -90,11 +136,12 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
         @Override
         public Ticket mapRow(ResultSet rs, int rowNum) throws SQLException {
             Ticket ticket = new Ticket();
-            int eventId = rs.getInt("event_id");
-            int userId = rs.getInt(rs.getInt("user_id"));
 
             ticket.setId(rs.getInt("tick_id"));
             ticket.setPrice(rs.getDouble("tick_price"));
+
+            int eventId = rs.getInt("event_id");
+            int userId = rs.getInt(rs.getInt("user_id"));
             ticket.setEvent(eventDao.getById(eventId));
             ticket.setUser(userDao.getById(userId));
 

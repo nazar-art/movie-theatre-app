@@ -6,6 +6,7 @@ import net.lelyak.edu.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -19,8 +20,11 @@ public class UserServiceTestCase extends BaseTest {
     public static final String TEST_NAME_RON_WEASLEY = "Ron Weasley";
 
     public static final String TEST_NAME_CHRISTOFOR_COLUMB = "Christofor Columb";
-    public static final String COLUMB_BIRTHDAY_DATE = "31/10/1940";
+//    public static final String COLUMB_BIRTHDAY_DATE = "31/10/1940";
+    private final Date columbBirthday = new Date(1940, 10, 31);
     public static final int TEST_ID_CHRISTOFOR_COLUMB = 8888;
+
+
 
     @Test
     public void testGetUserByMail() throws Exception {
@@ -52,7 +56,7 @@ public class UserServiceTestCase extends BaseTest {
         newUser.setId(TEST_ID_CHRISTOFOR_COLUMB);
         newUser.setName(TEST_NAME_CHRISTOFOR_COLUMB);
 
-        userService.register(newUser, COLUMB_BIRTHDAY_DATE);
+        userService.register(newUser, columbBirthday);
 
         User createdUser = userService.getById(TEST_ID_CHRISTOFOR_COLUMB);
         assertEquals(createdUser.getName(), TEST_NAME_CHRISTOFOR_COLUMB);
@@ -69,7 +73,7 @@ public class UserServiceTestCase extends BaseTest {
         newUser.setName(TEST_NAME_CHRISTOFOR_COLUMB);
 
         int countBeforeInsert = userService.getTotalUsersCount();
-        userService.register(newUser, COLUMB_BIRTHDAY_DATE);
+        userService.register(newUser, columbBirthday);
         int countAfterInsert = userService.getTotalUsersCount();
         assertEquals(countAfterInsert, countBeforeInsert + 1, "total user count is not incremented after saving new user");
 

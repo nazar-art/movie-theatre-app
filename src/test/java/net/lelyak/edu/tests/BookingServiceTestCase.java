@@ -5,9 +5,10 @@ import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class BookingServiceTestCase extends BaseTest {
 
     private User user;
 
-    @BeforeMethod(description = "prepare some test data")
+    @BeforeClass(description = "prepare some test data")
     public void setUp() {
         user = userService.getById(3);
     }
@@ -34,25 +35,29 @@ public class BookingServiceTestCase extends BaseTest {
     public void testBookTicket() throws Exception {
         String testEventName = "Test name";
         double testEventPrice = 66D;
+        int testTicketId = 678;
 
-        User user = userService.getById(1);
+//        User user = userService.getById(1);
 
         Set<Event> events = eventService.getAll();
         Event event = events.iterator().next();
+        event.setId(testTicketId);
         event.setName(testEventName);
         event.setPrice(testEventPrice);
 
         Ticket testTicket = new Ticket();
+        testTicket.setId(testTicketId);
         testTicket.setEvent(event);
         testTicket.setPrice(60D);
 
-        bookingService.bookTicket(user, testTicket);
+//        bookingService.bookTicket(user, testTicket);
+        ticketService.bookTicket(event, new Date(), user);
 
-        List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
+//        List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
+        List<Ticket> ticketsForUser = ticketService.getTicketsForUser(user);
 
         Optional<Ticket> bookedTestTicket = ticketsForUser.stream()
-                .filter(ticket -> ticket.getEvent().getName().equalsIgnoreCase(testEventName)
-                        && ticket.getEvent().getPrice().equals(testEventPrice))
+                .filter(ticket -> ticket.getEvent().getName().equalsIgnoreCase(testEventName))
                 .findAny();
 
         assertTrue(bookedTestTicket.isPresent(), "ticket is not booked");

@@ -6,7 +6,7 @@ import net.lelyak.edu.entity.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 
 public class BirthdayDiscount implements IDiscountStrategy {
 
@@ -15,12 +15,12 @@ public class BirthdayDiscount implements IDiscountStrategy {
     private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
 	@Override
-    public double getDiscount(User user, Event event, Calendar date) {
-        Calendar birthday = user.getBirthday();
-        Calendar today = Calendar.getInstance();
+    public double getDiscount(User user, Event event, Date date) {
+        Date birthday = user.getBirthday();
+        Date now = new Date();
 
         String userBD = dateFormat.format(birthday);
-        String todayDate = dateFormat.format(today);
+        String todayDate = dateFormat.format(now);
 
         if (userBD.equalsIgnoreCase(todayDate)) {
             return DISCOUNT;

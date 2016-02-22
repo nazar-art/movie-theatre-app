@@ -33,6 +33,7 @@ public class EventService {
 
     @Autowired
     private EventDaoImpl eventDao;
+
 //    private Map<Integer, Event> events = DatabaseMock.getEvents();
 
 

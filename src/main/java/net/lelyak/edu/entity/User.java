@@ -3,7 +3,7 @@ package net.lelyak.edu.entity;
 import net.lelyak.edu.utils.InjectRandomData;
 import net.lelyak.edu.utils.RandomType;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class User {
@@ -15,7 +15,7 @@ public class User {
     private String name;
 
     @InjectRandomData(type = RandomType.BIRTH_DATE)
-    private Calendar birthday;
+    private Date birthday;
 
     @InjectRandomData(type = RandomType.EMAIL)
     private String email;
@@ -65,11 +65,11 @@ public class User {
         this.email = email;
     }
 
-    public Calendar getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

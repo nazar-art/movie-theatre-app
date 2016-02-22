@@ -1,6 +1,6 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.mock.DatabaseMock;
+import net.lelyak.edu.dao.impl.TicketDaoImpl;
 import net.lelyak.edu.entity.*;
 import net.lelyak.edu.utils.Logger;
 import org.apache.commons.lang.math.RandomUtils;
@@ -34,10 +34,13 @@ public class BookingService {
     @Qualifier(value = "discountService")
     private DiscountService discountService;
 
+    @Autowired
+    private TicketDaoImpl ticketDao;
+
     public BookingService() {
     }
 
-    public Double getTicketPrice(Event event, Calendar dateTime, SeatType seatType, User user) {
+    public Double getTicketPrice(Event event, Date dateTime, SeatType seatType, User user) {
         Double basePrice = event.getPrice();
         EventRating rating = event.getEventRating();
 
@@ -53,18 +56,20 @@ public class BookingService {
     public void bookTicket(User user, Ticket ticket) {
         if (ticket.getUser() == null) {
             user.addTicket(ticket);
+            ticketDao.save(ticket);
         } else {
             Logger.warn("Ticket: %s has already booked by another user: %s", ticket, ticket.getUser());
         }
     }
 
-    public List<Ticket> getTicketsForEvent(Event event, Calendar date) {
+    public List<Ticket> getTicketsForEvent(Event event, Date date) {
         List<Ticket> result = Collections.emptyList();
-        Collection<Ticket> tickets = DatabaseMock.getTickets().values();
+//        Collection<Ticket> tickets = DatabaseMock.getTickets().values();
+        Collection<Ticket> tickets = ticketDao.getAll();
 
         result.addAll(tickets.stream()
                 .filter(ticket -> ticket.getEvent() != null
-                        && ticket.getEvent().getDateTime().equals(date.getTime()))
+                        && ticket.getEvent().getDateTime().equals(date))
                 .collect(toList()));
         return result;
     }
@@ -88,11 +93,13 @@ public class BookingService {
     }
 
     public List<Ticket> getTicketsForUser(User user) {
-        Collection<Ticket> allTickets = DatabaseMock.getTickets().values();
-        return allTickets.stream()
+        Logger.info("BookingService.getTicketsForUser");
+//        Collection<Ticket> allTickets = DatabaseMock.getTickets().values();
+        /*return ticketDao.getAll().stream()
                 .filter(e -> e.getUser() != null)
                 .filter(e -> Objects.equals(e.getUser().getId(), user.getId()))
-                .collect(toList());
+                .collect(toList());*/
+        return ticketDao.getByUserId(user.getId());
     }
 
     public boolean checkLucky(User user) {

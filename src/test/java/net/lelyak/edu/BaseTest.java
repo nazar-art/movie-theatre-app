@@ -42,5 +42,8 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     protected EventService eventService;
     @Autowired
     protected UserService userService;
+    @Autowired
+    protected TicketService ticketService;
+
 
 }

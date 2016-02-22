@@ -3,9 +3,9 @@
 ----------------------
 CREATE TABLE Users (
   user_id        INTEGER PRIMARY KEY NOT NULL,
-  user_name      VARCHAR(30) NULL,
+  user_name      VARCHAR(60) NULL,
   user_birthday  DATETIME NULL,
-  user_email     VARCHAR(30) NULL,
+  user_email     VARCHAR(60) NULL,
   user_role      VARCHAR(20) NULL,
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE Users (
 ----------------------
 CREATE TABLE Events (
   event_id       INTEGER PRIMARY KEY NOT NULL,
-  event_name     VARCHAR(30) NULL,
+  event_name     VARCHAR(100) NULL,
   event_price    DECIMAL(8,2) NULL,
   event_rating   VARCHAR(60) NULL,
   event_date     DATETIME NULL,
@@ -25,7 +25,7 @@ CREATE TABLE Events (
 ---------------------------
 CREATE TABLE Auditoriums (
   aud_id         INTEGER PRIMARY KEY NOT NULL,
-  aud_name       VARCHAR(30),
+  aud_name       VARCHAR(60),
   aud_seats      INTEGER,
   aud_vip        INTEGER,
 );

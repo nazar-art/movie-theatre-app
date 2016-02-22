@@ -10,10 +10,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
 @Repository
@@ -36,8 +34,10 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
     @Override
     public User getById(Integer id) {
         Logger.debug("Looking for user with id: " + id);
-        String sql = SQLStatements.SELECT_FROM_USERS + " WHERE user_id=:id";
+        String sql = SQLStatements.SELECT_FROM_USERS + " WHERE user_id=:id ";
+
         SqlParameterSource paramSource = new MapSqlParameterSource("id", id);
+
         return getNamedParameterJdbcTemplate()
                 .queryForObject(sql, paramSource, new UserMapper());
     }
@@ -58,7 +58,7 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
 
     @Override
     public void delete(Integer id) {
-        String sql = SQLStatements.DELETE_FROM_USERS + " WHERE user_id=:id";
+        String sql = SQLStatements.DELETE_FROM_USERS + " WHERE user_id=:id ";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
 
         Logger.info("Delete following User: " + getById(id));
@@ -100,15 +100,13 @@ public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDa
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
-            Calendar calendar = Calendar.getInstance();
-            Date userBirthday = rs.getDate("user_birthday");
-            calendar.setTime(userBirthday);
 
             user.setId(rs.getInt("user_id"));
             user.setName(rs.getString("user_name"));
-            user.setBirthday(calendar);
+            user.setBirthday(rs.getDate("user_birthday"));
             user.setEmail(rs.getString("user_email"));
             user.setRole(rs.getString("user_role"));
+
             return user;
         }
     }
