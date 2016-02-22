@@ -15,6 +15,6 @@ public enum EventRating {
 
     @Override
     public String toString() {
-        return name;
+        return name.toUpperCase();
     }
 }

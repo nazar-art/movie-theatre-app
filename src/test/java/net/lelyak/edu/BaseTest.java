@@ -26,6 +26,7 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
         //db = new EmbeddedDatabaseBuilder().addDefaultScripts().build();
         db = new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
+                .setName("moviedb")
                 .addScript("db/sql/create-db.sql")
                 .addScript("db/sql/insert-data.sql")
                 .build();

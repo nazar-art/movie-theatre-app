@@ -23,8 +23,8 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", event.getId())
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
-                .addValue("rating", event.getEventRating().getName().toUpperCase())
-                .addValue("air", event.getDateTime().toString());
+                .addValue("rating", event.getEventRating().toString())
+                .addValue("date", event.getDateTime());
 
         Logger.info("Save event: " + event);
         return getNamedParameterJdbcTemplate()
@@ -83,6 +83,7 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
     }
 
 
+
     private final class EventMapper implements RowMapper<Event> {
         @Override
         public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -95,7 +96,7 @@ public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericD
             event.setEventRating(EventRating.valueOf(eventRating.toUpperCase()));
             event.setDateTime(rs.getDate("event_date"));
 
-            return null;
+            return event;
         }
     }
 }

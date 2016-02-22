@@ -13,7 +13,7 @@ public final class SQLStatements {
     /**
      * Events:
      */
-    public static String SELECT_FROM_EVENTS = "SELECT * FROM Events ";
+    public static String SELECT_FROM_EVENTS = "SELECT * FROM Events";
     public static String INSERT_INTO_EVENTS = "INSERT INTO Events (event_id, event_name, event_price, event_rating, event_date) " +
             "VALUES (:id, :name, :price, :rating, :date)";
     public static String UPDATE_EVENTS = "UPDATE Events SET event_id=:id, event_name=:name, event_price=:price, event_rating=:rating, event_date=:date";

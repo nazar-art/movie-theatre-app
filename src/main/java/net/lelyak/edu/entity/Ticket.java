@@ -1,9 +1,16 @@
 package net.lelyak.edu.entity;
 
+import net.lelyak.edu.utils.InjectRandomData;
+import net.lelyak.edu.utils.RandomType;
+
 public class Ticket {
+    @InjectRandomData(type = RandomType.NUMERIC, min = 3, max = 5)
     private Integer id;
-    private Event event;
+
+    @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Double price;
+
+    private Event event;
     private User user;
 
     public Ticket() {

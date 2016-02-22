@@ -1,19 +1,32 @@
 package net.lelyak.edu.entity;
 
+import net.lelyak.edu.utils.InjectRandomData;
+import net.lelyak.edu.utils.RandomType;
+
 import java.util.Calendar;
 import java.util.Objects;
 
 public class User {
+
+    @InjectRandomData(type = RandomType.NUMERIC, min = 3, max = 5)
     private Integer id;
+
+    @InjectRandomData(type = RandomType.FIRST_NAME)
     private String name;
+
+    @InjectRandomData(type = RandomType.BIRTH_DATE)
     private Calendar birthday;
+
+    @InjectRandomData(type = RandomType.EMAIL)
     private String email;
+
+    @InjectRandomData(type = RandomType.ROLE)
     private String role;
 
     public User() {
     }
 
-    public User(String name) {
+    private User(String name) {
         this.name = name;
     }
 

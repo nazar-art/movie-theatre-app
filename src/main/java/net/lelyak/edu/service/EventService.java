@@ -1,17 +1,18 @@
 package net.lelyak.edu.service;
 
 import net.lelyak.edu.dao.impl.EventDaoImpl;
-import net.lelyak.edu.dao.mock.DatabaseMock;
 import net.lelyak.edu.entity.Auditorium;
 import net.lelyak.edu.entity.Event;
-import net.lelyak.edu.entity.EventRating;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,13 +33,13 @@ public class EventService {
 
     @Autowired
     private EventDaoImpl eventDao;
-    private Map<Integer, Event> events = DatabaseMock.getEvents();
+//    private Map<Integer, Event> events = DatabaseMock.getEvents();
 
 
     public EventService() {
-        events.put(1, new Event(1, "Green Mile", 60d, EventRating.HIGH));
+        /*events.put(1, new Event(1, "Green Mile", 60d, EventRating.HIGH));
         events.put(2, new Event(2, "Gone by the wind", 50d, EventRating.MIDDLE));
-        events.put(3, new Event(3, "Mad Max: Furry road", 90d, EventRating.LOW));
+        events.put(3, new Event(3, "Mad Max: Furry road", 90d, EventRating.LOW));*/
     }
 
     /**

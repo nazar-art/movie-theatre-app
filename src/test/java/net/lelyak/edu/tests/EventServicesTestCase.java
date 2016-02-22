@@ -3,29 +3,34 @@ package net.lelyak.edu.tests;
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.EventRating;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class EventServicesTestCase extends BaseTest {
 
-    @Test
+    @Test(expectedExceptions = EmptyResultDataAccessException.class)
     public void testCreateAndRemoveNewEvent() throws Exception {
-        String eventName = "homework";
-        int eventId = 7;
+        String testEventName = "homework";
+        int testEventId = 7;
 
-        Event testEvent = new Event(eventName, 1d, EventRating.LOW);
-        testEvent.setId(eventId);
+        Event testEvent = new Event();
+        testEvent.setId(testEventId);
+        testEvent.setName(testEventName);
+        testEvent.setPrice(50d);
+        testEvent.setEventRating(EventRating.LOW);
 
         eventService.create(testEvent);
-        Event actualResult = eventService.getEventByName(eventName);
+        Event actualResult = eventService.getEventByName(testEventName);
         assertNotNull(actualResult);
 
         String actualName = actualResult.getName();
-        assertEquals(actualName, eventName);
+        assertEquals(actualName, testEventName);
 
         eventService.remove(testEvent);
-        assertNull(eventService.getById(eventId), "event is not removed");
+        eventService.getById(testEventId); // result is not presented at DB we expect to catch exception
     }
 
     @Test

@@ -13,7 +13,7 @@ import static org.testng.Assert.assertNotNull;
 
 public class UserServiceTestCase extends BaseTest {
 
-    public static final String TEST_EMAIL = "grendjer@gmail.com";
+    public static final String TEST_EMAIL = "germiona@gmail.com";
     public static final String TEST_NAME_GERMIONA = "Germiona Grendjer";
     public static final String TEST_NAME_GARRY_POTTER = "Garry Potter";
     public static final String TEST_NAME_RON_WEASLEY = "Ron Weasley";

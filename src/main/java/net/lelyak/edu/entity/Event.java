@@ -1,13 +1,24 @@
 package net.lelyak.edu.entity;
 
+import net.lelyak.edu.utils.InjectRandomData;
+import net.lelyak.edu.utils.RandomType;
+
 import java.util.Date;
 import java.util.Objects;
 
 public class Event {
+    @InjectRandomData(type = RandomType.NUMERIC, min = 3, max = 5)
     private Integer id;
+
+    @InjectRandomData(type = RandomType.WORD)
     private String name;
+
+    @InjectRandomData(type = RandomType.PRICE)
     private Double price;
+
     private EventRating eventRating;
+
+    @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date dateTime;
 
     public Event() {
