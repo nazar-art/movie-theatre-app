@@ -23,6 +23,10 @@ public class TicketService {
     @Autowired
     private DiscountService discountService;
 
+    public void saveTicket(Ticket ticket) {
+        ticketDao.save(ticket);
+    }
+
     public Double getTicketPrice(Event event, Date date, User user) {
         Double finalPrice = event.getPrice();
 

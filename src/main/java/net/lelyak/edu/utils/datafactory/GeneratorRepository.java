@@ -46,4 +46,35 @@ public final class GeneratorRepository {
         Logger.debug("GeneratorRepository.getRandomTicketWithUserAndEvent: " + ticket);
         return ticket;
     }
+
+    public Ticket assignRandomTicketToUser(User user) {
+        Ticket ticket = new Ticket();
+        randomDataSource.fillEntity(ticket);
+        ticket.setEvent(getRandomEvent());
+        ticket.setUser(user);
+        Logger.debug("GeneratorRepository.assignRandomTicketToUser: " + ticket);
+        return ticket;
+    }
+
+    public Ticket assignRandomTicketToEvent(Event event) {
+        Ticket ticket = new Ticket();
+        randomDataSource.fillEntity(ticket);
+        ticket.setEvent(event);
+        ticket.setUser(getRandomUser());
+        Logger.debug("GeneratorRepository.assignRandomTicketToEvent: " + ticket);
+        return ticket;
+    }
+
+    public Ticket assignRandomTicketToUserAndEvent(User user, Event event) {
+        Ticket ticket = new Ticket();
+        randomDataSource.fillEntity(ticket);
+        ticket.setEvent(event);
+        ticket.setUser(user);
+        Logger.debug("GeneratorRepository.assignRandomTicketToUserAndEvent: " + ticket);
+        return ticket;
+    }
+
+
+
+
 }

@@ -6,7 +6,6 @@ import net.lelyak.edu.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
-import java.util.Date;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -14,39 +13,40 @@ import static org.testng.Assert.assertNotNull;
 
 public class UserServiceTestCase extends BaseTest {
 
-    public static final String TEST_EMAIL = "germiona@gmail.com";
-    public static final String TEST_NAME_GERMIONA = "Germiona Grendjer";
-    public static final String TEST_NAME_GARRY_POTTER = "Garry Potter";
-    public static final String TEST_NAME_RON_WEASLEY = "Ron Weasley";
-
-    public static final String TEST_NAME_CHRISTOFOR_COLUMB = "Christofor Columb";
-    private final Date columbBirthday = new Date(1940, 10, 31);
-    public static final int TEST_ID_CHRISTOFOR_COLUMB = 8888;
-
     private User testUser;
 
     @Test
     public void testGetUserByMail() throws Exception {
-        User byEmail = userService.getByEmail(TEST_EMAIL);
-        String actualName = byEmail.getName();
+        testUser = generator.getRandomUser();
 
-        assertEquals(actualName, TEST_NAME_GERMIONA, "first name is not as expected");
+        userService.register(testUser);
+
+        User byEmail = userService.getByEmail(testUser.getEmail());
+
+        String actualName = byEmail.getName();
+        assertEquals(actualName, testUser.getName(), "first name is not as expected");
     }
 
     @Test
     public void testUserById() throws Exception {
-        User userById = userService.getById(1);
+        testUser = generator.getRandomUser();
+        userService.register(testUser);
+
+        User userById = userService.getById(testUser.getId());
 
         String actualFirstName = userById.getName();
-
-        assertEquals(actualFirstName, TEST_NAME_GARRY_POTTER);
+        assertEquals(actualFirstName, testUser.getName());
     }
 
     @Test
     public void testGetUserByName() throws Exception {
-        User ron = userService.getByName(TEST_NAME_RON_WEASLEY);
+        testUser = generator.getRandomUser();
+        userService.register(testUser);
+
+        User ron = userService.getByName(testUser.getName());
+
         String lastName = ron.getName();
-        assertEquals(lastName, TEST_NAME_RON_WEASLEY);
+        assertEquals(lastName, testUser.getName());
     }
 
     @Test(expectedExceptions = EmptyResultDataAccessException.class)
@@ -62,7 +62,7 @@ public class UserServiceTestCase extends BaseTest {
 
         userService.remove(testUser);
         // expecting to catch exception here, coz user is not presented at DB
-        userService.getById(TEST_ID_CHRISTOFOR_COLUMB);
+        userService.getById(testUser.getId());
     }
 
     @Test
