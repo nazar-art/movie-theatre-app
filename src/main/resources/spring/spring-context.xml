@@ -13,34 +13,7 @@
  		http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="../db/db-context.xml"/>
-    <!--<context:annotation-config/>-->
+
     <context:component-scan base-package="net.lelyak.edu"/>
-
-
-
-    <!--<import resource="auditorium.xml"/>-->
-    <!--<import resource="aspect-context.xml"/>-->
-    <!--<import resource="strategy.xml"/>-->
-    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:properties/auditorium1.properties</value>
-                <value>classpath:properties/auditorium2.properties</value>
-                <value>classpath:properties/auditorium3.properties</value>
-                <value>classpath:db/dp.properties</value>
-            </list>
-        </property>
-        <property name="ignoreResourceNotFound" value="true"/>
-        <property name="systemPropertiesMode">
-            <util:constant
-                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
-        </property>
-    </bean>
-    <bean class="net.lelyak.edu.service.AuditoriumService">
-        <constructor-arg name="auditoriums" ref="auditoriumsList"/>
-    </bean>
-    <bean class="net.lelyak.edu.service.BookingService"/>
-    <bean class="net.lelyak.edu.service.EventService"/>
-    <bean class="net.lelyak.edu.service.UserService"/>-->
 
 </beans>

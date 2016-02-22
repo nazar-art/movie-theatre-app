@@ -1,14 +1,14 @@
 package net.lelyak.edu.entity;
 
-import net.lelyak.edu.utils.InjectRandomData;
-import net.lelyak.edu.utils.RandomType;
+import net.lelyak.edu.utils.datafactory.InjectRandomData;
+import net.lelyak.edu.utils.datafactory.RandomType;
 
 import java.util.Date;
 import java.util.Objects;
 
 public class User {
 
-    @InjectRandomData(type = RandomType.NUMERIC, min = 3, max = 5)
+    @InjectRandomData(type = RandomType.NUMBER, min = 50, max = 1000)
     private Integer id;
 
     @InjectRandomData(type = RandomType.FIRST_NAME)
@@ -23,23 +23,6 @@ public class User {
     @InjectRandomData(type = RandomType.ROLE)
     private String role;
 
-    public User() {
-    }
-
-    private User(String name) {
-        this.name = name;
-    }
-
-    public User(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public User(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
 
     public Integer getId() {
         return id;

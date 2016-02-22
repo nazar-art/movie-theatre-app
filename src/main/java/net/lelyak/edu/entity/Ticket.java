@@ -1,13 +1,13 @@
 package net.lelyak.edu.entity;
 
-import net.lelyak.edu.utils.InjectRandomData;
-import net.lelyak.edu.utils.RandomType;
+import net.lelyak.edu.utils.datafactory.InjectRandomData;
+import net.lelyak.edu.utils.datafactory.RandomType;
 
 public class Ticket {
-    @InjectRandomData(type = RandomType.NUMERIC, min = 3, max = 5)
+    @InjectRandomData(type = RandomType.NUMBER, min = 50, max = 1000)
     private Integer id;
 
-    @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
+    @InjectRandomData(type = RandomType.PRICE, min = 5, max = 10)
     private Double price;
 
     private Event event;
@@ -64,8 +64,9 @@ public class Ticket {
     @Override
     public String toString() {
         return "Ticket{" +
-                "event=" + event +
+                "id=" + id +
                 ", price=" + price +
+                ", event=" + event +
                 ", user=" + user +
                 '}';
     }

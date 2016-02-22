@@ -1,8 +1,9 @@
-package net.lelyak.edu.utils;
+package net.lelyak.edu.utils.datafactory;
 
 public enum RandomType {
 
     NUMERIC,
+    NUMBER,
     STRING,
     ADDRESS,
     NAME,
@@ -20,5 +21,6 @@ public enum RandomType {
     BOOLEAN,
     GENDER,
     PRICE,
-    ROLE
+    ROLE,
+    EVENT_RATING
 }

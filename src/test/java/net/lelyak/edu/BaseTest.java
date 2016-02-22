@@ -2,6 +2,7 @@ package net.lelyak.edu;
 
 import net.lelyak.edu.service.*;
 import net.lelyak.edu.utils.TestNGListener;
+import net.lelyak.edu.utils.datafactory.GeneratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
@@ -45,5 +46,6 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     @Autowired
     protected TicketService ticketService;
 
+    protected GeneratorRepository generator = new GeneratorRepository();
 
 }

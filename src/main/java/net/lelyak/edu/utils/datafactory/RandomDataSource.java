@@ -1,6 +1,7 @@
-package net.lelyak.edu.utils;
+package net.lelyak.edu.utils.datafactory;
 
 
+import net.lelyak.edu.entity.EventRating;
 import org.apache.commons.lang.math.RandomUtils;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.util.ReflectionUtils;
@@ -93,10 +94,25 @@ public class RandomDataSource {
                         case FUTURE_DATE:
                             ReflectionUtils.setField(field, entity, getDate(data.min(), data.max()));
                             break;
+                        case NUMBER:
+                            ReflectionUtils.setField(field, entity, getNumber(data.min(), data.max()));
+                            break;
+                        case EVENT_RATING:
+                            ReflectionUtils.setField(field, entity, getEventRating());
+                            break;
                     }
                 }
             }
         }
+    }
+
+    private EventRating getEventRating() {
+        EventRating[] ratings = EventRating.values();
+        return ratings[random.nextInt(ratings.length)];
+    }
+
+    private int getNumber(int from, int to) {
+        return from + random.nextInt(to - from);
     }
 
     private Date getDate(int minDaysJump, int maxDaysJump) {
@@ -157,8 +173,8 @@ public class RandomDataSource {
         return dataFactory.getLastName() + rand(3);
     }
 
-    public String getBirthDate() {
-        return dataFactory.getBirthDate().toString();
+    public Date getBirthDate() {
+        return dataFactory.getBirthDate();
     }
 
     public String getBusinessName() {

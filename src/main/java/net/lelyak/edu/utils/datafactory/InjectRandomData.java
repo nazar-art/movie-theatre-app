@@ -1,4 +1,4 @@
-package net.lelyak.edu.utils;
+package net.lelyak.edu.utils.datafactory;
 
 
 import java.lang.annotation.ElementType;

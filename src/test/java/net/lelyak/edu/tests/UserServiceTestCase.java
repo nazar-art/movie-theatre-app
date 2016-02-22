@@ -20,11 +20,10 @@ public class UserServiceTestCase extends BaseTest {
     public static final String TEST_NAME_RON_WEASLEY = "Ron Weasley";
 
     public static final String TEST_NAME_CHRISTOFOR_COLUMB = "Christofor Columb";
-//    public static final String COLUMB_BIRTHDAY_DATE = "31/10/1940";
     private final Date columbBirthday = new Date(1940, 10, 31);
     public static final int TEST_ID_CHRISTOFOR_COLUMB = 8888;
 
-
+    private User testUser;
 
     @Test
     public void testGetUserByMail() throws Exception {
@@ -52,32 +51,30 @@ public class UserServiceTestCase extends BaseTest {
 
     @Test(expectedExceptions = EmptyResultDataAccessException.class)
     public void testRegisterAndRemoveNewUser() throws Exception {
-        User newUser = new User();
-        newUser.setId(TEST_ID_CHRISTOFOR_COLUMB);
-        newUser.setName(TEST_NAME_CHRISTOFOR_COLUMB);
+        testUser = generator.getRandomUser();
+        userService.register(testUser);
 
-        userService.register(newUser, columbBirthday);
+        User createdUser = userService.getById(testUser.getId());
 
-        User createdUser = userService.getById(TEST_ID_CHRISTOFOR_COLUMB);
-        assertEquals(createdUser.getName(), TEST_NAME_CHRISTOFOR_COLUMB);
+        assertEquals(createdUser.getName(), testUser.getName());
+        assertEquals(createdUser.getEmail(), testUser.getEmail());
+        assertEquals(createdUser.getRole(), testUser.getRole());
 
-        userService.remove(newUser);
+        userService.remove(testUser);
         // expecting to catch exception here, coz user is not presented at DB
         userService.getById(TEST_ID_CHRISTOFOR_COLUMB);
     }
 
     @Test
     public void testUserCount() throws Exception {
-        User newUser = new User();
-        newUser.setId(TEST_ID_CHRISTOFOR_COLUMB);
-        newUser.setName(TEST_NAME_CHRISTOFOR_COLUMB);
+        testUser = generator.getRandomUser();
 
         int countBeforeInsert = userService.getTotalUsersCount();
-        userService.register(newUser, columbBirthday);
+        userService.register(testUser, testUser.getBirthday());
         int countAfterInsert = userService.getTotalUsersCount();
         assertEquals(countAfterInsert, countBeforeInsert + 1, "total user count is not incremented after saving new user");
 
-        userService.remove(newUser);
+        userService.remove(testUser);
         int countAfterRemove = userService.getTotalUsersCount();
         assertEquals(countAfterRemove, countBeforeInsert, "total user is not decrementing after removing some user");
     }
