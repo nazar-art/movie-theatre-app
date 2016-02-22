@@ -48,6 +48,8 @@ public class EventService {
      * @return newly created event.
      * @deprecated Just use {@link #create(Event, User)} instead.
      * It can check if thisUser has access for event creation.
+     *
+     * It is used just for test reason.
      */
     @Deprecated
     public int create(Event event) {

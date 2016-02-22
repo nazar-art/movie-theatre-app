@@ -33,7 +33,7 @@ public class CounterAspect {
 //    @Pointcut("execution(* net.lelyak.edu.service.EventService.getEventByName(..))")
 //    @Pointcut("execution(* *..EventService.getEventByName(..))")
 //    @Pointcut("execution(* *..EventService.getEventByName(*))")
-    @Pointcut("execution(* * ..EventService.getByName(..))")
+    @Pointcut("execution(* * ..EventService.getEventByName(..))")
 //    @Pointcut("execution(* *.getEventByName(..)) && within(*..EventService)")
     public void accessEventByName() {
     }
