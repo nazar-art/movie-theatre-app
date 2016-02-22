@@ -56,13 +56,13 @@ public class CounterAspect {
     )
     public void countEventCallByName(Event event) {
 
-        if (!eventCallByNameMap.containsKey(event)) {
+        if (!eventCallByNameMap.containsKey(event.getId())) {
 
             eventCallByNameMap.put(event.getId(), 1);
             Logger.info(String.format("Event: %s is called by name FIRST time", event.getName()));
         } else {
 
-            Integer oldValue = eventCallByNameMap.get(event);
+            Integer oldValue = eventCallByNameMap.get(event.getId());
             Integer newValue = oldValue + 1;
             eventCallByNameMap.put(event.getId(), newValue);
             Logger.info(String.format("Event: %s is called by name: %s times", event.getName(), newValue));
@@ -74,13 +74,13 @@ public class CounterAspect {
             argNames = "event,dateTime,seatType,user")
     public void countEventPriceQueryCounter(Event event, Calendar dateTime, SeatType seatType, User user) {
 
-        if (!eventPriceCallMap.containsKey(event)) {
+        if (!eventPriceCallMap.containsKey(event.getId())) {
             eventPriceCallMap.put(event.getId(), 1);
             Logger.info(String.format("Ticket price for Event: %s is called FIRST time",
                     event.getName()));
 
         } else {
-            Integer oldIndex = eventPriceCallMap.get(event);
+            Integer oldIndex = eventPriceCallMap.get(event.getId());
             int newIndex = oldIndex + 1;
             eventPriceCallMap.put(event.getId(), newIndex);
             Logger.info(String.format("Ticket price for Event: %s is called: %s times",
@@ -95,12 +95,12 @@ public class CounterAspect {
     public void countTicketBookingForEvent(User user, Ticket ticket) {
         Event event = ticket.getEvent();
 
-        if (!eventBookTicketCallMap.containsKey(event)) {
+        if (!eventBookTicketCallMap.containsKey(event.getId())) {
             eventBookTicketCallMap.put(event.getId(), 1);
             Logger.info(String.format("Book ticket for Event: [%s] is called FIRST time", event.getName()));
 
         } else {
-            Integer oldIndex = eventBookTicketCallMap.get(event);
+            Integer oldIndex = eventBookTicketCallMap.get(event.getId());
             int newIndex = oldIndex + 1;
             eventBookTicketCallMap.put(event.getId(), newIndex);
             Logger.info(String.format("Book Ticket for Event: [%s] is called: %s times", event.getName(), newIndex));        }

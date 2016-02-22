@@ -29,12 +29,12 @@ public class DiscountAspect {
             argNames = "user,event,date")
     public void countDiscountCallForeachUser(User user, Event event, Calendar date) {
 
-        if (!userDiscountMap.containsKey(user)) {
+        if (!userDiscountMap.containsKey(user.getId())) {
             userDiscountMap.put(user.getId(), 1);
             Logger.info(String.format("Discount for User: %s is called FIRST time", user.getName()));
 
         } else {
-            Integer oldIndex = userDiscountMap.get(user);
+            Integer oldIndex = userDiscountMap.get(user.getId());
             int newIndex = oldIndex + 1;
 
             userDiscountMap.put(user.getId(), newIndex);
