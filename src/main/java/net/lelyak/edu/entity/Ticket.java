@@ -13,21 +13,6 @@ public class Ticket {
     private Event event;
     private User user;
 
-    public Ticket() {
-    }
-
-    public Ticket(Event event, Double price, User user) {
-        this.event = event;
-        this.price = price;
-        this.user = user;
-    }
-
-    public Ticket(int id, Event event, Double price, User user) {
-        this.id = id;
-        this.event = event;
-        this.price = price;
-        this.user = user;
-    }
 
     public Integer getId() {
         return id;

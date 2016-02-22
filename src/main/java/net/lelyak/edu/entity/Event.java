@@ -22,21 +22,6 @@ public class Event {
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date dateTime;
 
-    public Event() {
-    }
-
-    public Event(String name, Double price, EventRating eventRating) {
-        this.name = name;
-        this.price = price;
-        this.eventRating = eventRating;
-    }
-
-    public Event(int id, String name, Double price, EventRating eventRating) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.eventRating = eventRating;
-    }
 
     public Integer getId() {
         return id;
