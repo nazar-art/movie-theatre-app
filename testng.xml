@@ -21,4 +21,10 @@
             <class name="net.lelyak.edu.tests.services.UserServiceTestCase"/>
         </classes>
     </test>
+
+    <test name="AOP tests">
+        <classes>
+            <class name="net.lelyak.edu.tests.aspects.CounterAspectTestCase"/>
+        </classes>
+    </test>
 </suite>
