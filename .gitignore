@@ -16,3 +16,4 @@ log/
 target/
 log.xml
 test-output/
+report/

@@ -1,12 +1,10 @@
 package net.lelyak.edu.tests.aspects;
 
 import net.lelyak.edu.BaseTest;
-import net.lelyak.edu.aspects.CounterAspect;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.SeatType;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -18,9 +16,6 @@ import static org.testng.Assert.*;
 public class CounterAspectTestCase extends BaseTest {
 
     public static final int TEST_REPEAT_COUNTER = 10;
-
-    @Autowired
-    private CounterAspect counterAspect;
 
     private Event testEvent;
     private List<Event> eventList = new ArrayList<>();

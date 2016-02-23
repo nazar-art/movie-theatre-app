@@ -1,5 +1,8 @@
 package net.lelyak.edu;
 
+import net.lelyak.edu.aspects.CounterAspect;
+import net.lelyak.edu.aspects.DiscountAspect;
+import net.lelyak.edu.aspects.LuckyWinnerAspect;
 import net.lelyak.edu.service.*;
 import net.lelyak.edu.utils.TestNGListener;
 import net.lelyak.edu.utils.datafactory.GeneratorRepository;
@@ -47,5 +50,15 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     protected TicketService ticketService;
 
     protected GeneratorRepository generator = new GeneratorRepository();
+
+    @Autowired
+    protected CounterAspect counterAspect;
+
+    @Autowired
+    protected DiscountAspect discountAspect;
+
+    @Autowired
+    protected LuckyWinnerAspect luckyWinnerAspect;
+
 
 }
