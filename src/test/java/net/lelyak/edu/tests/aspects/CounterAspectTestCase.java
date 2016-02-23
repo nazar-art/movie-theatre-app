@@ -17,14 +17,13 @@ public class CounterAspectTestCase extends BaseTest {
 
     public static final int TEST_REPEAT_COUNTER = 10;
 
-    private Event testEvent;
     private List<Event> eventList = new ArrayList<>();
 
     @Test(priority = -2, alwaysRun = true)
     public void testCallCounterAspectByNameCounter() throws Exception {
 
         for (int i = 0; i < TEST_REPEAT_COUNTER; i++) {
-            testEvent = generator.getRandomEvent();
+            Event testEvent = generator.getRandomEvent();
             eventList.add(testEvent);
             eventService.create(testEvent);
             eventService.getEventByName(testEvent.getName());

@@ -35,8 +35,8 @@ public class AuditoriumConfiguration {
 
         Auditorium auditorium = new Auditorium();
         auditorium.setName(nameString);
-        auditorium.setNumberOfSeats(Integer.valueOf(strNumberOfSeats));
-        auditorium.setVipSeats(integerSet);
+        auditorium.setSeats(Integer.valueOf(strNumberOfSeats));
+        auditorium.setVip(integerSet);
         return auditorium;
     }
 

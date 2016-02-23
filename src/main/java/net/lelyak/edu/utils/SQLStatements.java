@@ -31,4 +31,26 @@ public final class SQLStatements {
     public static String DELETE_FROM_TICKETS = "DELETE FROM Tickets ";
     public static String TOTAL_COUNT_FROM_TICKETS = "SELECT COUNT(*) FROM Tickets";
 
+    /**
+     * Auditoriums:
+     */
+    public static String SELECT_FROM_AUDITORIUMS = "SELECT * FROM Auditoriums ";
+    public static String INSERT_INTO_AUDITORIUMS = "INSERT INTO Auditoriums " +
+            "(aud_id, aud_name, aud_seats, aud_vip) VALUES (:id, :name, :seats, :vip)";
+    public static String UPDATE_AUDITORIUMS = "UPDATE Auditoriums SET aud_id=:id, aud_name=:name, aud_seats=:seats, aud_vip=:vip";
+    public static String DELETE_FROM_AUDITORIUMS = "DELETE FROM Auditoriums ";
+    public static String TOTAL_COUNT_FROM_AUDITORIUMS = "SELECT COUNT(*) FROM Auditoriums";
+
+    /**
+     * AspectCounter:
+     */
+    public static String SELECT_FROM_ASPECTCOUNTER = "SELECT * FROM AspectCounter ";
+    public static String INSERT_INTO_ASPECTCOUNTER = "INSERT INTO AspectCounter (aspect_id=:id, aspect_name=:name, aspect_source=:source, aspect_counter=:counter) " +
+            "VALUES (:id, :name, :source, :counter)";
+    public static String UPDATE_ASPECTCOUNTER = "UPDATE AspectCounter SET aspect_id=:id, aspect_name=:name, aspect_source=:source, aspect_counter=:counter";
+    public static String DELETE_FROM_ASPECTCOUNTER = "DELETE FROM AspectCounter ";
+    public static String TOTAL_COUNT_FROM_ASPECTCOUNTER = "SELECT COUNT(*) FROM AspectCounter";
+
+
+
 }

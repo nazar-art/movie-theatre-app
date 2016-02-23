@@ -5,8 +5,8 @@ import java.util.Set;
 public class Auditorium {
     private Integer id;
     private String name;
-    private Integer numberOfSeats;
-    private Set<Integer> vipSeats;
+    private Integer seats;
+    private Set<Integer> vip;
 
     public Integer getId() {
         return id;
@@ -24,20 +24,20 @@ public class Auditorium {
         this.name = name;
     }
 
-    public int getNumberOfSeats() {
-        return numberOfSeats;
+    public int getSeats() {
+        return seats;
     }
 
-    public void setNumberOfSeats(Integer numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
+    public void setSeats(Integer seats) {
+        this.seats = seats;
     }
 
-    public Set<Integer> getVipSeats() {
-        return vipSeats;
+    public Set<Integer> getVip() {
+        return vip;
     }
 
-    public void setVipSeats(Set<Integer> vipSeats) {
-        this.vipSeats = vipSeats;
+    public void setVip(Set<Integer> vip) {
+        this.vip = vip;
     }
 
     @Override
@@ -45,8 +45,8 @@ public class Auditorium {
         return "Auditorium{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", numberOfSeats=" + numberOfSeats +
-                ", vipSeats=" + vipSeats +
+                ", seats=" + seats +
+                ", vip=" + vip +
                 '}';
     }
 }

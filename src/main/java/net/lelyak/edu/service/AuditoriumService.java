@@ -16,7 +16,7 @@ import java.util.Set;
  * vip seats (comma-separated list of expensive seats)
  * Several auditoriums can be stored in separate property files, information from them could be injected into the AuditoriumService
  *
- * getAuditoriums(), getSeatsNumber(), getVipSeats()
+ * getAuditoriums(), getSeatsNumber(), getVip()
  */
 @Service
 public class AuditoriumService {
@@ -33,10 +33,10 @@ public class AuditoriumService {
     }
 
     public int getSeatsNumber(Auditorium auditorium) {
-        return auditorium.getNumberOfSeats();
+        return auditorium.getSeats();
     }
 
     public Set<Integer> getVipSeats(Auditorium auditorium) {
-        return auditorium.getVipSeats();
+        return auditorium.getVip();
     }
 }

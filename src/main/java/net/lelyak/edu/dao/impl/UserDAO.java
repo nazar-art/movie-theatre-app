@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDao<User, Integer> {
+public class UserDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<User, Integer> {
 
     @Override
     public Integer save(User entity) {

@@ -1,7 +1,7 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.impl.TicketDaoImpl;
-import net.lelyak.edu.dao.impl.UserDaoImpl;
+import net.lelyak.edu.dao.impl.TicketDAO;
+import net.lelyak.edu.dao.impl.UserDAO;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
@@ -21,9 +21,9 @@ import java.util.Map;
 public class UserService {
 
     @Autowired
-    private UserDaoImpl userDao;
+    private UserDAO userDao;
     @Autowired
-    private TicketDaoImpl ticketDao;
+    private TicketDAO ticketDao;
 
     private Map<Integer, User> users;
 

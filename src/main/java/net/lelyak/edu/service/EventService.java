@@ -1,6 +1,6 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.impl.EventDaoImpl;
+import net.lelyak.edu.dao.impl.EventDAO;
 import net.lelyak.edu.entity.Auditorium;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class EventService {
 
     @Autowired
-    private EventDaoImpl eventDao;
+    private EventDAO eventDao;
 
 //    private Map<Integer, Event> events = DatabaseMock.getEvents();
 

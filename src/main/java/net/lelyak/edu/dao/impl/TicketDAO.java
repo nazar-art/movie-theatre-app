@@ -2,13 +2,11 @@ package net.lelyak.edu.dao.impl;
 
 import net.lelyak.edu.dao.IGenericDao;
 import net.lelyak.edu.dao.NamedParameterJdbcDaoImpl;
-import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
-import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
 import net.lelyak.edu.utils.SQLStatements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -21,13 +19,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
-public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDao<Ticket, Integer> {
+public class TicketDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<Ticket, Integer> {
 
     @Autowired
-    private EventDaoImpl eventDao;
+    private EventDAO eventDao;
 
     @Autowired
-    private UserDaoImpl userDao;
+    private UserDAO userDao;
 
     @Override
     public Integer save(Ticket ticket) {
@@ -38,13 +36,6 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
 
         Logger.info("Save ticket: " + ticket);
 
-        if (ticket.getEvent() != null && isTicketPresentedInDB(ticket.getEvent().getId())) {
-            eventDao.save(ticket.getEvent());
-        }
-        if (ticket.getUser() != null && isUserPresentedInDB(ticket.getUser().getId())) {
-            userDao.save(ticket.getUser());
-        }
-
         return getNamedParameterJdbcTemplate()
                 .update(SQLStatements.INSERT_INTO_TICKETS, parameterSource);
     }
@@ -53,7 +44,9 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
     public Ticket getById(Integer id) {
         String sql = SQLStatements.SELECT_FROM_TICKETS + " WHERE tick_id=:id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
-        return getNamedParameterJdbcTemplate().queryForObject(sql, parameterSource, new TicketMapper());
+//        return getNamedParameterJdbcTemplate().queryForObject(sql, parameterSource, new TicketMapper());
+        return getNamedParameterJdbcTemplate()
+                .queryForObject(sql, parameterSource, new BeanPropertyRowMapper<>(Ticket.class));
     }
 
     @Override
@@ -77,14 +70,19 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
 
     @Override
     public List<Ticket> getAll() {
-        return getNamedParameterJdbcTemplate()
-                .query(SQLStatements.SELECT_FROM_TICKETS, new TicketMapper());
+        List<Ticket> tickets = getNamedParameterJdbcTemplate()
+//                .query(SQLStatements.SELECT_FROM_TICKETS, new TicketMapper());
+                .query(SQLStatements.SELECT_FROM_TICKETS, new BeanPropertyRowMapper<>(Ticket.class));
+        Logger.debug("All tickets: " + tickets.size());
+        return tickets;
     }
 
     @Override
     public int getTotalCount() {
-        return getJdbcTemplate()
+        int count = getJdbcTemplate()
                 .queryForInt(SQLStatements.TOTAL_COUNT_FROM_TICKETS);
+        Logger.debug("Total tickets count: " + count);
+        return count;
     }
 
     public List<Ticket> getByEventId(Integer eventId) {
@@ -101,34 +99,6 @@ public class TicketDaoImpl extends NamedParameterJdbcDaoImpl implements IGeneric
                 .collect(Collectors.toList());
         Logger.info("All user tickets: " + tickets);
         return tickets;
-    }
-
-    private boolean isTicketPresentedInDB(Integer id) {
-        boolean result;
-        try {
-            Event event = eventDao.getById(id);
-            result = true;
-            Logger.debug("Event is presented at DB - " + event);
-
-        } catch (EmptyResultDataAccessException ignore) {
-            Logger.debug(String.format("Event with id: %s is not presented at DB", id));
-            result = false;
-        }
-        return result;
-    }
-
-    private boolean isUserPresentedInDB(Integer id) {
-        boolean result;
-        try {
-            User user = userDao.getById(id);
-            result = true;
-            Logger.debug("User is presented at DB - " + user);
-
-        } catch (EmptyResultDataAccessException ignore) {
-            Logger.debug(String.format("User with id: %s is not presented at DB", id));
-            result = false;
-        }
-        return result;
     }
 
     public final class TicketMapper implements RowMapper<Ticket> {

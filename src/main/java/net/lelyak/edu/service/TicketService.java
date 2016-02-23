@@ -1,6 +1,6 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.impl.TicketDaoImpl;
+import net.lelyak.edu.dao.impl.TicketDAO;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.TicketFactory;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class TicketService {
 
     @Autowired
-    private TicketDaoImpl ticketDao;
+    private TicketDAO ticketDao;
 
     @Autowired
     private DiscountService discountService;

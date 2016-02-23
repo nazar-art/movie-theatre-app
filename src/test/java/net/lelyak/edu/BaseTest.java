@@ -3,6 +3,7 @@ package net.lelyak.edu;
 import net.lelyak.edu.aspects.CounterAspect;
 import net.lelyak.edu.aspects.DiscountAspect;
 import net.lelyak.edu.aspects.LuckyWinnerAspect;
+import net.lelyak.edu.dao.impl.AuditoriumDAO;
 import net.lelyak.edu.service.*;
 import net.lelyak.edu.utils.TestNGListener;
 import net.lelyak.edu.utils.datafactory.GeneratorRepository;
@@ -60,5 +61,7 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     @Autowired
     protected LuckyWinnerAspect luckyWinnerAspect;
 
+    @Autowired
+    protected AuditoriumDAO auditoriumDAO;
 
 }

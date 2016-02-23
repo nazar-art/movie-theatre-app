@@ -1,6 +1,6 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.impl.TicketDaoImpl;
+import net.lelyak.edu.dao.impl.TicketDAO;
 import net.lelyak.edu.entity.*;
 import net.lelyak.edu.utils.Logger;
 import org.apache.commons.lang.math.RandomUtils;
@@ -35,7 +35,7 @@ public class BookingService {
     private DiscountService discountService;
 
     @Autowired
-    private TicketDaoImpl ticketDao;
+    private TicketDAO ticketDao;
 
     public BookingService() {
     }

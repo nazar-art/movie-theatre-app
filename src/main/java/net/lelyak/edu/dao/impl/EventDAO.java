@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class EventDaoImpl extends NamedParameterJdbcDaoImpl implements IGenericDao<Event, Integer> {
+public class EventDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<Event, Integer> {
 
     @Override
     public Integer save(Event event) {
