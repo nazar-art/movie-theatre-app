@@ -20,7 +20,8 @@ public class DiscountAspect {
     private int discountTotalCounter = 0;
     private Map<Integer, Integer> userDiscountMap = new HashMap<>();
 
-    @Pointcut("execution(* * ..DiscountService.getDiscount(..))")
+    //    @Pointcut("execution(* * ..DiscountService.getDiscount(..))")
+    @Pointcut("execution(* *..DiscountService.getDiscount(..))")
     public void accessGetDiscount() {
     }
 

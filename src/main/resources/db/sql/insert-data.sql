@@ -26,12 +26,12 @@ VALUES (5, 'Fredie Mercurry tribute concert', 200.0, 'high', '2016-03-19');
 -------------------------
 -- Populate Tickets table
 -------------------------
-INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
-VALUES (1, 60.0, 1, 1);
-INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
-VALUES (2, 120.0, 2, 2);
-INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
-VALUES (3, 200.0, 5, 3);
+--INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
+--VALUES (1, 60.0, 1, 1);
+--INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
+--VALUES (2, 120.0, 2, 2);
+--INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
+--VALUES (3, 200.0, 5, 3);
 
 
 

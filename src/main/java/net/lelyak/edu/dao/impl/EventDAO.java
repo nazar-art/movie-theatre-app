@@ -64,8 +64,10 @@ public class EventDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<E
 
     @Override
     public List<Event> getAll() {
-        return getNamedParameterJdbcTemplate()
+        List<Event> events = getNamedParameterJdbcTemplate()
                 .query(SQLStatements.SELECT_FROM_EVENTS, new EventMapper());
+        Logger.debug("Get all events: " + events);
+        return events;
     }
 
     @Override

@@ -31,8 +31,8 @@ public class TicketDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<
     public Integer save(Ticket ticket) {
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", ticket.getId())
                 .addValue("price", ticket.getPrice())
-                .addValue("event", ticket.getEvent().getId())
-                .addValue("user", ticket.getUser().getId());
+                .addValue("event", ticket.getEvent())
+                .addValue("user", ticket.getUser());
 
         Logger.info("Save ticket: " + ticket);
 
@@ -73,7 +73,7 @@ public class TicketDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<
         List<Ticket> tickets = getNamedParameterJdbcTemplate()
 //                .query(SQLStatements.SELECT_FROM_TICKETS, new TicketMapper());
                 .query(SQLStatements.SELECT_FROM_TICKETS, new BeanPropertyRowMapper<>(Ticket.class));
-        Logger.debug("All tickets: " + tickets.size());
+        Logger.debug("Get all tickets: " + tickets);
         return tickets;
     }
 
