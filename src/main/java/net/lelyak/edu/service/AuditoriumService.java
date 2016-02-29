@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 /**
  * AuditoriumService - Returns info about auditoriums and places
@@ -59,7 +58,7 @@ public class AuditoriumService {
 //        return -1;
     }
 
-    public Set<Integer> getVipSeats(Auditorium auditorium) {
+    public /*Set<Integer>*/String getVipSeats(Auditorium auditorium) {
         return auditorium.getVip();
     }
 

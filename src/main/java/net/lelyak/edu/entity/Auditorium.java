@@ -2,13 +2,11 @@ package net.lelyak.edu.entity;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
-
 @Component
 public class Auditorium extends BaseEntity {
 
     private Integer seats;
-    private Set<Integer> vip;
+    private String vip;
 
     public int getSeats() {
         return seats;
@@ -18,11 +16,19 @@ public class Auditorium extends BaseEntity {
         this.seats = seats;
     }
 
-    public Set<Integer> getVip() {
+    /*public Set<Integer> getVip() {
         return vip;
     }
 
     public void setVip(Set<Integer> vip) {
+        this.vip = vip;
+    }*/
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
         this.vip = vip;
     }
 

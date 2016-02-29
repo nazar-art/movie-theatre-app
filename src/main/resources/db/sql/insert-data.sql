@@ -1,3 +1,17 @@
+------------------------------
+-- Populate t_auditorium table
+------------------------------
+INSERT INTO t_auditorium (name, seats, vip)
+VALUES ('La Scala', 350, '12,13,14,15,16,17,18,19,20');
+
+INSERT INTO t_auditorium (name, seats, vip)
+VALUES ('Grand Opera', 450, '2,3,4,5,6,7');
+
+INSERT INTO t_auditorium (name, seats, vip)
+VALUES ('Carnegie Hall', 500, '12,13,14,15,16,17,18,19,20');
+
+INSERT INTO t_auditorium (name, seats, vip)
+VALUES ('Disco Radio Hall', 150, '1,7,13,27');
 
 ------------------------
 -- Populate Users table

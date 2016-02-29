@@ -14,9 +14,9 @@ CREATE TABLE t_user (
 ----------------------------
 CREATE TABLE t_auditorium (
       id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_auditorium PRIMARY KEY,
-      name       VARCHAR(60) NOT NULL,
+      name       VARCHAR(80) NOT NULL,
       seats      INT,
-      vip        INT
+      vip        VARCHAR(80)
 );
 
 -----------------------

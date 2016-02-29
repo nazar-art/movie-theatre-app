@@ -5,7 +5,6 @@ import net.lelyak.edu.entity.Auditorium;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.testng.Assert.assertNotNull;
 
@@ -22,7 +21,7 @@ public class AuditoriumServiceTestCase extends BaseTest {
         int seatsNumber = auditoriumService.getSeatsNumber(auditorium);
         assertNotNull(seatsNumber);
 
-        Set<Integer> vipSeats = auditoriumService.getVipSeats(auditorium);
+        String vipSeats = auditoriumService.getVipSeats(auditorium);
         assertNotNull(vipSeats);
     }
 
@@ -40,7 +39,7 @@ public class AuditoriumServiceTestCase extends BaseTest {
         List<Auditorium> auditoriums = auditoriumService.getAuditoriums();
         Auditorium auditorium = auditoriums.get(0);
 
-        Set<Integer> vipSeats = auditoriumService.getVipSeats(auditorium);
+        String vipSeats = auditoriumService.getVipSeats(auditorium);
         assertNotNull(vipSeats);
     }
 
