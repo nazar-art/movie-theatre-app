@@ -1,28 +1,14 @@
 package net.lelyak.edu.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Set;
 
-public class Auditorium {
-    private Integer id;
-    private String name;
+@Component
+public class Auditorium extends BaseEntity {
+
     private Integer seats;
     private Set<Integer> vip;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getSeats() {
         return seats;
@@ -43,8 +29,6 @@ public class Auditorium {
     @Override
     public String toString() {
         return "Auditorium{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
                 ", seats=" + seats +
                 ", vip=" + vip +
                 '}';

@@ -3,8 +3,6 @@ package net.lelyak.edu.config;
 import net.lelyak.edu.entity.Auditorium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 
@@ -12,11 +10,12 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Configuration
-@PropertySource({"classpath:properties/auditorium1.properties",
+//@Configuration
+/*@PropertySource({
+        "classpath:properties/auditorium1.properties",
         "classpath:properties/auditorium2.properties",
         "classpath:properties/auditorium3.properties",
-        "classpath:db/dp.properties"})
+        "classpath:db/db.properties"})*/
 public class AuditoriumConfiguration {
 
     @Autowired

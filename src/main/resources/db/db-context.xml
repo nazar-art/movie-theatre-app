@@ -32,7 +32,7 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <bean class="net.lelyak.edu.dao.NamedParameterJdbcDaoImpl">
+    <bean class="net.lelyak.edu.dao.BaseDAO">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 

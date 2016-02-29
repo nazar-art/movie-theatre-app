@@ -1,23 +1,23 @@
 package net.lelyak.edu.dao.impl;
 
-import net.lelyak.edu.dao.IGenericDao;
-import net.lelyak.edu.dao.NamedParameterJdbcDaoImpl;
+import net.lelyak.edu.dao.BaseDAO;
 import net.lelyak.edu.entity.Auditorium;
-import net.lelyak.edu.utils.Logger;
-import net.lelyak.edu.utils.SQLStatements;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Arrays;
 
-@Repository
-public class AuditoriumDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<Auditorium, Integer> {
+public class AuditoriumDAO extends BaseDAO<Auditorium> {
 
-    @Override
+    private static final String AUDITORIUM_TABLE_NAME = "t_auditorium";
+    private static final String auditoriumFields[] = {"name", "seats", "vip"};
+
+    public AuditoriumDAO() {
+        super(Auditorium.class, AUDITORIUM_TABLE_NAME, Arrays.asList(auditoriumFields));
+    }
+
+
+
+
+    /*@Override
     public Integer save(Auditorium auditorium) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -87,13 +87,13 @@ public class AuditoriumDAO extends NamedParameterJdbcDaoImpl implements IGeneric
             }
         }
 
-        /*auditoriums.stream()
+        *//*auditoriums.stream()
                 .filter(auditorium -> auditorium.getId() != null && !exists(auditorium.getId()))
                 .forEach(auditorium -> {
                     auditorium.setId(counter++);
             save(auditorium);
             Logger.debug("Auditorium saved: " + auditorium);
-        });*/
+        });*//*
     }
 
     public boolean exists(int id) {
@@ -104,5 +104,5 @@ public class AuditoriumDAO extends NamedParameterJdbcDaoImpl implements IGeneric
         Integer count = getNamedParameterJdbcTemplate()
                 .queryForObject(sql, parameterSource, Integer.class);
         return count > 0;
-    }
+    }*/
 }

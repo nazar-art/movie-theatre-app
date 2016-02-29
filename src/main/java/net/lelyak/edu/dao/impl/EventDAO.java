@@ -1,30 +1,26 @@
 package net.lelyak.edu.dao.impl;
 
-import net.lelyak.edu.dao.IGenericDao;
-import net.lelyak.edu.dao.NamedParameterJdbcDaoImpl;
+import net.lelyak.edu.dao.BaseDAO;
 import net.lelyak.edu.entity.Event;
-import net.lelyak.edu.entity.EventRating;
-import net.lelyak.edu.utils.Logger;
-import net.lelyak.edu.utils.SQLStatements;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.Arrays;
 
-@Repository
-public class EventDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<Event, Integer> {
+public class EventDAO extends BaseDAO<Event> {
 
-    @Override
+    public static final String EVENT_TABLE_NAME = "t_event";
+    public static final String eventFields[] = {"name", "price", "rating", "airDate"};
+
+    public EventDAO() {
+        super(Event.class, EVENT_TABLE_NAME, Arrays.asList(eventFields));
+    }
+
+    /*@Override
     public Integer save(Event event) {
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", event.getId())
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
                 .addValue("rating", event.getEventRating().toString())
-                .addValue("date", event.getDateTime());
+                .addValue("date", event.getAirDate());
 
         Logger.info("Save event: " + event);
         return getNamedParameterJdbcTemplate()
@@ -45,7 +41,7 @@ public class EventDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<E
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
                 .addValue("rating", event.getEventRating())
-                .addValue("date", event.getDateTime());
+                .addValue("date", event.getAirDate());
 
         getNamedParameterJdbcTemplate().update(SQLStatements.UPDATE_EVENTS, parameterSource);
         Logger.info("Update Event: " + event.getName());
@@ -96,10 +92,10 @@ public class EventDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<E
             event.setName(rs.getString("event_name"));
             event.setPrice(rs.getDouble("event_price"));
             event.setEventRating(EventRating.valueOf(eventRating.toUpperCase()));
-            event.setDateTime(rs.getDate("event_date"));
+            event.setAirDate(rs.getDate("event_date"));
 
             return event;
         }
-    }
+    }*/
 }
 

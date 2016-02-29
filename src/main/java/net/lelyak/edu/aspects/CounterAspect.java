@@ -17,15 +17,15 @@ import java.util.Map;
  * CounterAspect - count how many times each event was accessed by name,
  * how many times its prices were queried,
  * how many times its tickets were booked.
- *
+ * <p/>
  * Store counters in map for now (later could be replaced by DB dao)
  */
 @Aspect
 public class CounterAspect {
 
-    private Map<Integer, Integer> eventCallByNameMap = new HashMap<>();
-    private Map<Integer, Integer> eventPriceCallMap = new HashMap<>();
-    private Map<Integer, Integer> eventBookTicketCallMap = new HashMap<>();
+    private Map<Long, Integer> eventCallByNameMap = new HashMap<>();
+    private Map<Long, Integer> eventPriceCallMap = new HashMap<>();
+    private Map<Long, Integer> eventBookTicketCallMap = new HashMap<>();
 
     /**
      * Pointcuts:
@@ -56,16 +56,14 @@ public class CounterAspect {
     )
     public void countEventCallByName(Event event) {
 
-        if (!eventCallByNameMap.containsKey(event.getId())) {
-
-            eventCallByNameMap.put(event.getId(), 1);
-            Logger.info(String.format("Event: %s is called by name FIRST time", event.getName()));
-        } else {
-
+        if (eventCallByNameMap.containsKey(event.getId())) {
             Integer oldValue = eventCallByNameMap.get(event.getId());
             Integer newValue = oldValue + 1;
             eventCallByNameMap.put(event.getId(), newValue);
             Logger.info(String.format("Event: %s is called by name: %s times", event.getName(), newValue));
+        } else {
+            eventCallByNameMap.put(event.getId(), 1);
+            Logger.info(String.format("Event: %s is called by name FIRST time", event.getName()));
         }
     }
 
@@ -74,17 +72,17 @@ public class CounterAspect {
             argNames = "event,dateTime,seatType,user")
     public void countEventPriceQueryCounter(Event event, Calendar dateTime, SeatType seatType, User user) {
 
-        if (!eventPriceCallMap.containsKey(event.getId())) {
-            eventPriceCallMap.put(event.getId(), 1);
-            Logger.info(String.format("Ticket price for Event: %s is called FIRST time",
-                    event.getName()));
-
-        } else {
+        if (eventPriceCallMap.containsKey(event.getId())) {
             Integer oldIndex = eventPriceCallMap.get(event.getId());
             int newIndex = oldIndex + 1;
             eventPriceCallMap.put(event.getId(), newIndex);
             Logger.info(String.format("Ticket price for Event: %s is called: %s times",
                     event.getName(), newIndex));
+
+        } else {
+            eventPriceCallMap.put(event.getId(), 1);
+            Logger.info(String.format("Ticket price for Event: %s is called FIRST time",
+                    event.getName()));
         }
 
     }
@@ -95,27 +93,27 @@ public class CounterAspect {
     public void countTicketBookingForEvent(User user, Ticket ticket) {
         Event event = ticket.getEvent();
 
-        if (!eventBookTicketCallMap.containsKey(event.getId())) {
-            eventBookTicketCallMap.put(event.getId(), 1);
-            Logger.info(String.format("Book ticket for Event: [%s] is called FIRST time", event.getName()));
-
-        } else {
+        if (eventBookTicketCallMap.containsKey(event.getId())) {
             Integer oldIndex = eventBookTicketCallMap.get(event.getId());
             int newIndex = oldIndex + 1;
             eventBookTicketCallMap.put(event.getId(), newIndex);
-            Logger.info(String.format("Book Ticket for Event: [%s] is called: %s times", event.getName(), newIndex));        }
+            Logger.info(String.format("Book Ticket for Event: [%s] is called: %s times", event.getName(), newIndex));
+        } else {
+            eventBookTicketCallMap.put(event.getId(), 1);
+            Logger.info(String.format("Book ticket for Event: [%s] is called FIRST time", event.getName()));
+        }
     }
 
 
-    public Map<Integer, Integer> getEventCallByNameMap() {
+    public Map<Long, Integer> getEventCallByNameMap() {
         return eventCallByNameMap;
     }
 
-    public Map<Integer, Integer> getEventPriceCallMap() {
+    public Map<Long, Integer> getEventPriceCallMap() {
         return eventPriceCallMap;
     }
 
-    public Map<Integer, Integer> getEventBookTicketCallMap() {
+    public Map<Long, Integer> getEventBookTicketCallMap() {
         return eventBookTicketCallMap;
     }
 }

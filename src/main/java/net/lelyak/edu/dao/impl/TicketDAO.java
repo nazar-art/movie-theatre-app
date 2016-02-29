@@ -1,27 +1,20 @@
 package net.lelyak.edu.dao.impl;
 
-import net.lelyak.edu.dao.IGenericDao;
-import net.lelyak.edu.dao.NamedParameterJdbcDaoImpl;
+import net.lelyak.edu.dao.BaseDAO;
 import net.lelyak.edu.entity.Ticket;
-import net.lelyak.edu.utils.Logger;
-import net.lelyak.edu.utils.SQLStatements;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
-@Repository
-public class TicketDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<Ticket, Integer> {
+public class TicketDAO extends BaseDAO<Ticket> {
 
-    @Autowired
+    private static final String TICKET_TABLE_NAME = "t_ticket";
+    private static final String ticketFields[] = {"name", "price", "onDate", "event_id", "user_id"};
+
+    public TicketDAO() {
+        super(Ticket.class, TICKET_TABLE_NAME, Arrays.asList(ticketFields));
+    }
+
+    /*@Autowired
     private EventDAO eventDao;
 
     @Autowired
@@ -117,5 +110,5 @@ public class TicketDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<
 
             return ticket;
         }
-    }
+    }*/
 }

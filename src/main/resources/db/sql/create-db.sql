@@ -1,63 +1,55 @@
 ----------------------
--- Create Users table
+-- create t_user table
 ----------------------
-CREATE TABLE Users (
-  user_id        INT PRIMARY KEY NOT NULL,
-  user_name      VARCHAR(60) NOT NULL,
-  user_birthday  DATE,
-  user_email     VARCHAR(60),
-  user_role      VARCHAR(20),
+CREATE TABLE t_user (
+      id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_user PRIMARY KEY,
+      name      VARCHAR(60) NOT NULL,
+      birthday  DATE,
+      email     VARCHAR(60),
+      role      VARCHAR(20)
 );
 
-----------------------
--- Create Events table
-----------------------
-CREATE TABLE Events (
-  event_id       INT PRIMARY KEY NOT NULL,
-  event_name     VARCHAR(100) NOT NULL,
-  event_price    DECIMAL(8,2),
-  event_rating   VARCHAR(60),
-  event_date     DATE,
-);
-
----------------------------
--- Create Auditoriums table
----------------------------
-CREATE TABLE Auditoriums (
-  aud_id         INT PRIMARY KEY NOT NULL,
-  aud_name       VARCHAR(60),
-  aud_seats      INT,
-  aud_vip        INT,
+----------------------------
+-- create t_auditorium table
+----------------------------
+CREATE TABLE t_auditorium (
+      id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_auditorium PRIMARY KEY,
+      name       VARCHAR(60) NOT NULL,
+      seats      INT,
+      vip        INT
 );
 
 -----------------------
--- Create Tickets table
+-- create t_event table
 -----------------------
-CREATE TABLE Tickets (
-  tick_id        INT PRIMARY KEY NOT NULL,
-  tick_price     DECIMAL(8,2),
-  event_id       INT CONSTRAINT FK_Tickets_Users
-                     REFERENCES Events ON UPDATE RESTRICT ON DELETE RESTRICT,
-  user_id        INT CONSTRAINT FK_Tickets_Events
-                     REFERENCES Users ON UPDATE RESTRICT ON DELETE CASCADE,
+CREATE TABLE t_event (
+      id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_event PRIMARY KEY,
+      name     VARCHAR(100) NOT NULL,
+      price    DECIMAL(8,2),
+      rating   VARCHAR(60),
+      airDate     DATE
 );
 
-
------------------------------
--- Create AspectCounter table
------------------------------
-CREATE TABLE AspectCounter (
-  aspect_id      INT PRIMARY KEY NOT NULL,
-  aspect_name    VARCHAR(80),
-  aspect_source  VARCHAR(150),
-  aspect_counter INT
+------------------------
+-- create t_ticket table
+------------------------
+CREATE TABLE t_ticket (
+      id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_ticket PRIMARY KEY,
+      name      VARCHAR(100) NOT NULL,
+      price     DECIMAL(8,2),
+      onDate    DATE,
+      event_id  INT CONSTRAINT fk_ticket_event
+                REFERENCES t_event ON UPDATE RESTRICT ON DELETE RESTRICT,
+      user_id   INT CONSTRAINT fk_ticket_user
+                REFERENCES t_user ON UPDATE RESTRICT ON DELETE CASCADE
 );
 
-
-----------------------
--- Define foreign keys
-----------------------
---ALTER TABLE Tickets
---ADD CONSTRAINT FK_Tickets_Users FOREIGN KEY (user_id) REFERENCES Users (user_id);
---ALTER TABLE Tickets
---ADD CONSTRAINT FK_Tickets_Events FOREIGN KEY (event_id) REFERENCES Events (event_id);
+-------------------------------
+-- create t_aspectcounter table
+-------------------------------
+CREATE TABLE t_aspectcounter (
+      id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_aspectcounter PRIMARY KEY,
+      name    VARCHAR(80),
+      target  VARCHAR(300),
+      aspectCount   INT
+);

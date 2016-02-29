@@ -10,11 +10,8 @@ import net.lelyak.edu.utils.datafactory.GeneratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 
 @Listeners({TestNGListener.class,
@@ -24,18 +21,20 @@ import org.testng.annotations.Listeners;
 @ContextConfiguration(locations = "classpath:spring/spring-context.xml")
 public class BaseTest extends AbstractTestNGSpringContextTests {
 
+    @Autowired
     private EmbeddedDatabase db;
 
-    @BeforeSuite(description = "Initialize Embedded DB instance, create and populate tables")
+    /*@BeforeSuite(description = "Initialize Embedded DB instance, create and populate tables")
     public void setUp() {
         //db = new EmbeddedDatabaseBuilder().addDefaultScripts().build();
         db = new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
+//                .setType(EmbeddedDatabaseType.H2)
+                .setType(EmbeddedDatabaseType.DERBY)
                 .setName("moviedb")
                 .addScript("db/sql/create-db.sql")
                 .addScript("db/sql/insert-data.sql")
                 .build();
-    }
+    }*/
 
     @Autowired
     protected AuditoriumService auditoriumService;

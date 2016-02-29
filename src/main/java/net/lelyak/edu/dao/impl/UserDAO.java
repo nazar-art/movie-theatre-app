@@ -1,23 +1,38 @@
 package net.lelyak.edu.dao.impl;
 
-import net.lelyak.edu.dao.IGenericDao;
-import net.lelyak.edu.dao.NamedParameterJdbcDaoImpl;
+import net.lelyak.edu.dao.BaseDAO;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
-import net.lelyak.edu.utils.SQLStatements;
-import org.springframework.jdbc.core.RowMapper;
+import net.lelyak.edu.utils.StringUtilities;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.Arrays;
 
-@Repository
-public class UserDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<User, Integer> {
+public class UserDAO extends BaseDAO<User> {
 
-    @Override
+    private static final String USER_TABLE_NAME = "t_user";
+    private static final String userFields[] = {"name", "birthday", "email", "role"};
+
+    public UserDAO() {
+        super( User.class, USER_TABLE_NAME, Arrays.asList(userFields));
+    }
+
+    public User getByEmail(String email) {
+        String sql = "SELECT * FROM " + USER_TABLE_NAME + " WHERE email=:email";
+        MapSqlParameterSource parameters = new MapSqlParameterSource("email", email);
+
+        Logger.debug(StringUtilities.buildString("getByEmail( %s ), SQL : [%s] ", email, sql));
+
+        User user = getNamedParameterJdbcTemplate()
+                .queryForObject(sql, parameters, new BeanPropertyRowMapper<User>(User.class));
+
+        Logger.debug(StringUtilities.buildString("getByEmail( %s ) : %s ", email, user.toString()));
+
+        return user;
+    }
+
+    /*@Override
     public Integer save(User entity) {
         SqlParameterSource parameterSource =
                 new MapSqlParameterSource("id", entity.getId())
@@ -109,5 +124,5 @@ public class UserDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<Us
 
             return user;
         }
-    }
+    }*/
 }

@@ -29,7 +29,7 @@ public class CounterAspectTestCase extends BaseTest {
             eventService.getEventByName(testEvent.getName());
         }
 
-        Map<Integer, Integer> eventCallByNameMap = counterAspect.getEventCallByNameMap();
+        Map<Long, Integer> eventCallByNameMap = counterAspect.getEventCallByNameMap();
 
         assertNotNull(eventCallByNameMap);
         assertFalse(eventCallByNameMap.isEmpty());
@@ -43,7 +43,7 @@ public class CounterAspectTestCase extends BaseTest {
             bookingService.getTicketPrice(event, null, SeatType.VIP, generator.getRandomUser());
         }
 
-        Map<Integer, Integer> eventPriceCallMap = counterAspect.getEventPriceCallMap();
+        Map<Long, Integer> eventPriceCallMap = counterAspect.getEventPriceCallMap();
 
         assertNotNull(eventPriceCallMap);
         assertFalse(eventPriceCallMap.isEmpty());
@@ -59,7 +59,7 @@ public class CounterAspectTestCase extends BaseTest {
             bookingService.bookTicket(user, ticket);
         }
 
-        Map<Integer, Integer> eventBookTicketCallMap = counterAspect.getEventBookTicketCallMap();
+        Map<Long, Integer> eventBookTicketCallMap = counterAspect.getEventBookTicketCallMap();
 
         assertNotNull(eventBookTicketCallMap);
         assertFalse(eventBookTicketCallMap.isEmpty());

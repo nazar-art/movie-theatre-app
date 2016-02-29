@@ -24,6 +24,8 @@ public class UserService {
     private UserDAO userDao;
     @Autowired
     private TicketDAO ticketDao;
+    @Autowired
+    private TicketService ticketService;
 
     private Map<Integer, User> users;
 
@@ -50,10 +52,10 @@ public class UserService {
 
     public void remove(User user) {
 //        users.remove(user.getId());
-        userDao.delete(user.getId());
+        userDao.delete(user);
     }
 
-    public User getById(int id) {
+    public User getById(long id) {
 //        return users.get(id);
         return userDao.getById(id);
     }
@@ -83,21 +85,6 @@ public class UserService {
     }
 
     public List<Ticket> getBookedTickets(User user) {
-        return ticketDao.getByUserId(user.getId());
-//        User byId = getById(user.getId());
-//        return byId.getBookedTickets();
+        return ticketService.getTicketsForUser(user);
     }
-
-    /*private Calendar toDateFormat(String date) {
-        Calendar birthday = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            sdf.getCalendar().setTime(sdf.parse(date));
-            birthday = sdf.getCalendar();
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return birthday;
-    }*/
 }

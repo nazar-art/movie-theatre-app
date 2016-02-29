@@ -1,8 +1,8 @@
 package net.lelyak.edu.entity;
 
 public enum EventRating {
-    HIGH("High"), MIDDLE("Middle"), LOW("Low");
-
+    HIGH/*("High")*/, MIDDLE/*("Middle")*/, LOW/*("Low")*/;
+/*
     private String name;
 
     EventRating(String name) {
@@ -16,5 +16,5 @@ public enum EventRating {
     @Override
     public String toString() {
         return name.toUpperCase();
-    }
+    }*/
 }

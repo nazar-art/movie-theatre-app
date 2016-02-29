@@ -1,22 +1,23 @@
 package net.lelyak.edu.entity;
 
-public class AspectModel {
-    private String mainSource;
-    private Integer count;
+public class AspectModel extends BaseEntity {
 
-    public String getMainSource() {
-        return mainSource;
+    private Long aspectCount;
+    private String target;
+
+    public String getTarget() {
+        return target;
     }
 
-    public void setMainSource(String mainSource) {
-        this.mainSource = mainSource;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
-    public Integer getCount() {
-        return count;
+    public Long getAspectCount() {
+        return aspectCount;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setAspectCount(Long aspectCount) {
+        this.aspectCount = aspectCount;
     }
 }

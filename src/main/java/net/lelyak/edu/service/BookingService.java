@@ -36,6 +36,8 @@ public class BookingService {
 
     @Autowired
     private TicketDAO ticketDao;
+    @Autowired
+    private TicketService ticketService;
 
     public BookingService() {
     }
@@ -69,7 +71,7 @@ public class BookingService {
 
         result.addAll(tickets.stream()
                 .filter(ticket -> ticket.getEvent() != null
-                        && ticket.getEvent().getDateTime().equals(date))
+                        && ticket.getEvent().getAirDate().equals(date))
                 .collect(toList()));
         return result;
     }
@@ -99,7 +101,7 @@ public class BookingService {
                 .filter(e -> e.getUser() != null)
                 .filter(e -> Objects.equals(e.getUser().getId(), user.getId()))
                 .collect(toList());*/
-        return ticketDao.getByUserId(user.getId());
+        return ticketService.getTicketsForUser(user);
     }
 
     public boolean checkLucky(User user) {

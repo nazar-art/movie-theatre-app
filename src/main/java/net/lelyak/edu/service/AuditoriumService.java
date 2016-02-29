@@ -1,10 +1,13 @@
 package net.lelyak.edu.service;
 
 import net.lelyak.edu.entity.Auditorium;
+import net.lelyak.edu.repository.AuditoriumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -21,9 +24,14 @@ import java.util.Set;
 @Service
 public class AuditoriumService {
 
-    private List<Auditorium> auditoriums;
+//    private List<Auditorium> auditoriums;
 
     @Autowired
+    private AuditoriumRepository auditoriumRepository;
+
+    private Random random = new Random();
+
+    /*@Autowired
     public AuditoriumService(List<Auditorium> auditoriums) {
         this.auditoriums = auditoriums;
     }
@@ -38,5 +46,24 @@ public class AuditoriumService {
 
     public Set<Integer> getVipSeats(Auditorium auditorium) {
         return auditorium.getVip();
+    }*/
+
+    public List<Auditorium> getAuditoriums() {
+        ArrayList<Auditorium> auditoriums = new ArrayList<>();
+        auditoriums.addAll(this.auditoriumRepository.getAll());
+        return auditoriums;
+    }
+
+    public int getSeatsNumber(Auditorium auditorium) {
+        return auditorium.getSeats();
+//        return -1;
+    }
+
+    public Set<Integer> getVipSeats(Auditorium auditorium) {
+        return auditorium.getVip();
+    }
+
+    public Auditorium getRandomAuditorium() {
+        return auditoriumRepository.getById(1 + random.nextInt(3));
     }
 }

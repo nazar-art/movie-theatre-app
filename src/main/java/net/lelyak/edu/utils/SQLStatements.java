@@ -1,6 +1,13 @@
 package net.lelyak.edu.utils;
 
 public final class SQLStatements {
+
+    public static String SELECT_FROM_TABLE = "SELECT * FROM ";
+    public static String SELECT_FROM_TABLE_BY_ID = "SELECT * FROM %s WHERE id=:id";
+    public static String SELECT_FROM_TABLE_BY_NAME = "SELECT * FROM %s WHERE name=:name";
+    public static String DELETE_FROM_TABLE = "DELETE FROM %s WHERE id=:id";
+    public static String TOTAL_COUNT_FROM_TABLE = "SELECT COUNT(*) FROM ";
+
     /**
      * Users:
      */

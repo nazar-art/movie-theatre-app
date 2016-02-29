@@ -3,12 +3,13 @@ package net.lelyak.edu.entity;
 import net.lelyak.edu.utils.datafactory.InjectRandomData;
 import net.lelyak.edu.utils.datafactory.RandomType;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
-public class Event {
-    @InjectRandomData(type = RandomType.NUMBER, min = 50, max = 1000)
-    private Integer id;
+public class Event extends BaseEntity {
+//    @InjectRandomData(type = RandomType.NUMBER, min = 50, max = 1000)
+//    private Integer id;
 
     @InjectRandomData(type = RandomType.WORD)
     private String name;
@@ -20,16 +21,12 @@ public class Event {
     private EventRating eventRating;
 
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
-    private Date dateTime;
+    private Date airDate;
 
+    private Auditorium auditorium;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    //Lazy loading
+    private Long auditorium_id;
 
     public String getName() {
         return name;
@@ -55,41 +52,34 @@ public class Event {
         this.eventRating = eventRating;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public Date getAirDate() {
+        return airDate;
     }
 
-    public void setDateTime(Date date) {
-            this.dateTime = date;
+    public void setAirDate(Date date) {
+            this.airDate = date;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return Objects.equals(id, event.id) &&
-                Objects.equals(name, event.name) &&
-                Objects.equals(price, event.price) &&
-                eventRating == event.eventRating;
+    public Auditorium getAuditorium() {
+        return auditorium;
     }
 
-    @Override
-    public int hashCode() {
-        if (this.id != null) {
-            return id;
-        }
-        return Objects.hash(name, price, eventRating);
+    public void setAuditorium(Auditorium auditorium) {
+        this.auditorium = auditorium;
+    }
+
+    public Long getAuditorium_id() {
+        return auditorium_id;
+    }
+
+    public void setAuditorium_id(Long auditorium_id) {
+        this.auditorium_id = auditorium_id;
     }
 
     @Override
     public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", eventRating=" + eventRating +
-                ", dateTime=" + dateTime +
-                '}';
+        DateFormat df = new SimpleDateFormat("d MM yyyy H:mm");
+        return "Event [id=" + getId() + ", name=" + getName() + ", airDate=" + df.format(airDate) + ", auditorium=" + auditorium + ", ticketPrice=" + price
+                + ", rating=" + eventRating + "]";
     }
 }

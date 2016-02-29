@@ -1,41 +1,16 @@
 package net.lelyak.edu.dao.impl;
 
-import net.lelyak.edu.dao.IGenericDao;
-import net.lelyak.edu.dao.NamedParameterJdbcDaoImpl;
+import net.lelyak.edu.dao.BaseDAO;
 import net.lelyak.edu.entity.AspectModel;
 
-import java.util.List;
+import java.util.Arrays;
 
-public class AspectCounterDAO extends NamedParameterJdbcDaoImpl implements IGenericDao<AspectModel, Integer> {
+public class AspectCounterDAO extends BaseDAO<AspectModel> {
 
-    @Override
-    public Integer save(AspectModel model) {
-//        new MapSqlParameterSource("id", model.get)
-        return null;
-    }
+    private static final String ASPECT_COUNTER_TABLE_NAME = "t_aspectcounter";
+    private static final String aspect_counter_fields[] = { "name", "target", "aspectCount"};
 
-    @Override
-    public AspectModel getById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(AspectModel model) {
-
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
-    public List<AspectModel> getAll() {
-        return null;
-    }
-
-    @Override
-    public int getTotalCount() {
-        return 0;
+    public AspectCounterDAO() {
+        super(AspectModel.class, ASPECT_COUNTER_TABLE_NAME, Arrays.asList(aspect_counter_fields));
     }
 }

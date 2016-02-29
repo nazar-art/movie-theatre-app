@@ -1,18 +1,26 @@
 package net.lelyak.edu.dao;
 
-import java.util.List;
+import net.lelyak.edu.entity.BaseEntity;
 
-public interface IGenericDao<ENTITY, ID> {
+import java.util.Collection;
+
+public interface IGenericDao<ENTITY extends BaseEntity> {
 
     Integer save(ENTITY entity);
 
-    ENTITY getById(ID id);
+    ENTITY getById(long id);
+
+    ENTITY getByName(String name);
 
     void update(ENTITY entity);
 
-    void delete(ID id);
+    void delete(ENTITY entity);
 
-    List<ENTITY> getAll();
+    Collection<ENTITY> getAll();
+
+    default void saveAll(Collection<ENTITY> entities) {
+        entities.forEach(this::save);
+    }
 
     int getTotalCount();
 }

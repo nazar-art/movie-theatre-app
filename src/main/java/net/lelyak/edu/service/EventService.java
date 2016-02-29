@@ -71,14 +71,14 @@ public class EventService {
         return result;
     }
 
-    public Event getById(int id) {
+    public Event getById(long id) {
 //        return events.get(id);
         return eventDao.getById(id);
     }
 
     public void remove(Event event) {
 //        return events.remove(event.getId());
-        eventDao.delete(event.getId());
+        eventDao.delete(event);
     }
 
     public Set<Event> getAll() {
@@ -99,8 +99,8 @@ public class EventService {
     }
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
-        if (!event.getDateTime().equals(date.getTime())) {
-            event.setDateTime(date.getTime());
+        if (!event.getAirDate().equals(date.getTime())) {
+            event.setAirDate(date.getTime());
             Logger.info(String.format("Auditorium: %s is assigned for event: %s on %s",
                     auditorium.getName(), event.getName(), formatDate(date)));
         }
@@ -110,16 +110,16 @@ public class EventService {
     public Collection<Event> getForDateRange(Date from, Date to) {
         Set<Event> allEvents = getAll();
         return allEvents.stream()
-                .filter(event -> event.getDateTime().after(from)
-                        && event.getDateTime().before(to))
+                .filter(event -> event.getAirDate().after(from)
+                        && event.getAirDate().before(to))
                 .collect(Collectors.toList());
     }
 
     public Collection<Event> getNextEvents(Date to){
         Date now  = new Date();
         return eventDao.getAll().stream()
-                .filter(event -> event.getDateTime().before(to)
-                        && event.getDateTime().after(now))
+                .filter(event -> event.getAirDate().before(to)
+                        && event.getAirDate().after(now))
                 .collect(Collectors.toList());
     }
 
