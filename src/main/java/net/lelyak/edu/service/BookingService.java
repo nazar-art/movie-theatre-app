@@ -44,7 +44,7 @@ public class BookingService {
 
     public Double getTicketPrice(Event event, Date dateTime, SeatType seatType, User user) {
         Double basePrice = event.getPrice();
-        EventRating rating = event.getRating();
+        Rating rating = event.getRating();
 
         basePrice = priceBySeatType(seatType, basePrice);
         basePrice = priceByMovieRating(basePrice, rating);
@@ -76,7 +76,7 @@ public class BookingService {
         return result;
     }
 
-    private Double priceByMovieRating(Double price, EventRating rating) {
+    private Double priceByMovieRating(Double price, Rating rating) {
         switch (rating) {
             case HIGH:
                 price = price * 1.2;

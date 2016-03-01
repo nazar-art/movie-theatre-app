@@ -16,7 +16,7 @@ public class Event extends BaseEntity {
     private Double price;
 
     @InjectRandomData(type = RandomType.EVENT_RATING)
-    private EventRating rating;
+    private Rating rating;
 
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date airDate;
@@ -42,11 +42,11 @@ public class Event extends BaseEntity {
         this.price = price;
     }
 
-    public EventRating getRating() {
+    public Rating getRating() {
         return rating;
     }
 
-    public void setRating(EventRating rating) {
+    public void setRating(Rating rating) {
         this.rating = rating;
     }
 

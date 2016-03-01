@@ -1,7 +1,7 @@
 package net.lelyak.edu.utils.datafactory;
 
 
-import net.lelyak.edu.entity.EventRating;
+import net.lelyak.edu.entity.Rating;
 import org.apache.commons.lang.math.RandomUtils;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.util.ReflectionUtils;
@@ -118,8 +118,8 @@ public class RandomDataSource {
         }
     }
 
-    private EventRating getEventRating() {
-        EventRating[] ratings = EventRating.values();
+    private Rating getEventRating() {
+        Rating[] ratings = Rating.values();
         return ratings[random.nextInt(ratings.length)];
     }
 

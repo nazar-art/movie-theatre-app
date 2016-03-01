@@ -39,7 +39,7 @@ public class EventService {
 
     public EventService() {
         /*events.put(1, new Event(1, "Green Mile", 60d, EventRating.HIGH));
-        events.put(2, new Event(2, "Gone by the wind", 50d, EventRating.MIDDLE));
+        events.put(2, new Event(2, "Gone by the wind", 50d, EventRating.Medium));
         events.put(3, new Event(3, "Mad Max: Furry road", 90d, EventRating.LOW));*/
     }
 

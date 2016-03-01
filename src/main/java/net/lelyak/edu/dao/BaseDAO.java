@@ -81,7 +81,6 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
     public ENTITY getById(long id) {
         ENTITY entity = null;
         if (exists(id)) {
-//            String sql = SQLStatements.SELECT_FROM_TABLE + tableName + " WHERE id=:id";
             String sql = StringUtilities.appendStrings(SQLStatements.SELECT_FROM_TABLE_BY_ID, tableName);
             SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
 
@@ -114,7 +113,6 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
 
     @Override
     public void delete(ENTITY entity) {
-//        String sql = SQLStatements.DELETE_FROM_TABLE + tableName + " WHERE id=:id";
         String sql = StringUtilities.appendStrings(SQLStatements.DELETE_FROM_TABLE, tableName);
         Logger.debug("QUERY is: " + sql);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("id", entity.getId());

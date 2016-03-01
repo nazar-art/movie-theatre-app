@@ -33,13 +33,13 @@ VALUES ('Severus Snape', '1980-05-01', 'snape@gmail.com', 'user');
 INSERT INTO t_event (name, price, rating, airDate)
 VALUES ('Green Mile', 60.0, 'HIGH', '2016-02-28');
 INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Gone by the wind', 50.0, 'middle', '2016-02-28');
+VALUES ('Gone by the wind', 50.0, 'MEDIUM', '2016-02-28');
 INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Mad Max: Furry road', 90.0, 'low', '2016-02-28');
+VALUES ('Mad Max: Furry road', 90.0, 'LOW', '2016-02-28');
 INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Tow Waits tribute concert', 110.0, 'high', '2016-03-13');
+VALUES ('Tow Waits tribute concert', 110.0, 'HIGH', '2016-03-13');
 INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Fredie Mercurry tribute concert', 200.0, 'high', '2016-03-19');
+VALUES ('Fredie Mercurry tribute concert', 200.0, 'HIGH', '2016-03-19');
 
 
 -------------------------
