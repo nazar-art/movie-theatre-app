@@ -40,7 +40,7 @@ public class EventServicesTestCase extends BaseTest {
         assertNotNull(eventById);
         assertEquals(eventById.getName(), testEvent.getName());
         assertEquals(eventById.getRating(), testEvent.getRating());
-        assertEquals(eventById.getPrice(), testEvent.getPrice());
+        assertEquals(eventById.getTicketPrice(), testEvent.getTicketPrice());
     }
 
     @Test/*(enabled = false)*/
@@ -59,7 +59,7 @@ public class EventServicesTestCase extends BaseTest {
         assertNotNull(event);
         assertEquals(event.getName(), testEvent.getName());
         assertEquals(event.getId(), testEvent.getId());
-        assertEquals(event.getPrice(), testEvent.getPrice());
+        assertEquals(event.getTicketPrice(), testEvent.getTicketPrice());
     }
 
 }

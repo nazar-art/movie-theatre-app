@@ -30,16 +30,16 @@ VALUES ('Severus Snape', '1980-05-01', 'snape@gmail.com', 'user');
 ------------------------
 -- Populate t_event table
 ------------------------
-INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Green Mile', 60.0, 'HIGH', '2016-02-28');
-INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Gone by the wind', 50.0, 'MEDIUM', '2016-02-28');
-INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Mad Max: Furry road', 90.0, 'LOW', '2016-02-28');
-INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Tow Waits tribute concert', 110.0, 'HIGH', '2016-03-13');
-INSERT INTO t_event (name, price, rating, airDate)
-VALUES ('Fredie Mercurry tribute concert', 200.0, 'HIGH', '2016-03-19');
+INSERT INTO t_event (name, airDate, ticketPrice, rating)
+VALUES ('Green Mile', '2016-02-28', 60.0, 'HIGH');
+INSERT INTO t_event (name, airDate, ticketPrice, rating)
+VALUES ('Gone by the wind', '2016-02-28', 50.0, 'MEDIUM');
+INSERT INTO t_event (name, airDate, ticketPrice, rating)
+VALUES ('Mad Max: Furry road', '2016-02-28', 90.0, 'LOW');
+INSERT INTO t_event (name, airDate, ticketPrice, rating)
+VALUES ('Tow Waits tribute concert', '2016-02-28', 110.0, 'HIGH');
+INSERT INTO t_event (name, airDate, ticketPrice, rating)
+VALUES ('Fredie Mercurry tribute concert', '2016-02-28', 200.0, 'HIGH');
 
 
 -------------------------

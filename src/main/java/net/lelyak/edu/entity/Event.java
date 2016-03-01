@@ -12,15 +12,14 @@ public class Event extends BaseEntity {
     @InjectRandomData(type = RandomType.WORD)
     private String name;
 
-    @InjectRandomData(type = RandomType.PRICE)
-    private Double price;
-
-    @InjectRandomData(type = RandomType.EVENT_RATING)
-    private Rating rating;
-
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date airDate;
 
+    @InjectRandomData(type = RandomType.PRICE)
+    private Double ticketPrice;
+
+    @InjectRandomData(type = RandomType.EVENT_RATING)
+    private Rating rating;
     private Auditorium auditorium;
 
     //Lazy loading
@@ -34,12 +33,12 @@ public class Event extends BaseEntity {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getTicketPrice() {
+        return ticketPrice;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setTicketPrice(Double ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
 
     public Rating getRating() {
@@ -76,8 +75,8 @@ public class Event extends BaseEntity {
 
     @Override
     public String toString() {
-        DateFormat df = new SimpleDateFormat("d MM yyyy H:mm");
-        return "Event [id=" + getId() + ", name=" + getName() + ", airDate=" + df.format(airDate) + ", auditorium=" + auditorium + ", ticketPrice=" + price
+        DateFormat df = new SimpleDateFormat("dd MM yyyy H:mm");
+        return "Event [id=" + getId() + ", name=" + getName() + ", airDate=" + df.format(airDate) + ", auditorium=" + auditorium + ", ticketPrice=" + ticketPrice
                 + ", rating=" + rating + "]";
     }
 }

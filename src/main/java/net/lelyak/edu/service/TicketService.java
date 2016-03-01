@@ -28,7 +28,7 @@ public class TicketService {
     }
 
     public Double getTicketPrice(Event event, Date date, User user) {
-        Double finalPrice = event.getPrice();
+        Double finalPrice = event.getTicketPrice();
 
         double discount = discountService.getDiscount(user, event, date);
         if (discount != 0) {

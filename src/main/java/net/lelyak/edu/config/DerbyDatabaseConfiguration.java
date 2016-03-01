@@ -26,6 +26,7 @@ public class DerbyDatabaseConfiguration {
     public DataSource dataSource() {
         // no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+//        EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2)
         EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY)
                 .setName("moviedb")
                 .addScript("db/sql/create-db.sql")

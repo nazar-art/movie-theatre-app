@@ -12,7 +12,7 @@ Task description:
 
 Create Spring application with the following services and logic using either XML or Annotation configuration. Create domain objects as needed. Create DAO classes for storing data in simple static maps (later, they will be replaced for storing data in DB).
 
-Application for managing a movie theater. Allows for admins to enter events, view purchased tickets. Allows for users to register, view events with air dates and times, get ticket price, buy tickets.
+Application for managing a movie theater. Allows for admins to enter events, view purchased tickets. Allows for users to register, view events with air dates and times, get ticket ticketPrice, buy tickets.
 
 There is no application UI for now. Create a simple console application that demonstrates the work. Additionally, unit tests could also be created.
 
@@ -23,7 +23,7 @@ Services and their descriptions:
 UserService - Manages registered users
 
 register, remove, getById, getUserByEmail, getUsersByName, getBookedTickets
-EventService - Manages events (movie shows). Event contains only basic information, like name, base price for tickets, rating (high, mid, low). Event can be presented on several dates and several times within each day. For each dateTime an Event will be presented only in single auditorium.
+EventService - Manages events (movie shows). Event contains only basic information, like name, base ticketPrice for tickets, rating (high, mid, low). Event can be presented on several dates and several times within each day. For each dateTime an Event will be presented only in single auditorium.
 
 create, remove, getByName, getAll
 getForDateRange(from, to) - returns events for specified date range (OPTIONAL)
@@ -40,9 +40,9 @@ Several auditoriums can be stored in separate property files, information from t
 getAuditoriums(), getSeatsNumber(), getVipSeats()
 BookingService - Manages tickets, prices, bookings
 
-getTicketPrice(event, date, time, seats, user) - returns price for ticket for specified event on specific date and time for specified seats.
+getTicketPrice(event, date, time, seats, user) - returns ticketPrice for ticket for specified event on specific date and time for specified seats.
 User is needed to calculate discount (see below)
-Event is needed to get base price, rating
+Event is needed to get base ticketPrice, rating
 Vip seats should cost more than regular seats (For example, 2xBasePrice)
 All prices for high rated movies should be higher (For example, 1.2xBasePrice)
 bookTicket(user, ticket) - user could  be registered or not. If user is registered, then booking information is stored for that user. Purchased tickets for particular event should be stored
