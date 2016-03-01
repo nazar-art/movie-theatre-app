@@ -16,14 +16,6 @@ public class Auditorium extends BaseEntity {
         this.seats = seats;
     }
 
-    /*public Set<Integer> getVip() {
-        return vip;
-    }
-
-    public void setVip(Set<Integer> vip) {
-        this.vip = vip;
-    }*/
-
     public String getVip() {
         return vip;
     }

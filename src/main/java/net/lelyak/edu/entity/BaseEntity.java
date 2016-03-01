@@ -1,13 +1,19 @@
 package net.lelyak.edu.entity;
 
+import net.lelyak.edu.utils.datafactory.InjectRandomData;
+import net.lelyak.edu.utils.datafactory.RandomType;
+
 public abstract class BaseEntity {
 
-    private Long id = null;
-    private String name;
+    protected Long id = null;
+
+    @InjectRandomData(type = RandomType.FIRST_NAME)
+    protected String name;
 
     public BaseEntity() {
         super();
     }
+
 
     public String getName() {
         return name;

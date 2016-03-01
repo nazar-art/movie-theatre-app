@@ -84,9 +84,11 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
 //            String sql = SQLStatements.SELECT_FROM_TABLE + tableName + " WHERE id=:id";
             String sql = StringUtilities.appendStrings(SQLStatements.SELECT_FROM_TABLE_BY_ID, tableName);
             SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
+
             Logger.debug("QUERY is: " + sql);
+
             entity = getNamedParameterJdbcTemplate()
-                    .queryForObject(sql, parameterSource, new BeanPropertyRowMapper<>(entityClass));
+                    .queryForObject(sql, parameterSource, new BeanPropertyRowMapper<ENTITY>(entityClass));
         }
         return entity;
     }
@@ -95,7 +97,7 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
     public ENTITY getByName(String name) {
         ENTITY entity = null;
         if (exists(name)) {
-            String sql = StringUtilities.buildString(SQLStatements.SELECT_FROM_TABLE_BY_NAME, tableName);
+            String sql = StringUtilities.appendStrings(SQLStatements.SELECT_FROM_TABLE_BY_NAME, tableName);
             MapSqlParameterSource parameters = new MapSqlParameterSource("name", name);
             entity = getNamedParameterJdbcTemplate().queryForObject(sql, parameters,
                     new BeanPropertyRowMapper<>(entityClass));
@@ -113,19 +115,19 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
     @Override
     public void delete(ENTITY entity) {
 //        String sql = SQLStatements.DELETE_FROM_TABLE + tableName + " WHERE id=:id";
-        String sql = StringUtilities.buildString(SQLStatements.DELETE_FROM_TABLE, tableName);
+        String sql = StringUtilities.appendStrings(SQLStatements.DELETE_FROM_TABLE, tableName);
         Logger.debug("QUERY is: " + sql);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("id", entity.getId());
 
         int rowCount = getNamedParameterJdbcTemplate().update(sql, parameterSource);
 
         Logger.debug(StringUtilities
-                .buildString("Delete %d %s rows deleted: %d", entity.getId(), entity.getName(), rowCount));
+                .appendStrings("Delete %d %s rows deleted: %d", entity.getId(), entity.getName(), rowCount));
     }
 
     @Override
     public List<ENTITY> getAll() {
-        String sql = StringUtilities.buildString(SQLStatements.SELECT_FROM_TABLE, tableName);
+        String sql = StringUtilities.appendStrings(SQLStatements.SELECT_FROM_TABLE, tableName);
         List<ENTITY> entities = getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<>(entityClass));
         Logger.debug("getAll(): " + entities.size());
         return entities;
@@ -133,9 +135,11 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
 
     @Override
     public int getTotalCount() {
-        String sql = StringUtilities.buildString(SQLStatements.TOTAL_COUNT_FROM_TABLE, tableName);
-        int rowCount = getJdbcTemplate().queryForInt(sql, new BeanPropertyRowMapper<>(entityClass));
-        Logger.debug(StringUtilities.buildString("Total table count: %d for table: %s", rowCount, tableName));
+//        String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_FROM_TABLE, tableName);
+//        int rowCount = getJdbcTemplate().queryForInt(sql, new BeanPropertyRowMapper<ENTITY>(entityClass), Integer.class);
+
+        int rowCount = getAll().size();
+        Logger.debug(StringUtilities.appendStrings("Total table count: %d for table: %s", rowCount, tableName));
         return rowCount;
     }
 
@@ -149,14 +153,15 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
     }
 
     private boolean exists(long id) {
-        String sql = SQLStatements.SELECT_FROM_TABLE + tableName + " where id=:id";
+        String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_BY_ID, tableName);
+        Logger.debug("QUERY is: " + sql);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
         Long rowCount = getNamedParameterJdbcTemplate().queryForObject(sql, parameterSource, Long.class);
         return rowCount > 0;
     }
 
     private boolean exists(String name) {
-        String sql = SQLStatements.SELECT_FROM_TABLE + tableName + " where name=:name";
+        String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_BY_NAME, tableName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("name", name);
         Long rowCount = getNamedParameterJdbcTemplate().queryForObject(sql, parameterSource, Long.class);
         return rowCount > 0;

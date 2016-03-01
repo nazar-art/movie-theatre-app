@@ -19,7 +19,7 @@ public class EventDAO extends BaseDAO<Event> {
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", event.getId())
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
-                .addValue("rating", event.getEventRating().toString())
+                .addValue("rating", event.getRating().toString())
                 .addValue("date", event.getAirDate());
 
         Logger.info("Save event: " + event);
@@ -40,7 +40,7 @@ public class EventDAO extends BaseDAO<Event> {
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", event.getId())
                 .addValue("name", event.getName())
                 .addValue("price", event.getPrice())
-                .addValue("rating", event.getEventRating())
+                .addValue("rating", event.getRating())
                 .addValue("date", event.getAirDate());
 
         getNamedParameterJdbcTemplate().update(SQLStatements.UPDATE_EVENTS, parameterSource);
@@ -91,7 +91,7 @@ public class EventDAO extends BaseDAO<Event> {
             event.setId(rs.getInt("event_id"));
             event.setName(rs.getString("event_name"));
             event.setPrice(rs.getDouble("event_price"));
-            event.setEventRating(EventRating.valueOf(eventRating.toUpperCase()));
+            event.setRating(EventRating.valueOf(eventRating.toUpperCase()));
             event.setAirDate(rs.getDate("event_date"));
 
             return event;

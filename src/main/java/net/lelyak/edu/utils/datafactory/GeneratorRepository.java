@@ -12,7 +12,7 @@ public final class GeneratorRepository {
     public User getRandomUser() {
         User user = new User();
         randomDataSource.fillEntity(user);
-        Logger.debug("GeneratorRepository.getRandomUser: " + user);
+        Logger.debug("GeneratorRepository.getRandomUser: " + user.toString());
         return user;
     }
 

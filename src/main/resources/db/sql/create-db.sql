@@ -26,7 +26,7 @@ CREATE TABLE t_event (
       id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_event PRIMARY KEY,
       name     VARCHAR(100) NOT NULL,
       price    DECIMAL(8,2),
-      rating   VARCHAR(60),
+      rating   VARCHAR(10),
       airDate     DATE
 );
 

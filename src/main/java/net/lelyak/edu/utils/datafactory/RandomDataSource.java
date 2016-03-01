@@ -7,10 +7,7 @@ import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class RandomDataSource {
 
@@ -21,7 +18,22 @@ public class RandomDataSource {
 
     public void fillEntity(Object entity) {
         if (entity != null) {
-            for (Field field : entity.getClass().getDeclaredFields()) {
+            List<Field> allFields = new ArrayList<>();
+
+            // add all class fields
+            Class<?> aClass = entity.getClass();
+            List<Field> fields = Arrays.asList(aClass.getDeclaredFields());
+            fields.forEach(allFields::add);
+//            allFields.addAll(fields);
+
+            // add all super class fields
+            if (aClass.getSuperclass() != null) {
+                List<Field> superFields = Arrays.asList(aClass.getSuperclass().getDeclaredFields());
+//                allFields.addAll(superFields);
+                superFields.forEach(allFields::add);
+            }
+
+            for (Field field : allFields) {
                 if (field.isAnnotationPresent(InjectRandomData.class)) {
 
                     InjectRandomData data = field.getAnnotation(InjectRandomData.class);

@@ -3,7 +3,6 @@ package net.lelyak.edu.tests.services;
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -49,7 +48,7 @@ public class UserServiceTestCase extends BaseTest {
         assertEquals(lastName, testUser.getName());
     }
 
-    @Test(expectedExceptions = EmptyResultDataAccessException.class)
+    @Test
     public void testRegisterAndRemoveNewUser() throws Exception {
         testUser = generator.getRandomUser();
         userService.register(testUser);
@@ -61,7 +60,6 @@ public class UserServiceTestCase extends BaseTest {
         assertEquals(createdUser.getRole(), testUser.getRole());
 
         userService.remove(testUser);
-        // expecting to catch exception here, coz user is not presented at DB
         userService.getById(testUser.getId());
     }
 

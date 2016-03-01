@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event extends BaseEntity {
-//    @InjectRandomData(type = RandomType.NUMBER, min = 50, max = 1000)
-//    private Integer id;
 
     @InjectRandomData(type = RandomType.WORD)
     private String name;
@@ -18,7 +16,7 @@ public class Event extends BaseEntity {
     private Double price;
 
     @InjectRandomData(type = RandomType.EVENT_RATING)
-    private EventRating eventRating;
+    private EventRating rating;
 
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date airDate;
@@ -44,12 +42,12 @@ public class Event extends BaseEntity {
         this.price = price;
     }
 
-    public EventRating getEventRating() {
-        return eventRating;
+    public EventRating getRating() {
+        return rating;
     }
 
-    public void setEventRating(EventRating eventRating) {
-        this.eventRating = eventRating;
+    public void setRating(EventRating rating) {
+        this.rating = rating;
     }
 
     public Date getAirDate() {
@@ -80,6 +78,6 @@ public class Event extends BaseEntity {
     public String toString() {
         DateFormat df = new SimpleDateFormat("d MM yyyy H:mm");
         return "Event [id=" + getId() + ", name=" + getName() + ", airDate=" + df.format(airDate) + ", auditorium=" + auditorium + ", ticketPrice=" + price
-                + ", rating=" + eventRating + "]";
+                + ", rating=" + rating + "]";
     }
 }

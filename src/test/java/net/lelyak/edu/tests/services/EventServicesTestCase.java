@@ -39,7 +39,7 @@ public class EventServicesTestCase extends BaseTest {
         Event eventById = eventService.getById(testEvent.getId());
         assertNotNull(eventById);
         assertEquals(eventById.getName(), testEvent.getName());
-        assertEquals(eventById.getEventRating(), testEvent.getEventRating());
+        assertEquals(eventById.getRating(), testEvent.getRating());
         assertEquals(eventById.getPrice(), testEvent.getPrice());
     }
 

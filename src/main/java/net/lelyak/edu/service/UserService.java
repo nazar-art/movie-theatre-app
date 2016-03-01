@@ -1,9 +1,9 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.impl.TicketDAO;
-import net.lelyak.edu.dao.impl.UserDAO;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.repository.EventRepository;
+import net.lelyak.edu.repository.UserRepository;
 import net.lelyak.edu.utils.Logger;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,43 +21,57 @@ import java.util.Map;
 public class UserService {
 
     @Autowired
-    private UserDAO userDao;
+    private UserRepository userRepository;
     @Autowired
-    private TicketDAO ticketDao;
+    private EventRepository eventRepository;
     @Autowired
     private TicketService ticketService;
 
     private Map<Integer, User> users;
 
-    public UserService() {
-        /*users = DatabaseMock.getUsers();
-        users.put(1, new User(1, "Garry Potter"));
-        users.put(2, new User(2, "Ron Weasley"));
-        users.put(3, new User(3, "Germiona Grendjer", "grendjer@gmail.com"));*/
-    }
-
-    public Integer register(User user) {
+    public void register(User user) {
 //        return users.put(user.getId(), user);
-        return userDao.save(user);
+        userRepository.put(user);
+//        register(user.getName(), user.getEmail(), user.getBirthday());
     }
 
-    public Integer register(User user, Date userBirthday) {
+    public void register(User user, Date userBirthday) {
         Validate.notNull(user, "user can not be null for registration");
         Validate.notNull(userBirthday, "userBirthday can not be null");
 
         user.setRole("user");
         user.setBirthday(userBirthday);
-        return register(user);
+        register(user);
+    }
+
+    public User signIn(String name) {
+        return userRepository.getByName(name);
+    }
+
+    public User register(String name, String email, Date birthday) {
+        User user = signIn(name);
+
+        if (user == null) {
+            user = new User();
+            user.setBirthday(birthday);
+            user.setEmail(email);
+            user.setName(name);
+            user.setRole("user");
+            userRepository.put(user);
+        }
+        return signIn(name);
     }
 
     public void remove(User user) {
 //        users.remove(user.getId());
-        userDao.delete(user);
+//        userDao.delete(user);
+        userRepository.remove(user);
     }
 
     public User getById(long id) {
 //        return users.get(id);
-        return userDao.getById(id);
+//        return userDao.getById(id);
+        return userRepository.getById(id);
     }
 
     public User getByEmail(String email) {
@@ -67,7 +81,8 @@ public class UserService {
                 .filter(e -> e.getEmail().equalsIgnoreCase(email))
                 .findFirst()
                 .get();*/
-        return userDao.getByEmail(email);
+//        return userDao.getByEmail(email);
+        return userRepository.getUserByEmail(email);
     }
 
     public User getByName(String name) {
@@ -77,11 +92,13 @@ public class UserService {
                 .filter(e -> e.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .get();*/
-        return userDao.getByName(name);
+//        return userDao.getByName(name);
+        return userRepository.getByName(name);
     }
 
     public int getTotalUsersCount() {
-        return userDao.getTotalCount();
+//        return userDao.getTotalCount();
+        return userRepository.getTotalCount();
     }
 
     public List<Ticket> getBookedTickets(User user) {

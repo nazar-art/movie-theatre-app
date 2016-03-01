@@ -44,7 +44,7 @@ public class BookingService {
 
     public Double getTicketPrice(Event event, Date dateTime, SeatType seatType, User user) {
         Double basePrice = event.getPrice();
-        EventRating rating = event.getEventRating();
+        EventRating rating = event.getRating();
 
         basePrice = priceBySeatType(seatType, basePrice);
         basePrice = priceByMovieRating(basePrice, rating);
