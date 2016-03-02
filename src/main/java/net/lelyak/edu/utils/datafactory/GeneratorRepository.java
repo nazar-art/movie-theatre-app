@@ -4,7 +4,9 @@ import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public final class GeneratorRepository {
 
     private RandomDataSource randomDataSource = new RandomDataSource();

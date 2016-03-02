@@ -1,9 +1,9 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.impl.EventDAO;
 import net.lelyak.edu.entity.Auditorium;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.repository.EventRepository;
 import net.lelyak.edu.utils.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,70 +32,52 @@ import java.util.stream.Collectors;
 public class EventService {
 
     @Autowired
-    private EventDAO eventDao;
-
-//    private Map<Integer, Event> events = DatabaseMock.getEvents();
-
-
-    public EventService() {
-        /*events.put(1, new Event(1, "Green Mile", 60d, EventRating.HIGH));
-        events.put(2, new Event(2, "Gone by the wind", 50d, EventRating.Medium));
-        events.put(3, new Event(3, "Mad Max: Furry road", 90d, EventRating.LOW));*/
-    }
+    private EventRepository eventRepository;
 
     /**
      * @param event new event instance.
-     * @return newly created event.
      * @deprecated Just use {@link #create(Event, User)} instead.
      * It can check if thisUser has access for event creation.
      *
      * It is used just for test reason.
      */
     @Deprecated
-    public int create(Event event) {
-//        return events.put(event.getId(), event);
-        return eventDao.save(event);
+    public void create(Event event) {
+//        return eventDao.save(event);
+        eventRepository.put(event);
     }
 
-    public int create(Event event, User thisUser) {
-        int result = -1;
+    public void create(Event event, User thisUser) {
+//        int result = -1;
         if (thisUser.getRole() != null && thisUser.getRole().equalsIgnoreCase("admin")) {
 
-//            events.put(event.getId(), event);
-            result = eventDao.save(event);
+//            result = eventDao.save(event);
+            eventRepository.put(event);
 
             Logger.info(String.format("User: %s has already created event: %s", thisUser.getName(), event.getName()));
         } else {
             Logger.warn(String.format("User: %s doesn't have permission for creating events", thisUser.getName()));
         }
-        return result;
+//        return result;
     }
 
     public Event getById(long id) {
-//        return events.get(id);
-        return eventDao.getById(id);
+//        return eventDao.getById(id);
+        return eventRepository.getById(id);
     }
 
     public void remove(Event event) {
-//        return events.remove(event.getId());
-        eventDao.delete(event);
+        eventRepository.remove(event);
     }
 
     public Set<Event> getAll() {
-        /*return events.values().stream()
-                .collect(toSet());*/
-        return eventDao.getAll().stream()
+        return eventRepository.getAll().stream()
                 .collect(Collectors.toSet());
     }
 
     public Event getEventByName(String eventName) {
         Logger.info("EventService.getEventByName called for: " + eventName);
-        /*return events.values().parallelStream()
-                .filter(e -> e.getName() != null
-                        && e.getName().equalsIgnoreCase(eventName))
-                .findAny()
-                .get();*/
-        return eventDao.getByName(eventName);
+        return eventRepository.getByName(eventName);
     }
 
     public void assignAuditorium(Event event, Auditorium auditorium, Calendar date) {
@@ -117,7 +99,7 @@ public class EventService {
 
     public Collection<Event> getNextEvents(Date to){
         Date now  = new Date();
-        return eventDao.getAll().stream()
+        return eventRepository.getAll().stream()
                 .filter(event -> event.getAirDate().before(to)
                         && event.getAirDate().after(now))
                 .collect(Collectors.toList());

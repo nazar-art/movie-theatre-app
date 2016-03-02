@@ -3,14 +3,12 @@ package net.lelyak.edu.entity;
 import net.lelyak.edu.utils.datafactory.InjectRandomData;
 import net.lelyak.edu.utils.datafactory.RandomType;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event extends BaseEntity {
 
-    @InjectRandomData(type = RandomType.WORD)
-    private String name;
+//    @InjectRandomData(type = RandomType.WORD)
+//    private String name;
 
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date airDate;
@@ -25,13 +23,13 @@ public class Event extends BaseEntity {
     //Lazy loading
     private Long auditorium_id;
 
-    public String getName() {
+    /*public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
+    }*/
 
     public Double getTicketPrice() {
         return ticketPrice;
@@ -41,12 +39,20 @@ public class Event extends BaseEntity {
         this.ticketPrice = ticketPrice;
     }
 
-    public Rating getRating() {
+    public Rating getEnumRating() {
         return rating;
     }
 
-    public void setRating(Rating rating) {
+    public void setEnumRating(Rating rating) {
         this.rating = rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = Rating.valueOf(rating);
+    }
+
+    public String getRating() {
+        return this.rating.toString();
     }
 
     public Date getAirDate() {
@@ -54,7 +60,7 @@ public class Event extends BaseEntity {
     }
 
     public void setAirDate(Date date) {
-            this.airDate = date;
+        this.airDate = date;
     }
 
     public Auditorium getAuditorium() {
@@ -73,10 +79,28 @@ public class Event extends BaseEntity {
         this.auditorium_id = auditorium_id;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         DateFormat df = new SimpleDateFormat("dd MM yyyy H:mm");
-        return "Event [id=" + getId() + ", name=" + getName() + ", airDate=" + df.format(airDate) + ", auditorium=" + auditorium + ", ticketPrice=" + ticketPrice
-                + ", rating=" + rating + "]";
+        return "Event [id=" + id
+                + ", name=" + name
+                + ", airDate=" + df.format(airDate)
+                + ", auditorium=" + auditorium
+                + ", ticketPrice=" + ticketPrice
+                + ", rating=" + rating.toString()
+                + "]";
+    }*/
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", name=" + name +
+                ", airDate=" + airDate +
+                ", ticketPrice=" + ticketPrice +
+                ", rating=" + rating +
+                ", auditorium=" + auditorium +
+                ", auditorium_id=" + auditorium_id +
+                '}';
     }
 }

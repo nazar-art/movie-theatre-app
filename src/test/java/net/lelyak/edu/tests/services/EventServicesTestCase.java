@@ -3,7 +3,6 @@ package net.lelyak.edu.tests.services;
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -14,9 +13,10 @@ public class EventServicesTestCase extends BaseTest {
     private Event testEvent;
     private User adminUser;
 
-    @Test(expectedExceptions = EmptyResultDataAccessException.class)
+    @Test
     public void testCreateAndRemoveNewEvent() throws Exception {
         testEvent = generator.getRandomEvent();
+        testEvent.setAuditorium(auditoriumService.getRandomAuditorium());
         adminUser = userService.getById(1);
 
         eventService.create(testEvent, adminUser);
@@ -33,6 +33,7 @@ public class EventServicesTestCase extends BaseTest {
     @Test
     public void testGetById() throws Exception {
         testEvent = generator.getRandomEvent();
+        testEvent.setAuditorium(auditoriumService.getRandomAuditorium());
         adminUser = userService.getById(1);
         eventService.create(testEvent, adminUser);
 
@@ -46,6 +47,7 @@ public class EventServicesTestCase extends BaseTest {
     @Test/*(enabled = false)*/
     public void testGetByName() throws Exception {
         testEvent = generator.getRandomEvent();
+        testEvent.setAuditorium(auditoriumService.getRandomAuditorium());
         adminUser = userService.getById(1);
         eventService.create(testEvent, adminUser);
 

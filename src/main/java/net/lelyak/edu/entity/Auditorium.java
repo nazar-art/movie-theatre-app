@@ -1,8 +1,5 @@
 package net.lelyak.edu.entity;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Auditorium extends BaseEntity {
 
     private Integer seats;
