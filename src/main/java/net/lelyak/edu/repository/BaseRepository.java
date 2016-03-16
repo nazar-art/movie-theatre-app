@@ -4,9 +4,11 @@ import net.lelyak.edu.dao.BaseDAO;
 import net.lelyak.edu.entity.BaseEntity;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public abstract class BaseRepository<T extends BaseEntity, E extends BaseDAO<T>> {
+
     private E dao;
 
     public E getDao() {
@@ -34,12 +36,15 @@ public abstract class BaseRepository<T extends BaseEntity, E extends BaseDAO<T>>
     }
 
     public Collection<T> getAll() {
-        Collection<T> entities = dao.getAll().stream().map(e -> postLoad(e)).collect(Collectors.toList());
-        return entities;
+        return dao.getAll().stream()
+                .map(this::postLoad)
+                .collect(toList());
     }
 
     public void putAll(Collection<T> entities) {
-        dao.saveAll(entities.stream().map(e -> postLoad(e)).collect(Collectors.toList()));
+        dao.saveAll(entities.stream()
+                .map(this::postLoad)
+                .collect(toList()));
     }
 
     public int getTotalCount() {

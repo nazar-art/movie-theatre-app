@@ -11,7 +11,6 @@ import net.lelyak.edu.service.*;
 import net.lelyak.edu.utils.TestNGListener;
 import net.lelyak.edu.utils.datafactory.GeneratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Listeners;
@@ -19,7 +18,6 @@ import org.testng.annotations.Listeners;
 @Listeners({TestNGListener.class,
         org.uncommons.reportng.HTMLReporter.class,
         org.uncommons.reportng.JUnitXMLReporter.class})
-@ComponentScan(basePackages = "net.lelyak.edu")
 @ContextConfiguration(locations = "classpath:spring/spring-context.xml")
 public class BaseTest extends AbstractTestNGSpringContextTests {
 
