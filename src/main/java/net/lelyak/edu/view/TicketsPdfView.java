@@ -11,7 +11,6 @@ import net.lelyak.edu.entity.Ticket;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,20 +20,20 @@ public class TicketsPdfView extends AbstractPdfView {
                                     HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
         @SuppressWarnings("unchecked")
-        List<Ticket> tickets = (ArrayList<Ticket>) model.get("tickets");
+        List<Ticket> tickets = (List<Ticket>) model.get("tickets");
         Font fontTitle = new Font(FontFamily.TIMES_ROMAN, 14, Font.BOLD, BaseColor.BLACK);
 
-        PdfPTable ticketsPdfTable = new PdfPTable(8);
-        document.add(new Paragraph("Recommended books for Spring framework", fontTitle));
+        PdfPTable ticketsPdfTable = new PdfPTable(5);
+        document.add(new Paragraph("Movie Theatre pdf view", fontTitle));
 
         ticketsPdfTable.setWidthPercentage(100.0f);
         ticketsPdfTable.setSpacingBefore(10);
 
-        ticketsPdfTable.addCell("id");
-        ticketsPdfTable.addCell("customer");
-        ticketsPdfTable.addCell("event");
-        ticketsPdfTable.addCell("seats");
-        ticketsPdfTable.addCell("totalPrice");
+        ticketsPdfTable.addCell("#");
+        ticketsPdfTable.addCell("User:");
+        ticketsPdfTable.addCell("Event name:");
+        ticketsPdfTable.addCell("Seat Number:");
+        ticketsPdfTable.addCell("Price:");
 //		ticketsPdfTable.addCell("realPrice");
 //		ticketsPdfTable.addCell("discountStrategy");
 //		ticketsPdfTable.addCell("discountAmount");

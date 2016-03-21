@@ -43,14 +43,16 @@ VALUES ('Fredie Mercurry tribute concert', '2016-02-28', 200.0, 'HIGH');
 
 
 -------------------------
--- Populate Tickets table
+-- Populate t_ticket table
 -------------------------
---INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
---VALUES (1, 60.0, 1, 1);
---INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
---VALUES (2, 120.0, 2, 2);
---INSERT INTO Tickets (tick_id, tick_price, event_id, user_id)
---VALUES (3, 200.0, 5, 3);
+INSERT INTO t_ticket (name, price, onDate, event_id, user_id)
+VALUES ('23', 60.0, '2016-04-28', 1, 1);
+INSERT INTO t_ticket (name, price, onDate, event_id, user_id)
+VALUES ('32', 70.0, '2016-04-18', 2, 1);
+INSERT INTO t_ticket (name, price, onDate, event_id, user_id)
+VALUES ('17', 80.0, '2016-04-09', 3, 1);
+INSERT INTO t_ticket (name, price, onDate, event_id, user_id)
+VALUES ('47', 90.0, '2016-04-08', 4, 1);
 
 
 

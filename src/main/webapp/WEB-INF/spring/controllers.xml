@@ -16,8 +16,13 @@
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
           p:order="0"/>
 
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.ResourceBundleViewResolver"
+          p:basename="views"
+          p:order="1"/>
+
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="order" value="1"/>
+        <property name="order" value="2"/>
         <property name="contentNegotiationManager">
             <bean class="org.springframework.web.accept.ContentNegotiationManager">
                 <constructor-arg>
@@ -33,35 +38,11 @@
                 </constructor-arg>
             </bean>
         </property>
-
-        <!--<property name="defaultViews">
-            <list>
-                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
-                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
-                    <constructor-arg>
-                        <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
-                            <property name="autodetectAnnotations" value="true"/>
-                        </bean>
-                    </constructor-arg>
-                </bean>
-            </list>
-        </property>-->
     </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:viewClass="org.springframework.web.servlet.view.JstlView"
           p:prefix="/WEB-INF/pages/"
           p:suffix=".jsp"
-          p:order="2"/>
-
-
-    <!--<bean id="velocityConfig"
-          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer"
-          p:resourceLoaderPath="/WEB-INF/velocity/" />
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver"
-          p:prefix="/WEB-INF/pages"
-          p:suffix=".vm"
-          p:cache="true"/>-->
-
+          p:order="3"/>
 </beans>
