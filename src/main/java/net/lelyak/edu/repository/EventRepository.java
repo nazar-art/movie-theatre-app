@@ -28,9 +28,9 @@ public class EventRepository extends BaseRepository<Event, EventDAO> {
     }
 
     @Override
-    public void put(Event entity) {
+    public int put(Event entity) {
         auditoriumRepository.put(entity.getAuditorium());
-        super.put(entity);
+        return super.put(entity);
     }
 
     @Override

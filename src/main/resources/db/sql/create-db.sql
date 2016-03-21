@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS t_user;
+DROP TABLE IF EXISTS t_auditorium;
+DROP TABLE IF EXISTS t_event;
+DROP TABLE IF EXISTS t_ticket;
+DROP TABLE IF EXISTS t_aspectcounter;
+
 ----------------------
 -- create t_user table
 ----------------------

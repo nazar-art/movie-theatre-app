@@ -150,7 +150,7 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
         return entity.getId();
     }
 
-    private boolean exists(long id) {
+    protected boolean exists(long id) {
         String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_BY_ID, tableName);
         Logger.debug("QUERY is: " + sql);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("id", id);

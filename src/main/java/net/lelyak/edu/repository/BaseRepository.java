@@ -19,8 +19,8 @@ public abstract class BaseRepository<T extends BaseEntity, E extends BaseDAO<T>>
         this.dao = dao;
     }
 
-    public void put(T entity) {
-        dao.save(preSave(entity));
+    public int put(T entity) {
+        return dao.save(preSave(entity));
     }
 
     public void remove(T entity) {

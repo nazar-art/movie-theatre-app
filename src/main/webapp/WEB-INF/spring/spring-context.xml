@@ -12,8 +12,9 @@
  		http://www.springframework.org/schema/context
  		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--<import resource="../db/db-context.xml"/>-->
+    <import resource="auditoriums.xml"/>
+    <import resource="controllers.xml"/>
 
+    <context:annotation-config/>
     <context:component-scan base-package="net.lelyak.edu"/>
-
 </beans>

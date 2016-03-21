@@ -113,23 +113,26 @@ public class UserServiceTest extends BaseTest {
     public void testF_GetPrice() throws Exception {
         Event testEvent1 = randomEvent();
         User testUser1 = randomUser();
+
         double event1Price = testEvent1.getTicketPrice();
-        double userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), "1,2,3", testUser1);
+        double userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), testUser1);
 
         assertTrue(Double.compare(event1Price, userPrice) == 0);
 
         //BirthdayDiscount
-        userPrice = userService.getPrice(testEvent1, testUser1.getBirthday(), "1,2,3", testUser1);
+        userPrice = userService.getPrice(testEvent1, testUser1.getBirthday(), testUser1);
         assertTrue(Double.compare(userPrice, event1Price * 0.95) == 0);
 
         // 10th ticket
-        userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), "1,2,3", testUser1);
+        userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), testUser1);
         assertTrue(Double.compare(event1Price, userPrice) == 0);
+
         int size = userService.listTickets(testUser1).size();
         for (int i = 0; i < 10 - size - 1; i++) {
-            userService.buyTicket(testEvent1, testEvent1.getAirDate(), "" + i, testUser1);
+            userService.buyTicket(testEvent1, testEvent1.getAirDate(), String.valueOf(i), testUser1);
         }
-        userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), "1,2,3", testUser1);
+
+        userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), testUser1);
         assertTrue(Double.compare(userPrice, event1Price * 0.5) == 0);
     }
 }

@@ -33,13 +33,6 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     @Autowired
     protected TicketService ticketService;
 
-    protected GeneratorRepository generator = new GeneratorRepository();
-
-    @Autowired
-    protected RandomTestObjectsGenerator rtog;
-
-
-
     @Autowired
     protected CounterAspect counterAspect;
     @Autowired
@@ -55,5 +48,11 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     protected TicketRepository ticketRepository;
     @Autowired
     protected UserRepository userRepository;
+
+
+    @Autowired
+    protected RandomTestObjectsGenerator rtog;
+
+    protected GeneratorRepository generator = new GeneratorRepository();
 
 }

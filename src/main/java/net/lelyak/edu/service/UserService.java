@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * UserService - Manages registered users
@@ -89,7 +90,7 @@ public class UserService {
         return eventRepository.getAll();
     }
 
-    public Double getPrice(Event event, Date date, String sits, User user) {
+    public Double getPrice(Event event, Date date, User user) {
         return ticketService.getTicketPrice(event, date, user);
     }
 
@@ -99,5 +100,14 @@ public class UserService {
 
     public Collection<Ticket> listTickets(User user) {
         return ticketService.getTicketsForUser(user);
+    }
+
+    public List<User> getAll() {
+        return userRepository.getAll().stream()
+                .collect(Collectors.toList());
+    }
+
+    public boolean isUserExist(User user) {
+        return userRepository.isUserExist(user.getId());
     }
 }

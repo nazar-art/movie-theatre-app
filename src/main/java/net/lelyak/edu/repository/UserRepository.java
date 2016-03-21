@@ -24,4 +24,8 @@ public class UserRepository extends BaseRepository<User, UserDAO> {
 	public User postLoad(User entity) {
 		return entity;
 	}
+
+	public boolean isUserExist(long id) {
+		return getById(id) != null;
+	}
 }

@@ -16,7 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("/db/db.properties")
+@PropertySource("classpath:/db/db.properties")
 public class DerbyDatabaseConfiguration {
 
     @Autowired
@@ -25,7 +25,8 @@ public class DerbyDatabaseConfiguration {
     @Bean
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY)
+//        EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY)
+        EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2)
                 .setName("moviedb")
                 .addScript("/db/sql/create-db.sql")
                 .addScript("/db/sql/insert-data.sql")

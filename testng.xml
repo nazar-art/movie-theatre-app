@@ -13,6 +13,13 @@
         <listener class-name="net.lelyak.edu.utils.TestNGListener" />
     </listeners>-->
 
+    <test name="AOP tests">
+        <classes>
+            <class name="net.lelyak.edu.tests.aspects.CounterAspectTestCase"/>
+            <class name="net.lelyak.edu.tests.aspects.DiscountAspectTestCase"/>
+        </classes>
+    </test>
+
     <test name="Unit tests for Movie Theatre Application">
         <classes>
             <class name="net.lelyak.edu.tests.services.AuditoriumServiceTestCase"/>
@@ -22,10 +29,4 @@
         </classes>
     </test>
 
-    <test name="AOP tests">
-        <classes>
-            <class name="net.lelyak.edu.tests.aspects.CounterAspectTestCase"/>
-            <class name="net.lelyak.edu.tests.aspects.DiscountAspectTestCase"/>
-        </classes>
-    </test>
 </suite>

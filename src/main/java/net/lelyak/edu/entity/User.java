@@ -13,6 +13,8 @@ public class User extends BaseEntity {
     @InjectRandomData(type = RandomType.EMAIL)
     private String email;
 
+    private String password;
+
     @InjectRandomData(type = RandomType.ROLE)
     private String role;
 
@@ -46,6 +48,14 @@ public class User extends BaseEntity {
 
     public void addTicket(Ticket ticket) {
         ticket.setUser(this);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
