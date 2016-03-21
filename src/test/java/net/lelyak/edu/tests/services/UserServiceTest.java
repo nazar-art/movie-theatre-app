@@ -69,8 +69,7 @@ public class UserServiceTest extends BaseTest {
 
         Logger.debug(StringUtilities.appendStrings("testC_ViewEvents, testEvents=[%s]", testEvents));
         Logger.debug(StringUtilities.appendStrings("testC_ViewEvents, loadedEvents=[%s]", loadedEvents));
-        assertTrue(loadedEvents.containsAll(testEvents)
-                && testEvents.size() == loadedEvents.size());
+        assertTrue(loadedEvents.containsAll(testEvents));
     }
 
     @Test

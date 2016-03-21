@@ -18,7 +18,7 @@
             <class name="net.lelyak.edu.tests.services.AuditoriumServiceTestCase"/>
             <class name="net.lelyak.edu.tests.services.UserServiceTestCase"/>
             <class name="net.lelyak.edu.tests.services.UserServiceTest"/>
-            <class name="net.lelyak.edu.tests.services.AdminServiceTest"/>
+            <class name="net.lelyak.edu.tests.services.AdminServiceTestCase"/>
         </classes>
     </test>
 

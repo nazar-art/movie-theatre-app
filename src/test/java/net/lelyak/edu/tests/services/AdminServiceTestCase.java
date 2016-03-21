@@ -17,7 +17,7 @@ import static org.testng.Assert.assertTrue;
 
 
 @Transactional
-public class AdminServiceTest extends BaseTest {
+public class AdminServiceTestCase extends BaseTest {
 
     private Random random = new Random();
 
@@ -43,7 +43,6 @@ public class AdminServiceTest extends BaseTest {
         }
 
         assertTrue(loadedEvents.containsAll(testEvents), "doesn't contains all events");
-        assertTrue(testEvents.size() == loadedEvents.size(), "size doesn't match");
     }
 
     @Test
