@@ -1,13 +1,17 @@
 package net.lelyak.edu.aspects;
 
+import net.lelyak.edu.dao.impl.AspectCounterDAO;
+import net.lelyak.edu.discounts.IDiscountStrategy;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,48 +21,59 @@ import java.util.Map;
 @Aspect
 public class DiscountAspect {
 
-    private int discountTotalCounter = 0;
-    private Map<Long, Integer> userDiscountMap = new HashMap<>();
+    @Autowired
+    private AspectCounterDAO aspectCounterDAO;
 
-    //    @Pointcut("execution(* * ..DiscountService.getDiscount(..))")
-    @Pointcut("execution(* *..DiscountService.getDiscount(..))")
-    public void accessGetDiscount() {
-    }
+    private HashMap<IDiscountStrategy, Record> discountCounter = new HashMap<>();
 
+    public static class Record {
+        long totalCount;
+        Map<User, Long> countPerUser = new HashMap<>();
 
-    @AfterReturning(pointcut = "accessGetDiscount() && args(user, event, date)",
-            argNames = "user,event,date")
-    public void countDiscountCallForeachUser(User user, Event event, Calendar date) {
+        public long getTotalCount() {
+            return totalCount;
+        }
 
-        if (userDiscountMap.containsKey(user.getId())) {
-            Integer oldIndex = userDiscountMap.get(user.getId());
-            int newIndex = oldIndex + 1;
-
-            userDiscountMap.put(user.getId(), newIndex);
-            Logger.info(String.format("Discount for User: %s is called: %s times", user.getName(), newIndex));
-        } else {
-            userDiscountMap.put(user.getId(), 1);
-            Logger.info(String.format("Discount for User: %s is called FIRST time", user.getName()));
+        public Map<User, Long> getCountPerUser() {
+            return countPerUser;
         }
     }
 
-    @AfterReturning(pointcut = "accessGetDiscount() && args(user, event, date)",
-            returning = "discount", argNames = "user,event,date,discount")
-    public void countTotalDiscountCall(User user, Event event, Calendar date, Double discount) {
-//        discountTotalCounter = discountTotalCounter + 1;
 
-        discountTotalCounter = userDiscountMap.values().stream()
-                .mapToInt(Integer::intValue)
-                .sum();
-        Logger.info(String.format("Discount calculation is called: %s time/s", discountTotalCounter));
-
+    @Pointcut(value = "execution(* getDiscount(..)) && args(user, event, date)", argNames = "user,event,date")
+    private void execDiscountStrategyGetDiscount(User user, Event event, Date date) {
     }
 
-    public int getDiscountTotalCounter() {
-        return discountTotalCounter;
+    @Pointcut("target(net.lelyak.edu.discounts.IDiscountStrategy)")
+    private void targetDiscountStrategy() {
     }
 
-    public Map<Long, Integer> getUserDiscountMap() {
-        return userDiscountMap;
+    @AfterReturning(
+            pointcut = "execDiscountStrategyGetDiscount(user, event, date) && targetDiscountStrategy()",
+            returning = "discount", argNames = "jp,user,event,date,discount")
+    public void afterDiscountStrategyGetDiscount(JoinPoint jp, User user, Event event, Date date, double discount) {
+
+        Logger.debug("afterDiscountStrategyGetDiscount for " + jp.getTarget().getClass().getName());
+
+        if (discount != 0 && IDiscountStrategy.class.isInstance(jp.getTarget())) {
+
+            IDiscountStrategy discountStrategy = (IDiscountStrategy) jp.getTarget();
+
+            if (!discountCounter.containsKey(discountStrategy))
+                discountCounter.put(discountStrategy, new Record());
+
+            Record record = discountCounter.get(discountStrategy);
+            record.totalCount++;
+
+            if (!record.countPerUser.containsKey(user)) {
+                record.countPerUser.put(user, 1L);
+            } else {
+                record.countPerUser.put(user, record.countPerUser.get(user) + 1);
+            }
+        }
+    }
+
+    public HashMap<IDiscountStrategy, Record> getDiscountCounter() {
+        return discountCounter;
     }
 }

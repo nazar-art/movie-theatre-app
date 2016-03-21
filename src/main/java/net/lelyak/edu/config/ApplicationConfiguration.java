@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@ImportResource({ "classpath:auditoriums.xml" })
+@ImportResource({"/auditoriums.xml"})
 @ComponentScan({ "net.lelyak.edu.repository", "net.lelyak.edu.service" })
 @Import({ DatabaseDAOConfiguration.class })
 public class ApplicationConfiguration {

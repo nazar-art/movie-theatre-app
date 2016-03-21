@@ -28,12 +28,12 @@ import java.util.List;
 public class DiscountService {
 
     @Resource(name = "discountStrategies")
-    private List<IDiscountStrategy> discountStrategies;
+    private List<IDiscountStrategy> strategies;
 
     public double getDiscount(User user, Event event, Date date) {
         double discount = 1;
 
-        for (IDiscountStrategy strategy : discountStrategies) {
+        for (IDiscountStrategy strategy : strategies) {
             discount *= strategy.getDiscount(user, event, date);
         }
 

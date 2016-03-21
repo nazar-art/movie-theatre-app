@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Ticket extends BaseEntity {
+
     @InjectRandomData(type = RandomType.PRICE, min = 5, max = 10)
     private Double price;
 
@@ -77,7 +78,9 @@ public class Ticket extends BaseEntity {
     public String toString() {
         DateFormat df = new SimpleDateFormat("d MM yyyy H:mm");
         return "Ticket{" +
-                "price=" + price +
+                "id=" + id +
+                ", name=" + name +
+                ", price=" + price +
                 ", onDate=" + df.format(onDate) +
                 ", event=" + event +
                 ", user=" + user +

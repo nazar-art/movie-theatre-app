@@ -1,13 +1,16 @@
 package net.lelyak.edu.service;
 
+import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.repository.EventRepository;
 import net.lelyak.edu.repository.UserRepository;
 import net.lelyak.edu.utils.Logger;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EventRepository eventRepository;
     @Autowired
     private TicketService ticketService;
 
@@ -77,6 +82,22 @@ public class UserService {
     }
 
     public List<Ticket> getBookedTickets(User user) {
+        return ticketService.getTicketsForUser(user);
+    }
+
+    public Collection<Event> viewEvents() {
+        return eventRepository.getAll();
+    }
+
+    public Double getPrice(Event event, Date date, String sits, User user) {
+        return ticketService.getTicketPrice(event, date, user);
+    }
+
+    public Ticket buyTicket(Event event, Date date, String sits, User user) {
+        return ticketService.bookTicket(event, date, sits, user);
+    }
+
+    public Collection<Ticket> listTickets(User user) {
         return ticketService.getTicketsForUser(user);
     }
 }

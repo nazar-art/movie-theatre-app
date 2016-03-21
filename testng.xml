@@ -16,15 +16,16 @@
     <test name="Unit tests for Movie Theatre Application">
         <classes>
             <class name="net.lelyak.edu.tests.services.AuditoriumServiceTestCase"/>
-            <!--<class name="net.lelyak.edu.tests.services.BookingServiceTestCase"/>-->
-            <class name="net.lelyak.edu.tests.services.EventServicesTestCase"/>
             <class name="net.lelyak.edu.tests.services.UserServiceTestCase"/>
+            <class name="net.lelyak.edu.tests.services.UserServiceTest"/>
+            <class name="net.lelyak.edu.tests.services.AdminServiceTest"/>
         </classes>
     </test>
 
-    <!--<test name="AOP tests">
+    <test name="AOP tests">
         <classes>
             <class name="net.lelyak.edu.tests.aspects.CounterAspectTestCase"/>
+            <class name="net.lelyak.edu.tests.aspects.DiscountAspectTestCase"/>
         </classes>
-    </test>-->
+    </test>
 </suite>

@@ -1,10 +1,9 @@
 package net.lelyak.edu.service;
 
-import net.lelyak.edu.dao.impl.TicketDAO;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
-import net.lelyak.edu.entity.TicketFactory;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +17,36 @@ import java.util.stream.Collectors;
 public class TicketService {
 
     @Autowired
-    private TicketDAO ticketDao;
+    private TicketRepository ticketRepository;
 
     @Autowired
     private DiscountService discountService;
 
     public void saveTicket(Ticket ticket) {
-        ticketDao.save(ticket);
+        ticketRepository.put(ticket);
+    }
+
+    public Ticket bookTicket(Event event, Date date, String sits, User user) {
+        double price = getTicketPrice(event, date, user);
+        Ticket ticket = new Ticket();
+        ticket.setName(sits);
+        ticket.setEvent(event);
+        ticket.setOnDate(date);
+        ticket.setPrice(price);
+        ticket.setUser(user);
+        ticketRepository.put(ticket);
+        return ticket;
+    }
+
+    public List<Ticket> getTicketsForUser(User user) {
+        List<Ticket> tickets = ticketRepository.getAll().stream()
+                .filter(e -> e != null)
+                .filter(t -> Objects.equals(t.getUser().getId(), user.getId()))
+                .collect(Collectors.toList());
+        if (tickets == null) {
+            tickets = Collections.<Ticket>emptyList();
+        }
+        return tickets;
     }
 
     public Double getTicketPrice(Event event, Date date, User user) {
@@ -37,19 +59,23 @@ public class TicketService {
         return finalPrice;
     }
 
-    public Ticket bookTicket(Event event, Date date, User user) {
-        Double price = getTicketPrice(event, date, user);
-        Ticket ticket = TicketFactory.getTicket(event, price, user);
-        ticket.setUser(user);
-        ticketDao.save(ticket);
-        return ticket;
+    public List<Ticket> getTicketsForEvent(Event event) {
+        List<Ticket> tickets = ticketRepository.getAll().stream()
+                .filter(e -> e != null)
+                .filter(t -> t.getEvent().equals(event))
+                .collect(Collectors.toList());
+        if (tickets == null) {
+            tickets = Collections.<Ticket>emptyList();
+        }
+        return tickets;
     }
 
-    public List<Ticket> getTicketsForUser(User user) {
-        List<Ticket> tickets = ticketDao.getAll().stream()
-                .filter(e -> e != null)
-                .filter(t -> Objects.equals(t.getUser().getId(), user.getId()))
+    public List<Ticket> getTicketsForEventDate(Event event, Date date) {
+        List<Ticket> tickets = ticketRepository.getAll().stream()
+                .filter(t -> t.getEvent().equals(event)
+                        && t.getOnDate().equals(date))
                 .collect(Collectors.toList());
+
         if (tickets == null) {
             tickets = Collections.<Ticket>emptyList();
         }

@@ -13,12 +13,12 @@ import java.util.List;
 public class DiscountConfiguration {
 
     @Bean
-    public BirthdayDiscount birthdayDiscount() {
+    public IDiscountStrategy birthdayDiscount() {
         return new BirthdayDiscount();
     }
 
     @Bean
-    public HalfPriceTicketDiscount halfPriceTicketDiscount() {
+    public IDiscountStrategy halfPriceTicketDiscount() {
         return new HalfPriceTicketDiscount();
     }
 

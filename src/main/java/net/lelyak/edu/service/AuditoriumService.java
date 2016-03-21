@@ -23,29 +23,10 @@ import java.util.Random;
 @Service
 public class AuditoriumService {
 
-//    private List<Auditorium> auditoriums;
-
     @Autowired
     private AuditoriumRepository auditoriumRepository;
 
     private Random random = new Random();
-
-    /*@Autowired
-    public AuditoriumService(List<Auditorium> auditoriums) {
-        this.auditoriums = auditoriums;
-    }
-
-    public List<Auditorium> getAuditoriums() {
-        return auditoriums;
-    }
-
-    public int getSeatsNumber(Auditorium auditorium) {
-        return auditorium.getSeats();
-    }
-
-    public Set<Integer> getVipSeats(Auditorium auditorium) {
-        return auditorium.getVip();
-    }*/
 
     public List<Auditorium> getAuditoriums() {
         ArrayList<Auditorium> auditoriums = new ArrayList<>();
@@ -55,10 +36,9 @@ public class AuditoriumService {
 
     public int getSeatsNumber(Auditorium auditorium) {
         return auditorium.getSeats();
-//        return -1;
     }
 
-    public /*Set<Integer>*/String getVipSeats(Auditorium auditorium) {
+    public String getVipSeats(Auditorium auditorium) {
         return auditorium.getVip();
     }
 

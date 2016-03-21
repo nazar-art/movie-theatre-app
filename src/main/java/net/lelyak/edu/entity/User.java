@@ -50,8 +50,10 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        String s = super.toString();
-        return "User{" + s +
+//        String s = super.toString();
+        return "User{" + /*s +*/
+                "id=" + id +
+                ", name=" + name +
                 ", email='" + email + '\'' +
                 ", birthday=" + birthday +
                 ", role=" + role +

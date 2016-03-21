@@ -6,6 +6,9 @@ import net.lelyak.edu.entity.User;
 import net.lelyak.edu.utils.Logger;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public final class GeneratorRepository {
 
@@ -16,6 +19,22 @@ public final class GeneratorRepository {
         randomDataSource.fillEntity(user);
         Logger.debug("GeneratorRepository.getRandomUser: " + user.toString());
         return user;
+    }
+
+    public User getRandomAdminUser() {
+        User user = new User();
+        randomDataSource.fillEntity(user);
+        user.setRole("admin");
+        Logger.debug("GeneratorRepository.getRandomUser: " + user.toString());
+        return user;
+    }
+
+    public List<User> getRandomUserList(int count) {
+        List<User> testUsers = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            testUsers.add(getRandomUser());
+        }
+        return testUsers;
     }
 
     public Event getRandomEvent() {

@@ -4,28 +4,26 @@ package net.lelyak.edu.discounts;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.User;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class BirthdayDiscount implements IDiscountStrategy {
 
 	private static final double DISCOUNT = .05;
 
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-
 	@Override
     public double getDiscount(User user, Event event, Date date) {
-        Date birthday = user.getBirthday();
-        Date now = new Date();
+        Calendar cl1 = Calendar.getInstance(),
+                cl2 = Calendar.getInstance();
 
-        String userBD = dateFormat.format(birthday);
-        String todayDate = dateFormat.format(now);
+        cl1.setTime(user.getBirthday());
+        cl2.setTime(date);
 
-        if (userBD.equalsIgnoreCase(todayDate)) {
+        if (cl1.get(Calendar.DAY_OF_MONTH) == cl2.get(Calendar.DAY_OF_MONTH)
+                && cl1.get(Calendar.MONTH) == cl2.get(Calendar.MONTH))
             return DISCOUNT;
-        }
-        return 0;
+        else
+            return 0;
 	}
 
 }

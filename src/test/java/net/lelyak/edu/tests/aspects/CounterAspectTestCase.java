@@ -2,68 +2,105 @@ package net.lelyak.edu.tests.aspects;
 
 import net.lelyak.edu.BaseTest;
 import net.lelyak.edu.entity.Event;
-import net.lelyak.edu.entity.SeatType;
-import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.tests.util.AspectTestUtil;
+import net.lelyak.edu.utils.Logger;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertTrue;
 
 
 public class CounterAspectTestCase extends BaseTest {
 
-    public static final int TEST_REPEAT_COUNTER = 10;
+    private AspectTestUtil atu = new AspectTestUtil();
 
-    private List<Event> eventList = new ArrayList<>();
+    @Test
+    public void testAfterEventGetByName() {
+        HashMap<Event, Long> testEventCounts = randomEventsMap();
+        eventRepository.putAll(testEventCounts.keySet());
 
-    @Test(priority = -2, alwaysRun = true)
-    public void testCallCounterAspectByNameCounter() throws Exception {
+        Logger.debug("\n================== testAfterEventGetByName: ==================");
+        Logger.debug("\n testEventCounts: ");
 
-        for (int i = 0; i < TEST_REPEAT_COUNTER; i++) {
-            Event testEvent = generator.getRandomEvent();
-            eventList.add(testEvent);
-            eventService.create(testEvent);
-            eventService.getEventByName(testEvent.getName());
+        for (Event event : testEventCounts.keySet()) {
+            Logger.debug("Event getByName for " + event.toString());
+            for (int i = 0; i < testEventCounts.get(event); i++) {
+                Logger.debug(eventRepository.getByName(event.getName()).equals(event) ? " + " : " - ");
+            }
+            Logger.debug("");
         }
 
-        Map<Long, Integer> eventCallByNameMap = counterAspect.getEventCallByNameMap();
+        HashMap<Event, Long> counterAspectEventGetByName = counterAspect.getCounterEventGetByName();
 
-        assertNotNull(eventCallByNameMap);
-        assertFalse(eventCallByNameMap.isEmpty());
-        assertEquals(eventCallByNameMap.size(), TEST_REPEAT_COUNTER, "getEventByName is not called as was expected");
-    }
+        atu.printCounter(counterAspectEventGetByName);
 
-    @Test(dependsOnMethods = "testCallCounterAspectByNameCounter")
-    public void testCallCounterAspectPriceCounter() throws Exception {
-
-        for (Event event : eventList) {
-            bookingService.getTicketPrice(event, null, SeatType.VIP, generator.getRandomUser());
-        }
-
-        Map<Long, Integer> eventPriceCallMap = counterAspect.getEventPriceCallMap();
-
-        assertNotNull(eventPriceCallMap);
-        assertFalse(eventPriceCallMap.isEmpty());
-        assertEquals(eventPriceCallMap.size(), TEST_REPEAT_COUNTER);
+        assertTrue(atu.compareEventCounts(counterAspectEventGetByName, testEventCounts));
     }
 
     @Test
-    public void testCallBookTicketAspectCounter() throws Exception {
+    public void testAfterEventGetTicketPrice() {
+        HashMap<Event, Long> testEventCounts = randomEventsMap();
 
-        for (int i = 0; i < TEST_REPEAT_COUNTER; i++) {
-            User user = generator.getRandomUser();
-            Ticket ticket = generator.assignRandomTicketToUser(user);
-            bookingService.bookTicket(user, ticket);
+        User user = randomUser();
+
+        Logger.debug("\n================== testAfterEventGetTicketPrice: ==================");
+        Logger.debug("\n testEventCounts: ");
+        for (Event event : testEventCounts.keySet()) {
+            Logger.debug("Event " + event.getName());
+            for (int i = 0; i < testEventCounts.get(event); i++) {
+                Logger.debug(" " + ticketService.getTicketPrice(event, event.getAirDate(), user) + " ");
+            }
+            Logger.debug("\n");
         }
 
-        Map<Long, Integer> eventBookTicketCallMap = counterAspect.getEventBookTicketCallMap();
+        HashMap<Event, Long> counterAspectEventGetTicketPrice = counterAspect.getCounterEventGetTicketPrice();
 
-        assertNotNull(eventBookTicketCallMap);
-        assertFalse(eventBookTicketCallMap.isEmpty());
-        assertEquals(eventBookTicketCallMap.size(), TEST_REPEAT_COUNTER);
+        atu.printCounter(counterAspectEventGetTicketPrice);
+        //check if counts matches
+        assertTrue(atu.compareEventCounts(counterAspectEventGetTicketPrice, testEventCounts));
+    }
+
+    private HashMap<Event, Long> randomEventsMap() {
+        HashMap<Event, Long> testEventCounts = new HashMap<Event, Long>();
+        for (Event e : rtog.randomEventsList(5 + rtog.nextInt(5))) {
+            e.setAuditorium(auditoriumService.getRandomAuditorium());
+            eventRepository.put(e);
+            testEventCounts.put(e, (long) (5 + rtog.nextInt(5)));
+        }
+        eventRepository.putAll(testEventCounts.keySet());
+        return testEventCounts;
+    }
+
+    @Test
+    public void testAfterEventTicketBooked() {
+        HashMap<Event, Long> testEventCounts = randomEventsMap();
+        User user = randomUser();
+
+        Logger.debug("\n==================  testAfterEventTicketBooked:================== ");
+        Logger.debug(" testEventCounts: ");
+        for (Event event : testEventCounts.keySet()) {
+
+            for (int i = 0; i < testEventCounts.get(event); i++) {
+                Logger.debug("Ticket for event '" + event.getName()
+                        + "' booked = " + ticketService.bookTicket(
+                        event,
+                        rtog.getRandomDate(),
+                        rtog.getRandomSentence(),
+                        user));
+            }
+        }
+        HashMap<Event, Long> counterAspectEventTicketBooked = counterAspect.getCounterEventTicketBooked();
+
+        atu.printCounter(counterAspectEventTicketBooked);
+
+        assertTrue(atu.compareEventCounts(counterAspectEventTicketBooked, testEventCounts));
+    }
+
+    private User randomUser() {
+        User user = rtog.randomUser();
+        userRepository.put(user);
+        return user;
     }
 }

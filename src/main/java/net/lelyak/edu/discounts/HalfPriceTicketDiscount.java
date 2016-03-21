@@ -3,26 +3,33 @@ package net.lelyak.edu.discounts;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
-import net.lelyak.edu.service.BookingService;
+import net.lelyak.edu.service.TicketService;
+import net.lelyak.edu.utils.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 public class HalfPriceTicketDiscount implements IDiscountStrategy {
 
-    private final static double HALF_PRICE_DISCOUNT = .5;
+    private final static double DISCOUNT = .5;
 
-    @Resource(name = "bookingService")
-    private BookingService bookingServices;
+    @Autowired
+    private TicketService ticketService;
 
     @Override
     public double getDiscount(User user, Event event, Date date) {
-        List<Ticket> tickets = bookingServices.getTicketsForUser(user);
-
-        if (!tickets.isEmpty()
-                && (tickets.size() + 1) % 10 == 0)
-            return HALF_PRICE_DISCOUNT;
+        Logger.debug("Every10TicketDiscountStrategy.getDiscount");
+        List<Ticket> tickets = ticketService.getTicketsForUser(user);
+        Logger.debug("\ntickets = " + tickets);
+        if (tickets == null || tickets.isEmpty()) {
+            System.out.format("Every10TicketDiscountStrategy.getDiscount: no tickets for user '%s', event '%s'\n",
+                    user.getName(), event.getName());
+            return 0;
+        }
+        if ((tickets.size() % 10) == 9) {
+            return DISCOUNT;
+        }
         return 0;
     }
 }

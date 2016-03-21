@@ -83,7 +83,7 @@ public class UserServiceTestCase extends BaseTest {
         User testUser = userService.getById(userIndex);
 
 //        Set<Ticket> bookedTickets = userService.getBookedTickets(testUser);
-        List<Ticket> ticketsForUser = bookingService.getTicketsForUser(testUser);
+        List<Ticket> ticketsForUser = ticketService.getTicketsForUser(testUser);
         assertNotNull(ticketsForUser, "booked tickets for user can not be null");
     }
 }
