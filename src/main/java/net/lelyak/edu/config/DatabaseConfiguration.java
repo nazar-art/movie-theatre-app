@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("classpath:/db/db.properties")
-public class DerbyDatabaseConfiguration {
+public class DatabaseConfiguration {
 
     @Autowired
     Environment env;

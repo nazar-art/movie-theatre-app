@@ -34,7 +34,6 @@
                         <div class="col-md-7">
                             <input name="basePrice"/>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-md-2">
@@ -80,6 +79,7 @@
                             });
                         </script>
                     </div>
+                    <%--HIDE THIS DIV--%>
                     <div style="visibility: hidden;" class="row">
                         <div class="col-md-2">
                             <label>End</label>
@@ -102,7 +102,6 @@
                     </div>
                     <input type="submit" value="Submit"/>
                 </form>
-
             </div>
         </div>
     </div>

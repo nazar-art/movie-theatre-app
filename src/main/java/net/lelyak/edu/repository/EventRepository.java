@@ -11,21 +11,9 @@ import java.util.stream.Collectors;
 
 
 public class EventRepository extends BaseRepository<Event, EventDAO> {
-    // delete, getByName, getAll
-    // getForDateRange(from, to) - returns events for specified date range
-    // (OPTIONAL)
-    // getNextEvents(to) - returns events from now till the ‘to’ date (OPTIONAL)
-    // assignAuditorium(event, auditorium, date) - assign auditorium for event
-    // for specific date
+
     @Autowired
     private AuditoriumRepository auditoriumRepository;
-
-    public Collection<Event> getForDateRange(Date from, Date to) {
-        Collection<Event> matchedEvents = getDao().getAll().stream()
-                .filter(e -> e.getAirDate().after(from) && e.getAirDate().before(to)).collect(Collectors.toList());
-
-        return matchedEvents;
-    }
 
     @Override
     public int put(Event entity) {
@@ -51,19 +39,6 @@ public class EventRepository extends BaseRepository<Event, EventDAO> {
     @Override
     public void putAll(Collection<Event> entities) {
         super.putAll(entities);
-    }
-
-    public Collection<Event> getNextEvents(Date to) {
-        Date now = new Date();
-
-        Collection<Event> matchedEvents = getDao().getAll().stream()
-                .filter(e -> e.getAirDate().before(to) && e.getAirDate().after(now)).collect(Collectors.toList());
-
-        return matchedEvents;
-    }
-
-    public void assignAuditorium(Event event, Auditorium auditorium, Date date) {
-        event.setAuditorium(auditorium);
     }
 
     private Event initEventAuditorium(Event event) {
@@ -93,5 +68,22 @@ public class EventRepository extends BaseRepository<Event, EventDAO> {
     @Override
     public Event postLoad(Event entity) {
         return initEventAuditorium(entity);
+    }
+
+    public Collection<Event> getForDateRange(Date from, Date to) {
+        return getDao().getAll().stream()
+                .filter(e -> e.getAirDate().after(from) && e.getAirDate().before(to))
+                .collect(Collectors.toList());
+    }
+
+    public void assignAuditorium(Event event, Auditorium auditorium, Date date) {
+        event.setAuditorium(auditorium);
+    }
+
+    public Collection<Event> getNextEvents(Date to) {
+        Date now = new Date();
+        return getDao().getAll().stream()
+                .filter(e -> e.getAirDate().before(to) && e.getAirDate().after(now))
+                .collect(Collectors.toList());
     }
 }

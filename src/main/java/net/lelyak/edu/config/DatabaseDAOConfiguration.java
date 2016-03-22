@@ -1,7 +1,3 @@
-/**
- * DatabaseDAOConfig.java
- *
- */
 package net.lelyak.edu.config;
 
 import net.lelyak.edu.dao.impl.*;
@@ -13,7 +9,7 @@ import org.springframework.context.annotation.Import;
 import javax.sql.DataSource;
 
 @Configuration
-@Import(DerbyDatabaseConfiguration.class)
+@Import(DatabaseConfiguration.class)
 public class DatabaseDAOConfiguration {
 
 	@Autowired
@@ -52,6 +48,5 @@ public class DatabaseDAOConfiguration {
 		AspectCounterDAO aspectCounterDAO = new AspectCounterDAO();
 		aspectCounterDAO.setDataSource(dataSource);
 		return aspectCounterDAO;
-		
 	}
 }

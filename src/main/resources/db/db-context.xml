@@ -15,25 +15,13 @@
  		http://www.springframework.org/schema/jdbc
  		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-    <bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>-->
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="db/db.properties" />-->
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-    </bean>
-
-    <bean class="net.lelyak.edu.dao.BaseDAO">
-        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <!--CREATE AND FILL TEST DATA-->

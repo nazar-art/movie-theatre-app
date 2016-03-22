@@ -14,6 +14,7 @@
 
     <import resource="auditoriums.xml"/>
     <import resource="controllers.xml"/>
+    <!--<import resource="classpath*:/db/db-context.xml"/>-->
 
     <context:annotation-config/>
     <context:component-scan base-package="net.lelyak.edu"/>

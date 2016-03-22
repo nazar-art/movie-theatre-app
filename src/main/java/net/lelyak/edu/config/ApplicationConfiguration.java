@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 
 @Configuration
-//@ImportResource({"classpath:**/auditoriums.xml"})
 @ComponentScan({ "net.lelyak.edu.repository", "net.lelyak.edu.service" })
 @Import({ DatabaseDAOConfiguration.class })
 public class ApplicationConfiguration {
@@ -30,10 +29,10 @@ public class ApplicationConfiguration {
 	private AuditoriumDAO auditoriumDAO;
 
 	@Bean
-	public UserRepository userRepository() {
-		UserRepository userRepository = new UserRepository();
-		userRepository.setDao(userDAO);
-		return userRepository;
+	public AuditoriumRepository auditoriumRepository() {
+		AuditoriumRepository auditoriumRepository = new AuditoriumRepository();
+		auditoriumRepository.setDao(auditoriumDAO);
+		return auditoriumRepository;
 	}
 
 	@Bean
@@ -44,17 +43,17 @@ public class ApplicationConfiguration {
 	}
 
 	@Bean
-	public TicketRepository bookingRepository() {
-		TicketRepository ticketRepository = new TicketRepository();
-		ticketRepository.setDao(ticketDAO);
-		return ticketRepository;
+	public UserRepository userRepository() {
+		UserRepository userRepository = new UserRepository();
+		userRepository.setDao(userDAO);
+		return userRepository;
 	}
 
 	@Bean
-	public AuditoriumRepository auditoriumRepository() {
-		AuditoriumRepository auditoriumRepository = new AuditoriumRepository();
-		auditoriumRepository.setDao(auditoriumDAO);
-		return auditoriumRepository;
+	public TicketRepository ticketRepository() {
+		TicketRepository ticketRepository = new TicketRepository();
+		ticketRepository.setDao(ticketDAO);
+		return ticketRepository;
 	}
 
 	/*@Bean
