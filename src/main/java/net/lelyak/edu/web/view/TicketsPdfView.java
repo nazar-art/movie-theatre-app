@@ -1,4 +1,4 @@
-package net.lelyak.edu.view;
+package net.lelyak.edu.web.view;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;

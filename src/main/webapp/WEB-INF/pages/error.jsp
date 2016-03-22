@@ -16,13 +16,12 @@
     <!-- Main -->
     <div id="main">
         <div class="row">
-            <h4>There are exception occured </h4>
+            <h5>OOOOps. There are exception occurred:</h5>
             <br>
-            <h4>On page${url}</h4>
+            <h5>On page: ${url}</h5>
             <br>
-            <h4>Full StackTrace</h4>
+            <h4>Detailed StackTrace:</h4>
             <code>${stackTrace}</code>
-
         </div>
 
     </div>

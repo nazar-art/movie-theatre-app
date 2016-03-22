@@ -1,4 +1,4 @@
-package net.lelyak.edu.controller;
+package net.lelyak.edu.web.controller;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -30,7 +30,6 @@ public class EventsController {
 
 	@Autowired
 	private AuditoriumRepository auditoriumRepository;
-
 	@Autowired
 	private EventRepository eventRepository;
 
@@ -59,7 +58,6 @@ public class EventsController {
 		response.setHeader("content-type", "application/xml");
 		String xml = xStream.toXML(all);
 		response.getWriter().write(xml);
-
 	}
 
 	@RequestMapping(path = "add", method = RequestMethod.POST)
@@ -74,20 +72,16 @@ public class EventsController {
 		String name = allRequestParams.get("name");
 		newEvent.setName(name);
 		// get base price
-//		String basePriceString = allRequestParams.get("basePrice");
-//		long basePrice = Long.parseLong(basePriceString);
-//		newEvent.setPrice(basePrice);
+		String basePriceString = allRequestParams.get("basePrice");
+		double basePrice = Double.valueOf(basePriceString);
+		newEvent.setTicketPrice(basePrice);
 
-		// get start
+		// get event date
 		String start = allRequestParams.get("start");
 		LocalDate startDate = LocalDateConverter.convert(start);
 		newEvent.setAirDate(Date.valueOf(startDate));
 
-		// get stop
-//		String end = allRequestParams.get("end");
-//		LocalDateTime endDateTime = LocalDateTimeConverter.convert(end);
-//		newEvent.setEnd(endDateTime);
-
+		// event rating
 		String ratingString = allRequestParams.get("rating");
 		Rating rating = Rating.valueOf(ratingString);
 		newEvent.setEnumRating(rating);

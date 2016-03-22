@@ -1,4 +1,4 @@
-package net.lelyak.edu.controller;
+package net.lelyak.edu.web.controller;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;

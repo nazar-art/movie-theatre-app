@@ -1,4 +1,4 @@
-package net.lelyak.edu.controller;
+package net.lelyak.edu.web.controller;
 
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
@@ -31,7 +31,7 @@ public class TicketsController {
 	}
 
 	@RequestMapping(path = "/my/get", produces = { "application/pdf" })
-	public ModelAndView getTicketsAsFile() {
+	public ModelAndView getTicketsAsPdfFile() {
 		User user = userService.getAll().get(0);
 		List<Ticket> ticketsForUser = ticketService.getTicketsForUser(user);
 		return new ModelAndView("ticketsPdfView", "tickets", ticketsForUser);

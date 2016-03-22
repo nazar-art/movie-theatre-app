@@ -21,7 +21,7 @@
                 <form method="post" action="/events/add">
                     <div class="row">
                         <div class="col-md-2">
-                            <label>Event Name</label>
+                            <label>Event Name:</label>
                         </div>
                         <div class="col-md-7">
                             <input name="name"/>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <label>basePrice</label>
+                            <label>Event Price:</label>
                         </div>
                         <div class="col-md-7">
                             <input name="basePrice"/>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <label>Rating</label>
+                            <label>Event Rating:</label>
                         </div>
                         <div class="col-md-7">
                             <select name="rating">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <label>Auditorium</label>
+                            <label>Auditorium (select):</label>
                         </div>
                         <div class="col-md-7">
                             <select name="auditorium">
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <label>Start</label>
+                            <label>Event Date:</label>
                         </div>
                         <div class="col-md-7">
                             <div class="form-group">
@@ -80,7 +80,7 @@
                             });
                         </script>
                     </div>
-                    <div class="row">
+                    <div style="visibility: hidden;" class="row">
                         <div class="col-md-2">
                             <label>End</label>
                         </div>

@@ -1,4 +1,4 @@
-package net.lelyak.edu.controller;
+package net.lelyak.edu.web.controller;
 
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Rating;

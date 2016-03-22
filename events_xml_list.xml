@@ -1,0 +1,44 @@
+<list>
+	<net.lelyak.edu.entity.Event>
+		<id>1</id>
+		<name>Forest Hump</name>
+		<airDate class="sql-timestamp">2016-02-27 22:00:00.0</airDate>
+		<ticketPrice>60.0</ticketPrice>
+		<rating>HIGH</rating>
+		<auditorium>
+			<id>1</id>
+			<name>La Scala</name>
+			<seats>350</seats>
+			<vip>12,13,14,15,16,17,18,19,20</vip>
+		</auditorium>
+		<auditorium__id>1</auditorium__id>
+	</net.lelyak.edu.entity.Event>
+	<net.lelyak.edu.entity.Event>
+		<id>2</id>
+		<name>Mirror</name>
+		<airDate class="sql-timestamp">2016-02-27 22:00:00.0</airDate>
+		<ticketPrice>50.0</ticketPrice>
+		<rating>MEDIUM</rating>
+		<auditorium>
+			<id>2</id>
+			<name>Grand Opera</name>
+			<seats>450</seats>
+			<vip>2,3,4,5,6,7</vip>
+		</auditorium>
+		<auditorium__id>2</auditorium__id>
+	</net.lelyak.edu.entity.Event>
+	<net.lelyak.edu.entity.Event>
+		<id>3</id>
+		<name>Mad Max</name>
+		<airDate class="sql-timestamp">2016-02-27 22:00:00.0</airDate>
+		<ticketPrice>90.0</ticketPrice>
+		<rating>LOW</rating>
+		<auditorium>
+			<id>3</id>
+			<name>Carnegie Hall</name>
+			<seats>500</seats>
+			<vip>12,13,14,15,16,17,18,19,20</vip>
+		</auditorium>
+		<auditorium__id>3</auditorium__id>
+	</net.lelyak.edu.entity.Event>
+</list>

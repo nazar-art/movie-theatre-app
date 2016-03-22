@@ -18,6 +18,7 @@ public class Event extends BaseEntity {
 
     @InjectRandomData(type = RandomType.EVENT_RATING)
     private Rating rating;
+
     private Auditorium auditorium;
 
     //Lazy loading

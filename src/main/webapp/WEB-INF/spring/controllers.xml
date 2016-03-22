@@ -11,10 +11,9 @@
 
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
-    <!--<mvc:view-controller path="/" view-name="index" />-->
 
-    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
-          p:order="0"/>
+    <!--<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+          p:order="0"/>-->
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.ResourceBundleViewResolver"
@@ -45,4 +44,6 @@
           p:prefix="/WEB-INF/pages/"
           p:suffix=".jsp"
           p:order="3"/>
+
+    <bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 </beans>

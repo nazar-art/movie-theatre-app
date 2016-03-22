@@ -2,7 +2,7 @@
     <h1 id="logo">
         <a href="${pageContext.request.contextPath}/">Movie Hunter</a>
     </h1>
-    <div class="social">
+    <div style="display: none" class="social">
         <span>FOLLOW US ON:</span>
         <ul>
             <li><a class="twitter" href="#">twitter</a></li>

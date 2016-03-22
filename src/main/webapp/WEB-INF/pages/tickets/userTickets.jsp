@@ -25,9 +25,6 @@
                     <th>event</th>
                     <th>seats</th>
                     <th>totalPrice</th>
-                    <%--<th>realPrice</th>--%>
-                    <%--<th>discountStrategy</th>--%>
-                    <%--<th>discountAmount</th>--%>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,9 +35,6 @@
                         <td>${ticket.event.name}</td>
                         <td>${ticket.name}</td>
                         <td>${ticket.price}</td>
-                        <%--<td>${ticket.realPrice}</td>--%>
-                        <%--<td>${ticket.discountStrategy}</td>--%>
-                        <%--<td>${ticket.discountAmount}</td>--%>
                     </tr>
                 </c:forEach>
                 </tbody>
