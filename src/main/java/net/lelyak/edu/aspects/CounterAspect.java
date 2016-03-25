@@ -55,10 +55,12 @@ public class CounterAspect {
             returning = "event")
     public void afterExecEventRepositoryGetByName(JoinPoint jp, Event event) {
 
-        if (!counterEventGetByName.containsKey(event))
-            counterEventGetByName.put(event, 0L);
+        if (counterEventGetByName.containsKey(event)) {
+            counterEventGetByName.put(event, counterEventGetByName.get(event) + 1);
+        } else {
+            counterEventGetByName.put(event, 1L);
+        }
 
-        counterEventGetByName.put(event, counterEventGetByName.get(event) + 1);
         Logger.debug("afterEventGetByName from " + jp.getTarget().toString() + ", event: " + event);
     }
 
@@ -66,10 +68,12 @@ public class CounterAspect {
             pointcut = "execTicketServiceGetTicketPrice(event)", argNames = "jp,event")
     public void afterTicketServiceGetTicketPrice(JoinPoint jp, Event event) {
 
-        if (!counterEventGetTicketPrice.containsKey(event))
-            counterEventGetTicketPrice.put(event, 0L);
+        if (counterEventGetTicketPrice.containsKey(event)) {
+            counterEventGetTicketPrice.put(event, counterEventGetTicketPrice.get(event) + 1);
+        } else {
+            counterEventGetTicketPrice.put(event, 1L);
+        }
 
-        counterEventGetTicketPrice.put(event, counterEventGetTicketPrice.get(event) + 1);
         Logger.debug("afterEventGetTicketPrice  from " + jp.getTarget().toString() + ", event: " + event);
     }
 
@@ -80,10 +84,12 @@ public class CounterAspect {
 
         Event event = ticket.getEvent();
 
-        if (!counterEventTicketBooked.containsKey(event))
-            counterEventTicketBooked.put(event, 0L);
+        if (counterEventTicketBooked.containsKey(event)) {
+            counterEventTicketBooked.put(event, counterEventTicketBooked.get(event) + 1);
+        } else {
+            counterEventTicketBooked.put(event, 1L);
+        }
 
-        counterEventTicketBooked.put(event, counterEventTicketBooked.get(event) + 1);
         Logger.debug("afterEventTicketBooked  from " + jp.getTarget().toString() + ", event: " + event);
     }
 
