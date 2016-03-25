@@ -15,8 +15,13 @@ public class EventRepository extends BaseRepository<Event, EventDAO> {
     @Autowired
     private AuditoriumRepository auditoriumRepository;
 
+    public void setAuditoriumRepository(AuditoriumRepository auditoriumRepository) {
+        System.out.println("EventRepository.setAuditoriumRepository");
+        this.auditoriumRepository = auditoriumRepository;
+    }
+
     @Override
-    public int put(Event entity) {
+    public long put(Event entity) {
         auditoriumRepository.put(entity.getAuditorium());
         return super.put(entity);
     }

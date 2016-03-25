@@ -86,7 +86,7 @@ public class EventsController {
 		Rating rating = Rating.valueOf(ratingString);
 		newEvent.setEnumRating(rating);
 
-		int eventId = eventRepository.put(newEvent);
+		long eventId = eventRepository.put(newEvent);
 		return "redirect:/event/" + eventId;
 	}
 
