@@ -59,16 +59,18 @@ public class DiscountAspect {
 
             IDiscountStrategy discountStrategy = (IDiscountStrategy) jp.getTarget();
 
-            if (!discountCounter.containsKey(discountStrategy))
+            if (!discountCounter.containsKey(discountStrategy)) {
                 discountCounter.put(discountStrategy, new Record());
+            }
+
 
             Record record = discountCounter.get(discountStrategy);
             record.totalCount++;
 
-            if (!record.countPerUser.containsKey(user)) {
-                record.countPerUser.put(user, 1L);
-            } else {
+            if (record.countPerUser.containsKey(user)) {
                 record.countPerUser.put(user, record.countPerUser.get(user) + 1);
+            } else {
+                record.countPerUser.put(user, 1L);
             }
         }
     }

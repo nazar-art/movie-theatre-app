@@ -11,12 +11,12 @@ import org.testng.annotations.Test;
 
 import java.util.HashMap;
 
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
 
 
 public class DiscountAspectTestCase extends BaseTest {
 
-    @Test
+    @Test // todo fix test logic for this test
     public void testAfterDiscountStrategyGetDiscount() {
         User user = rtog.randomUser();
         Event event = rtog.randomEvent();
@@ -57,7 +57,7 @@ public class DiscountAspectTestCase extends BaseTest {
             }
         }
         Logger.debug("Summa = " + sum);
-        assertTrue(sum == 4, "summa isn't as expected");
+        assertEquals(sum, 4, "summa isn't as expected");
     }
 
 }
