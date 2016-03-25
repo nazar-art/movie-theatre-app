@@ -59,22 +59,16 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
         Logger.debug("BaseDAO(), updateSQL: [" + updateSQL + "]");
     }
 
-    /*@Autowired
-    private DataSource dataSource;
-
-    @PostConstruct
-    private void initialize() {
-        setDataSource(dataSource);
-    }*/
-
     @Override
-    public Integer save(ENTITY entity) {
+    public Long save(ENTITY entity) {
+        long res;
         if (entity.getId() == null) {
-            insert(entity);
+            res = insert(entity);
         } else {
             update(entity);
+            res = entity.getId();
         }
-        return null;
+        return res;
     }
 
     @Override

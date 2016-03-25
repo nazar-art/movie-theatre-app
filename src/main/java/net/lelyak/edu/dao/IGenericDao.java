@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface IGenericDao<ENTITY extends BaseEntity> {
 
-    Integer save(ENTITY entity);
+    Long save(ENTITY entity);
 
     ENTITY getById(long id);
 

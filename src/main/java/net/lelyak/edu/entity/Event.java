@@ -7,9 +7,6 @@ import java.util.Date;
 
 public class Event extends BaseEntity {
 
-//    @InjectRandomData(type = RandomType.WORD)
-//    private String name;
-
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date airDate;
 
@@ -23,14 +20,6 @@ public class Event extends BaseEntity {
 
     //Lazy loading
     private Long auditorium_id;
-
-    /*public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }*/
 
     public Double getTicketPrice() {
         return ticketPrice;
@@ -79,18 +68,6 @@ public class Event extends BaseEntity {
     public void setAuditorium_id(Long auditorium_id) {
         this.auditorium_id = auditorium_id;
     }
-
-    /*@Override
-    public String toString() {
-        DateFormat df = new SimpleDateFormat("dd MM yyyy H:mm");
-        return "Event [id=" + id
-                + ", name=" + name
-                + ", airDate=" + df.format(airDate)
-                + ", auditorium=" + auditorium
-                + ", ticketPrice=" + ticketPrice
-                + ", rating=" + rating.toString()
-                + "]";
-    }*/
 
     @Override
     public String toString() {
