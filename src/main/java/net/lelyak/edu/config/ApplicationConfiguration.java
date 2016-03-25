@@ -39,7 +39,6 @@ public class ApplicationConfiguration {
 	public EventRepository eventRepository() {
 		EventRepository eventRepository = new EventRepository();
 		eventRepository.setDao(eventDAO);
-		eventRepository.setAuditoriumRepository(auditoriumRepository());
 		return eventRepository;
 	}
 

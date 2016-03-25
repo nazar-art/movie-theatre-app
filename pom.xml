@@ -6,7 +6,6 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.lelyak.edu</groupId>
     <artifactId>MovieTheatre</artifactId>
-    <!--<packaging>jar</packaging>-->
     <packaging>war</packaging>
 
     <version>0.0.1</version>
