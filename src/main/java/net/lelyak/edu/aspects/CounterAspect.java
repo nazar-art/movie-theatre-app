@@ -54,12 +54,12 @@ public class CounterAspect {
             pointcut = "execEventRepositoryGetByName() && withinEventRepository()",
             returning = "event")
     public void afterExecEventRepositoryGetByName(JoinPoint jp, Event event) {
+
         if (!counterEventGetByName.containsKey(event))
             counterEventGetByName.put(event, 0L);
 
         counterEventGetByName.put(event, counterEventGetByName.get(event) + 1);
-        Logger.debug("afterEventGetByName from " + jp.getTarget().toString()
-                + ", event: " + event);
+        Logger.debug("afterEventGetByName from " + jp.getTarget().toString() + ", event: " + event);
     }
 
     @AfterReturning(
@@ -70,8 +70,7 @@ public class CounterAspect {
             counterEventGetTicketPrice.put(event, 0L);
 
         counterEventGetTicketPrice.put(event, counterEventGetTicketPrice.get(event) + 1);
-        Logger.debug("afterEventGetTicketPrice  from " + jp.getTarget().toString()
-                + ", event: " + event);
+        Logger.debug("afterEventGetTicketPrice  from " + jp.getTarget().toString() + ", event: " + event);
     }
 
     @AfterReturning(
@@ -85,8 +84,7 @@ public class CounterAspect {
             counterEventTicketBooked.put(event, 0L);
 
         counterEventTicketBooked.put(event, counterEventTicketBooked.get(event) + 1);
-        Logger.debug("afterEventTicketBooked  from " + jp.getTarget().toString()
-                + ", event: " + event);
+        Logger.debug("afterEventTicketBooked  from " + jp.getTarget().toString() + ", event: " + event);
     }
 
     public HashMap<Event, Long> getCounterEventGetByName() {
