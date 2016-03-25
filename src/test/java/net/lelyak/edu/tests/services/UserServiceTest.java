@@ -108,7 +108,6 @@ public class UserServiceTest extends BaseTest {
                 && loadedTickets.size() == testTickets.size());
     }
 
-
     @Test
     public void testF_GetPrice() throws Exception {
         Event testEvent1 = randomEvent();
@@ -117,15 +116,17 @@ public class UserServiceTest extends BaseTest {
         double event1Price = testEvent1.getTicketPrice();
         double userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), testUser1);
 
-        assertTrue(Double.compare(event1Price, userPrice) == 0);
+        Logger.info("event price: " + event1Price);
+        Logger.info("user price: " + userPrice);
+        assertEquals(event1Price, userPrice, "prices is not equal");
 
         //BirthdayDiscount
         userPrice = userService.getPrice(testEvent1, testUser1.getBirthday(), testUser1);
-        assertTrue(Double.compare(userPrice, event1Price * 0.95) == 0);
+        assertEquals(userPrice, event1Price * 0.95, "BirthdayDiscount prices is not the same");
 
         // 10th ticket
         userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), testUser1);
-        assertTrue(Double.compare(event1Price, userPrice) == 0);
+        assertEquals(event1Price, userPrice, "10th ticket prices isn't the same");
 
         int size = userService.listTickets(testUser1).size();
         for (int i = 0; i < 10 - size - 1; i++) {
@@ -133,6 +134,6 @@ public class UserServiceTest extends BaseTest {
         }
 
         userPrice = userService.getPrice(testEvent1, testEvent1.getAirDate(), testUser1);
-        assertTrue(Double.compare(userPrice, event1Price * 0.5) == 0);
+        assertEquals(userPrice, event1Price * 0.5, "final price check");
     }
 }

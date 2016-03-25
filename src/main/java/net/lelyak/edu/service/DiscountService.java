@@ -31,12 +31,14 @@ public class DiscountService {
     private List<IDiscountStrategy> strategies;
 
     public double getDiscount(User user, Event event, Date date) {
-        double discount = 1;
+        double totalDiscount = 1;
 
         for (IDiscountStrategy strategy : strategies) {
-            discount *= strategy.getDiscount(user, event, date);
+            double discount = strategy.getDiscount(user, event, date);
+            if (discount != 0) {
+                totalDiscount *= (1 - discount);
+            }
         }
-
-        return 1 - discount;
+        return 1 - totalDiscount;
     }
 }
