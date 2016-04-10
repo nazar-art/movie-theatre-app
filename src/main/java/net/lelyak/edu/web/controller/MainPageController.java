@@ -25,7 +25,7 @@ public class MainPageController {
 		return indexModelAndView;
 	}
 
-	@RequestMapping(value = "/errorTest", method = { RequestMethod.GET })
+	@RequestMapping(value = "/witherror", method = { RequestMethod.GET })
 	public void openPageWithException() throws IOException {
 		throw new IOException("some Error occurred in this controller");
 	}

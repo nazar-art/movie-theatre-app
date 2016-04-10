@@ -14,12 +14,12 @@
 <div id="shell">
     <jsp:include page="../header.jsp"/>
     <div id="main">
-        <br/> <a
-            href="${pageContext.request.contextPath}/events/manage/add"
+        <br/>
+        <a href="${pageContext.request.contextPath}/events/manage/add"
             class="btn btn-info">Add Event</a> <a
             href="${pageContext.request.contextPath}/events/all/get"
             class="btn btn-info">Load Events in Xml</a>
-        <br></br>
+        <br/>
         <div class="row">
             <form action="${pageContext.request.contextPath}/events/loadFromFile"
                   enctype="multipart/form-data" method="post">
@@ -30,7 +30,7 @@
             </form>
         </div>
 
-        <br></br>
+        <br/>
         <div id="content" class="bg-success row" style="height: 100%">
             <c:forEach items="${allEvents}" var="event">
                 <div class="col-md-3">

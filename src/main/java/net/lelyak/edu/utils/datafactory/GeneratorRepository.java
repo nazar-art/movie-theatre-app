@@ -3,6 +3,7 @@ package net.lelyak.edu.utils.datafactory;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.entity.enums.UserRole;
 import net.lelyak.edu.utils.Logger;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,7 @@ public final class GeneratorRepository {
     public User getRandomAdminUser() {
         User user = new User();
         randomDataSource.fillEntity(user);
-        user.setRole("admin");
+        user.setRole(UserRole.BOOKING_MANAGER.toString());
         Logger.debug("GeneratorRepository.getRandomUser: " + user.toString());
         return user;
     }

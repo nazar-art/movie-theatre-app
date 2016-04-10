@@ -25,7 +25,7 @@ public class UserRepository extends BaseRepository<User, UserDAO> {
 		return entity;
 	}
 
-	public boolean isUserExist(long id) {
-		return getById(id) != null;
+	public boolean isUserExist(String email) {
+		return getDao().isUserPresented(email);
 	}
 }

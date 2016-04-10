@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS t_auditorium;
 DROP TABLE IF EXISTS t_event;
 DROP TABLE IF EXISTS t_ticket;
 DROP TABLE IF EXISTS t_aspectcounter;
+DROP TABLE IF EXISTS t_useraccount;
 
 ----------------------
 -- create t_user table
@@ -13,7 +14,8 @@ CREATE TABLE t_user (
       birthday  DATE,
       email     VARCHAR(60),
       password  VARCHAR(100),
-      role      VARCHAR(20)
+      role      VARCHAR(300),
+      enabled   SMALLINT(6)
 );
 
 ----------------------------
@@ -62,3 +64,25 @@ CREATE TABLE t_aspectcounter (
       target  VARCHAR(300),
       aspectCount   INT
 );
+
+-----------------------------
+-- create t_useraccount table
+-----------------------------
+CREATE TABLE t_useraccount (
+      id INT GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_useraccount PRIMARY KEY,
+      balance   DECIMAL(8,2),
+      user_id   INT CONSTRAINT fk_useraccount_user
+                REFERENCES t_user ON UPDATE RESTRICT ON DELETE CASCADE
+);
+
+-----------------------------------
+-- create persistent_logins table
+-----------------------------------
+--CREATE TABLE persistent_logins (
+--      username   VARCHAR(80),
+--      series     VARCHAR(100) PRIMARY KEY,
+--      token      VARCHAR(120),
+--      last_used  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+--);
+
+

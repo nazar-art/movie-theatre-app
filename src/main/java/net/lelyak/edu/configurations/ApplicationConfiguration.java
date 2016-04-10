@@ -1,13 +1,7 @@
-package net.lelyak.edu.config;
+package net.lelyak.edu.configurations;
 
-import net.lelyak.edu.dao.impl.AuditoriumDAO;
-import net.lelyak.edu.dao.impl.EventDAO;
-import net.lelyak.edu.dao.impl.TicketDAO;
-import net.lelyak.edu.dao.impl.UserDAO;
-import net.lelyak.edu.repository.AuditoriumRepository;
-import net.lelyak.edu.repository.EventRepository;
-import net.lelyak.edu.repository.TicketRepository;
-import net.lelyak.edu.repository.UserRepository;
+import net.lelyak.edu.dao.impl.*;
+import net.lelyak.edu.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 
@@ -27,6 +21,9 @@ public class ApplicationConfiguration {
 
 	@Autowired
 	private AuditoriumDAO auditoriumDAO;
+
+	@Autowired
+	private UserAccountDAO userAccountDAO;
 
 	@Bean
 	public AuditoriumRepository auditoriumRepository() {
@@ -54,6 +51,13 @@ public class ApplicationConfiguration {
 		TicketRepository ticketRepository = new TicketRepository();
 		ticketRepository.setDao(ticketDAO);
 		return ticketRepository;
+	}
+
+	@Bean
+	public UserAccountRepository userAccountRepository() {
+		UserAccountRepository userAccountRepository = new UserAccountRepository();
+		userAccountRepository.setDao(userAccountDAO);
+		return userAccountRepository;
 	}
 
 	/*@Bean

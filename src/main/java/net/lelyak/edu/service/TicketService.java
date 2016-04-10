@@ -3,9 +3,13 @@ package net.lelyak.edu.service;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.entity.UserAccount;
 import net.lelyak.edu.repository.TicketRepository;
+import net.lelyak.edu.repository.UserAccountRepository;
+import net.lelyak.edu.utils.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Date;
@@ -20,6 +24,8 @@ public class TicketService {
     private TicketRepository ticketRepository;
     @Autowired
     private DiscountService discountService;
+    @Autowired
+    private UserAccountRepository userAccountRepository;
 
     public void saveTicket(Ticket ticket) {
         ticketRepository.put(ticket);
@@ -37,11 +43,32 @@ public class TicketService {
         return ticket;
     }
 
+    @Transactional
+    public boolean bookTicket(Ticket ticket) {
+        Logger.debug("Book ticket: " + ticket);
+        double price = getTicketPrice(ticket.getEvent(), ticket.getOnDate(), ticket.getUser());
+        ticket.setPrice(price);
+
+        User customer = ticket.getUser();
+        UserAccount account = userAccountRepository.getForUser(customer);
+        double balance = account.getBalance();
+        double totalPrice = ticket.getPrice();
+        if (balance < totalPrice) {
+            return false;
+        }
+        account.setBalance(balance - totalPrice);
+        userAccountRepository.getDao().update(account);
+        ticketRepository.put(ticket);
+        return true;
+    }
+
     public List<Ticket> getTicketsForUser(User user) {
+        Logger.debug("TicketService.getTicketsForUser");
         List<Ticket> tickets = ticketRepository.getAll().stream()
                 .filter(e -> e != null)
                 .filter(t -> Objects.equals(t.getUser().getId(), user.getId()))
                 .collect(Collectors.toList());
+        Logger.debug("COLLECTED TICKETS: " + tickets);
         if (tickets == null) {
             tickets = Collections.<Ticket>emptyList();
         }

@@ -1,4 +1,4 @@
-package net.lelyak.edu.config;
+package net.lelyak.edu.configurations;
 
 import net.lelyak.edu.aspects.CounterAspect;
 import net.lelyak.edu.aspects.DiscountAspect;

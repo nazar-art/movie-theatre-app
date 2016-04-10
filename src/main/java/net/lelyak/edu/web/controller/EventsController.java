@@ -4,12 +4,13 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import net.lelyak.edu.entity.Auditorium;
 import net.lelyak.edu.entity.Event;
-import net.lelyak.edu.entity.Rating;
+import net.lelyak.edu.entity.enums.Rating;
 import net.lelyak.edu.repository.AuditoriumRepository;
 import net.lelyak.edu.repository.EventRepository;
 import net.lelyak.edu.utils.LocalDateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,10 +35,9 @@ public class EventsController {
 	private EventRepository eventRepository;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ModelAndView openAllEvents() {
-		ModelAndView mav = new ModelAndView("events/allEvents");
-		mav.addObject("events", eventRepository.getAll());
-		return mav;
+	public String openAllEvents(Model model) {
+		model.addAttribute("events", eventRepository.getAll());
+		return "events/allEvents";
 	}
 
 	@RequestMapping(value = "/loadFromFile", method = RequestMethod.POST)
@@ -51,7 +51,7 @@ public class EventsController {
 		return "redirect:/events/all";
 	}
 
-	@RequestMapping(value = "/all/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/all/download", method = RequestMethod.GET)
 	public void getEventsInXml(HttpServletResponse response) throws IOException {
 		List<Event> all = (List<Event>) eventRepository.getAll();
 		XStream xStream = new XStream(new StaxDriver());
@@ -60,7 +60,7 @@ public class EventsController {
 		response.getWriter().write(xml);
 	}
 
-	@RequestMapping(path = "add", method = RequestMethod.POST)
+	@RequestMapping(path = "/add", method = RequestMethod.POST)
 	public String addEvent(@RequestParam Map<String, String> allRequestParams) {
 		Event newEvent = new Event();
 		// get auditorium id from request
@@ -91,11 +91,32 @@ public class EventsController {
 	}
 
 	@RequestMapping("book/{eventId}")
-	public ModelAndView openBookTicketForEventPage(@PathVariable("eventId") Long eventId) {
-		ModelAndView openBookTicketForEventModelAndView = new ModelAndView("events/book");
+	public String openBookTicketForEventPage(@PathVariable("eventId") Long eventId, Model model) {
 		Event event = eventRepository.getById(eventId);
-		openBookTicketForEventModelAndView.addObject("event", event);
-		return openBookTicketForEventModelAndView;
+		model.addAttribute("event", event);
+		return "events/book";
+	}
+
+	@RequestMapping("/{eventId}")
+	public String openEventPage(@PathVariable("eventId") Long eventId, Model model) {
+		model.addAttribute("event", eventRepository.getById(eventId));
+		return "events/event";
+	}
+
+	@RequestMapping("manage")
+	public ModelAndView openManageEvents() {
+		ModelAndView openManageEventsModelAndView = new ModelAndView("events/manage");
+		List<Event> allEvents = (List<Event>) eventRepository.getAll();
+		openManageEventsModelAndView.addObject("allEvents", allEvents);
+		return openManageEventsModelAndView;
+	}
+
+	@RequestMapping("add")
+	public ModelAndView openAddEventPage() {
+		ModelAndView openAddEventPageModelAndView = new ModelAndView("events/addEvent");
+		openAddEventPageModelAndView.addObject("ratingOptions", Rating.values());
+		openAddEventPageModelAndView.addObject("auditoriums", auditoriumRepository.getAll());
+		return openAddEventPageModelAndView;
 	}
 
 }

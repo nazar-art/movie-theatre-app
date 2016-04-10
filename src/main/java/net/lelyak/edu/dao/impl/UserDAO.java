@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class UserDAO extends BaseDAO<User> {
 
     private static final String USER_TABLE_NAME = "t_user";
-    private static final String userFields[] = {"name", "birthday", "email", "role"};
+    private static final String userFields[] = {"name", "birthday", "email", "password", "role", "enabled"};
 
     public UserDAO() {
         super(User.class, USER_TABLE_NAME, Arrays.asList(userFields));
@@ -28,11 +28,14 @@ public class UserDAO extends BaseDAO<User> {
         Logger.debug(StringUtilities.appendStrings("getByEmail( %s ), SQL : [%s] ", email, sql));
 
         User user = getNamedParameterJdbcTemplate()
-                .queryForObject(sql, parameters, new BeanPropertyRowMapper<User>(User.class));
+                .queryForObject(sql, parameters, new BeanPropertyRowMapper<>(User.class));
 
         Logger.debug(StringUtilities.appendStrings("getByEmail( %s ) : %s ", email, user.toString()));
 
         return user;
     }
 
+    public boolean isUserPresented(String email) {
+        return existsByEmail(email);
+    }
 }

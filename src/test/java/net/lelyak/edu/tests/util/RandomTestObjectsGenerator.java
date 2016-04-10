@@ -1,7 +1,7 @@
 package net.lelyak.edu.tests.util;
 
 import net.lelyak.edu.entity.Event;
-import net.lelyak.edu.entity.Rating;
+import net.lelyak.edu.entity.enums.Rating;
 import net.lelyak.edu.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

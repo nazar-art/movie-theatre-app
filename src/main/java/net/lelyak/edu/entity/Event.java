@@ -1,5 +1,6 @@
 package net.lelyak.edu.entity;
 
+import net.lelyak.edu.entity.enums.Rating;
 import net.lelyak.edu.utils.datafactory.InjectRandomData;
 import net.lelyak.edu.utils.datafactory.RandomType;
 

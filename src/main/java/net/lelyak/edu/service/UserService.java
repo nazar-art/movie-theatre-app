@@ -3,6 +3,7 @@ package net.lelyak.edu.service;
 import net.lelyak.edu.entity.Event;
 import net.lelyak.edu.entity.Ticket;
 import net.lelyak.edu.entity.User;
+import net.lelyak.edu.entity.enums.UserRole;
 import net.lelyak.edu.repository.EventRepository;
 import net.lelyak.edu.repository.UserRepository;
 import net.lelyak.edu.utils.Logger;
@@ -29,18 +30,24 @@ public class UserService {
     @Autowired
     private TicketService ticketService;
 
-    public void register(User user) {
+    /*public void register(User user) {
         userRepository.put(user);
+    }*/
+
+    public long register(User user) {
+        return userRepository.put(user);
     }
 
     public void register(User user, Date userBirthday) {
         Validate.notNull(user, "user can not be null for registration");
         Validate.notNull(userBirthday, "userBirthday can not be null");
 
-        user.setRole("user");
+        user.setRole(UserRole.REGISTERED_USER.toString());
         user.setBirthday(userBirthday);
         register(user);
     }
+
+
 
     public User signIn(String name) {
         return userRepository.getByName(name);
@@ -54,7 +61,7 @@ public class UserService {
             user.setBirthday(birthday);
             user.setEmail(email);
             user.setName(name);
-            user.setRole("user");
+            user.setRole(UserRole.REGISTERED_USER.toString());
             userRepository.put(user);
         }
         return signIn(name);
@@ -108,6 +115,6 @@ public class UserService {
     }
 
     public boolean isUserExist(User user) {
-        return userRepository.isUserExist(user.getId());
+        return userRepository.isUserExist(user.getEmail());
     }
 }

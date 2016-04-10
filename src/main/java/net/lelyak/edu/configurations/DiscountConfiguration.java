@@ -1,4 +1,4 @@
-package net.lelyak.edu.config;
+package net.lelyak.edu.configurations;
 
 import net.lelyak.edu.discounts.BirthdayDiscount;
 import net.lelyak.edu.discounts.HalfPriceTicketDiscount;

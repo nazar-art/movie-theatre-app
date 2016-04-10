@@ -152,14 +152,19 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
         return rowCount > 0;
     }
 
+    protected boolean existsByEmail(String email) {
+        String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_BY_MAIL, tableName);
+        Logger.debug("QUERY is: " + sql);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource("email", email);
+        Long rowCount = getNamedParameterJdbcTemplate().queryForObject(sql, parameterSource, Long.class);
+        return rowCount > 0;
+    }
+
     private boolean exists(String name) {
         String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_BY_NAME, tableName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("name", name);
         Long rowCount = getNamedParameterJdbcTemplate().queryForObject(sql, parameterSource, Long.class);
         return rowCount > 0;
     }
-
-
-
 
 }

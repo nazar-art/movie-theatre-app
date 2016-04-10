@@ -12,6 +12,10 @@
 
 <body>
 <div id="shell">
+    <div class="alert alert-danger">
+        <h4>MY BALANCE: </h4>
+        <p>${balance}</p>
+    </div>
     <jsp:include page="../header.jsp"/>
     <div id="main">
         <div id="content" class="bg-success ">

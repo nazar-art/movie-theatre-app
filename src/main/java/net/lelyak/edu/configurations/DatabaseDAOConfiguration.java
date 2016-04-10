@@ -1,4 +1,4 @@
-package net.lelyak.edu.config;
+package net.lelyak.edu.configurations;
 
 import net.lelyak.edu.dao.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +49,12 @@ public class DatabaseDAOConfiguration {
 		aspectCounterDAO.setDataSource(dataSource);
 		return aspectCounterDAO;
 	}
+
+	@Bean
+	public UserAccountDAO userAccountDAO(){
+		UserAccountDAO userAccountDAO = new UserAccountDAO();
+		userAccountDAO.setDataSource(dataSource);
+		return userAccountDAO;
+	}
+
 }

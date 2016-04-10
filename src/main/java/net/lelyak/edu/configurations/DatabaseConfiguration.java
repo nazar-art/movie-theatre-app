@@ -1,4 +1,4 @@
-package net.lelyak.edu.config;
+package net.lelyak.edu.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,6 +47,13 @@ public class DatabaseConfiguration {
     @Bean
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
         return new NamedParameterJdbcTemplate(jdbcTemplate());
+    }
+
+    @Bean
+    public DataSourceTransactionManager dataSourceTransactionManager() {
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+        transactionManager.setDataSource(dataSource());
+        return transactionManager;
     }
 
 }

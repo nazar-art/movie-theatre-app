@@ -18,6 +18,10 @@ public class User extends BaseEntity {
     @InjectRandomData(type = RandomType.ROLE)
     private String role;
 
+//    @InjectRandomData(type = RandomType.ROLE)
+//    private List<UserRole> roles;
+    private boolean enabled;
+
     public User() {
         super();
     }
@@ -58,15 +62,31 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    /*public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
+    }*/
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
-//        String s = super.toString();
-        return "User{" + /*s +*/
+        return "User{" +
                 "id=" + id +
                 ", name=" + name +
                 ", email='" + email + '\'' +
                 ", birthday=" + birthday +
-                ", role=" + role +
+                ", roles=" + role +
+                ", enabled=" + enabled +
                 '}';
     }
 }

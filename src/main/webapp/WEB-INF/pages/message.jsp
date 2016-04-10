@@ -5,27 +5,14 @@
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 
 <head>
-    <title>Error</title>
+    <title>Movie Theater</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <jsp:include page="essentials/essentials.jsp"/>
 </head>
 
 <body>
-<div id="shell">
-    <jsp:include page="header.jsp"/>
-    <!-- Main -->
-    <div id="main">
-        <div class="row">
-            <h5>OOOOps. There are exception occurred:</h5>
-            <br>
-            <h5>On page: ${url}</h5>
-            <br>
-            <h4>Detailed StackTrace:</h4>
-            <code>${stackTrace}</code>
-        </div>
-
-    </div>
-    <jsp:include page="footer.jsp"/>
+<div class="alert alert-danger">
+    <p>${message}.</p>
 </div>
 </body>
 </html>
