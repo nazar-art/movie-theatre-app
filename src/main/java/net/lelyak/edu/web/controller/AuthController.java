@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.lelyak.edu.entity.User;
 import net.lelyak.edu.entity.UserAccount;
 import net.lelyak.edu.entity.enums.UserRole;
-import net.lelyak.edu.service.UserAccountServiceImpl;
+import net.lelyak.edu.service.UserAccountService;
 import net.lelyak.edu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +22,7 @@ import javax.annotation.PostConstruct;
 public class AuthController {
 
     @Autowired
-    private UserAccountServiceImpl userAccountService;
+    private UserAccountService userAccountService;
     @Autowired
     private UserService userService;
     private PasswordEncoder passwordEncoder;

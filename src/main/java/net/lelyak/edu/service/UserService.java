@@ -76,12 +76,12 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
-        Logger.info("Looking for the user with mail: " + email);
+        Logger.debug("Looking for the user with mail: " + email);
         return userRepository.getUserByEmail(email);
     }
 
     public User getByName(String name) {
-        Logger.info("Looking for the user with name: " + name);
+        Logger.debug("Looking for the user with name: " + name);
         return userRepository.getByName(name);
     }
 

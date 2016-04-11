@@ -6,7 +6,7 @@ import net.lelyak.edu.entity.User;
 import net.lelyak.edu.entity.UserAccount;
 import net.lelyak.edu.repository.EventRepository;
 import net.lelyak.edu.service.TicketService;
-import net.lelyak.edu.service.UserAccountServiceImpl;
+import net.lelyak.edu.service.UserAccountService;
 import net.lelyak.edu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class TicketsController {
 	@Autowired
 	private EventRepository eventRepository;
 	@Autowired
-	private UserAccountServiceImpl userAccountService;
+	private UserAccountService userAccountService;
 
 
 	@RequestMapping(value = "/book/{id}", method = RequestMethod.POST)

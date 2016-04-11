@@ -20,7 +20,7 @@ import org.testng.annotations.Listeners;
         org.uncommons.reportng.HTMLReporter.class,
         org.uncommons.reportng.JUnitXMLReporter.class})
 @ContextConfiguration(locations = "file:**/spring-context.xml")
-public class BaseTest extends AbstractTestNGSpringContextTests {
+public abstract class BaseTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     protected AdminService adminService;

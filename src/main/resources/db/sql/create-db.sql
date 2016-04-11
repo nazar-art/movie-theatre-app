@@ -75,14 +75,4 @@ CREATE TABLE t_useraccount (
                 REFERENCES t_user ON UPDATE RESTRICT ON DELETE CASCADE
 );
 
------------------------------------
--- create persistent_logins table
------------------------------------
---CREATE TABLE persistent_logins (
---      username   VARCHAR(80),
---      series     VARCHAR(100) PRIMARY KEY,
---      token      VARCHAR(120),
---      last_used  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
---);
-
 
