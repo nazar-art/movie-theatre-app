@@ -25,20 +25,20 @@
         <form:form method="post" action="register" modelAttribute="newUser">
             <div class="input-group input-sm">
                 <form:label path="name" cssClass="input-group-addon">User Name</form:label>
-                <form:input path="name" cssClass="form-control" required="required"></form:input>
+                <form:input path="name" cssClass="form-control" required="required"/>
             </div>
             <div class="input-group input-sm">
                 <form:label path="email" cssClass="input-group-addon">Email</form:label>
-                <form:input path="email" cssClass="form-control" required="required"></form:input>
+                <form:input path="email" cssClass="form-control" required="required"/>
             </div>
             <div class="input-group input-sm">
                 <form:label path="password" cssClass="input-group-addon">Password</form:label>
-                <form:input path="password" cssClass="form-control" type="password" required="required"></form:input>
+                <form:input path="password" cssClass="form-control" type="password" required="required"/>
             </div>
             <div class="input-group input-sm">
                 <form:label path="role" cssClass="input-group-addon">Roles</form:label>
                 <form:select path="role" cssClass="form-control" multiple="multiple">
-                    <form:options items="${availableRoles}"></form:options>
+                    <form:options items="${availableRoles}"/>
                 </form:select>
             </div>
             <div class="input-group input-sm">
@@ -46,7 +46,7 @@
                 <div class="col-md-7">
                     <div class="form-group">
                         <div class='input-group date' id='datepicker'>
-                            <form:input required="required" path="birthday" cssClass="form-control"></form:input>
+                            <form:input required="required" path="birthday" cssClass="form-control"/>
                         <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                         </span>
