@@ -30,9 +30,6 @@ public class UserService {
     @Autowired
     private TicketService ticketService;
 
-    /*public void register(User user) {
-        userRepository.put(user);
-    }*/
 
     public long register(User user) {
         return userRepository.put(user);
@@ -46,8 +43,6 @@ public class UserService {
         user.setBirthday(userBirthday);
         register(user);
     }
-
-
 
     public User signIn(String name) {
         return userRepository.getByName(name);

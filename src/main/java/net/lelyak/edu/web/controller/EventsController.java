@@ -97,12 +97,6 @@ public class EventsController {
 		return "events/book";
 	}
 
-	@RequestMapping("/{eventId}")
-	public String openEventPage(@PathVariable("eventId") Long eventId, Model model) {
-		model.addAttribute("event", eventRepository.getById(eventId));
-		return "events/event";
-	}
-
 	@RequestMapping("manage")
 	public ModelAndView openManageEvents() {
 		ModelAndView openManageEventsModelAndView = new ModelAndView("events/manage");
@@ -111,12 +105,11 @@ public class EventsController {
 		return openManageEventsModelAndView;
 	}
 
-	@RequestMapping("add")
+	@RequestMapping("manage/add")
 	public ModelAndView openAddEventPage() {
 		ModelAndView openAddEventPageModelAndView = new ModelAndView("events/addEvent");
 		openAddEventPageModelAndView.addObject("ratingOptions", Rating.values());
 		openAddEventPageModelAndView.addObject("auditoriums", auditoriumRepository.getAll());
 		return openAddEventPageModelAndView;
 	}
-
 }
