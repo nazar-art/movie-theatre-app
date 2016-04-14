@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="auditorium" type="auditorium"/>
+
+  <xs:element name="event" type="event"/>
+
+  <xs:element name="user" type="user"/>
+
+  <xs:complexType name="event">
+    <xs:complexContent>
+      <xs:extension base="baseEntity">
+        <xs:sequence>
+          <xs:element ref="auditorium" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="airDate" type="xs:dateTime"/>
+        <xs:attribute name="ticketPrice" type="xs:double"/>
+        <xs:attribute name="rating" type="rating"/>
+        <xs:attribute name="auditoriumId" type="xs:long"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="baseEntity" abstract="true">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="auditorium">
+    <xs:complexContent>
+      <xs:extension base="baseEntity">
+        <xs:sequence/>
+        <xs:attribute name="seats" type="xs:int"/>
+        <xs:attribute name="vip" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="user">
+    <xs:complexContent>
+      <xs:extension base="baseEntity">
+        <xs:sequence/>
+        <xs:attribute name="birthday" type="xs:dateTime"/>
+        <xs:attribute name="email" type="xs:string"/>
+        <xs:attribute name="password" type="xs:string"/>
+        <xs:attribute name="role" type="xs:string"/>
+        <xs:attribute name="enabled" type="xs:boolean" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ticket">
+    <xs:complexContent>
+      <xs:extension base="baseEntity">
+        <xs:sequence>
+          <xs:element ref="event" minOccurs="0"/>
+          <xs:element name="event_id" type="xs:long" minOccurs="0"/>
+          <xs:element name="onDate" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="price" type="xs:double" minOccurs="0"/>
+          <xs:element ref="user" minOccurs="0"/>
+          <xs:element name="user_id" type="xs:long" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="rating">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="HIGH"/>
+      <xs:enumeration value="MEDIUM"/>
+      <xs:enumeration value="LOW"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

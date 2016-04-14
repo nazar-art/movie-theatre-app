@@ -3,23 +3,34 @@ package net.lelyak.edu.entity;
 import net.lelyak.edu.utils.datafactory.InjectRandomData;
 import net.lelyak.edu.utils.datafactory.RandomType;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User extends BaseEntity {
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.BIRTH_DATE)
     private Date birthday;
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.EMAIL)
     private String email;
 
+    @XmlAttribute
     private String password;
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.ROLE)
     private String role;
 
 //    @InjectRandomData(type = RandomType.ROLE)
 //    private List<UserRole> roles;
+    @XmlAttribute
     private boolean enabled;
 
     public User() {

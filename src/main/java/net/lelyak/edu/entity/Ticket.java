@@ -3,15 +3,23 @@ package net.lelyak.edu.entity;
 import net.lelyak.edu.utils.datafactory.InjectRandomData;
 import net.lelyak.edu.utils.datafactory.RandomType;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Ticket extends BaseEntity {
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.PRICE, min = 5, max = 10)
     private Double price;
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.FUTURE_DATE)
     private Date onDate;
 

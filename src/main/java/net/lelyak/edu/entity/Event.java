@@ -4,21 +4,29 @@ import net.lelyak.edu.entity.enums.Rating;
 import net.lelyak.edu.utils.datafactory.InjectRandomData;
 import net.lelyak.edu.utils.datafactory.RandomType;
 
+import javax.xml.bind.annotation.*;
 import java.util.Date;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Event extends BaseEntity {
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.FUTURE_DATE, min = 5, max = 10)
     private Date airDate;
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.PRICE)
     private Double ticketPrice;
 
+    @XmlAttribute
     @InjectRandomData(type = RandomType.EVENT_RATING)
     private Rating rating;
 
+    @XmlElement
     private Auditorium auditorium;
 
+    @XmlAttribute
     //Lazy loading
     private Long auditorium_id;
 
