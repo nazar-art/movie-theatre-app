@@ -16,6 +16,6 @@ After configuration you can access url:
     
 For checking 3 and 4 task just use next credentials for possible users without registration (login and pass are the same):    
 
-    slytseryn@gmail.com     -      REGISTERED_USER
+    griffindor@gmail.com     -      REGISTERED_USER
     
-    griffindor@gmail.com    -      BOOKING_MANAGER 
+    slytseryn@gmail.com    -      BOOKING_MANAGER 
