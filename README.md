@@ -6,7 +6,11 @@
 
 #### For execution MVC task:
 
-Configure **Tomcat** server. Or create `war` from project source and deploy it to Tomcat.
+Configure **Tomcat** server: 
+
+![Tomcat Configuration](tomcat-configuration.png)
+
+Or create `war` from project source and deploy it to Tomcat.
 
 After configuration you can access url:
 
