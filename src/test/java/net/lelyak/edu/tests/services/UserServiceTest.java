@@ -45,19 +45,20 @@ public class UserServiceTest extends BaseTest {
     public void testA_SignIn() throws Exception {
         User user = rtog.randomUser();
         userRepository.put(user);
-        assertTrue(user.equals(userService.signIn(user.getName())));
+//        assertTrue(user.equals(userService.signIn(user.getName())));
+        assertEquals(userService.signIn(user.getName()), user);
     }
 
     @Test
     public void testB_Register() throws Exception {
         User randomUser = rtog.randomUser();
 
-        User loadedeUser = userService.register(randomUser.getName(), randomUser.getEmail(), randomUser.getBirthday());
+        User loadedUser = userService.register(randomUser.getName(), randomUser.getEmail(), randomUser.getBirthday());
 
-        Logger.debug(StringUtilities.appendStrings("testB_Register: randomUser=[%s], loadedUser=[%s]", randomUser, loadedeUser));
-        assertTrue(randomUser.getName().compareTo(loadedeUser.getName()) == 0
-                && randomUser.getEmail().compareTo(loadedeUser.getEmail()) == 0
-                && randomUser.getId() == null && loadedeUser.getId() != null
+        Logger.debug(StringUtilities.appendStrings("testB_Register: randomUser=[%s], loadedUser=[%s]", randomUser, loadedUser));
+        assertTrue(randomUser.getName().compareTo(loadedUser.getName()) == 0
+                && randomUser.getEmail().compareTo(loadedUser.getEmail()) == 0
+                && randomUser.getId() == null && loadedUser.getId() != null
         );
     }
 

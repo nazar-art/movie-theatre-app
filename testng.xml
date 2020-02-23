@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite for MovieTheatre Application"
+<suite name="Test Suite for movie-theatre-app"
        parallel="false" skipfailedinvocationcounts="false"
        group-by-instances="false"
        preserve-order="true" allow-return-values="false">
@@ -20,7 +20,7 @@
         </classes>
     </test>
 
-    <test name="Unit tests for Movie Theatre Application">
+    <test name="Unit Tests for service layer movie-theatre-app">
         <classes>
             <class name="net.lelyak.edu.tests.services.AuditoriumServiceTestCase"/>
             <class name="net.lelyak.edu.tests.services.UserServiceTestCase"/>
