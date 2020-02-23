@@ -5,11 +5,12 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.lelyak.edu</groupId>
-    <artifactId>MovieTheatre</artifactId>
+    <artifactId>movie-theatre-app</artifactId>
     <packaging>war</packaging>
 
     <version>0.0.1</version>
-    <name>MovieTheatre</name>
+    <name>movie-theatre-app</name>
+    <description>Movie Theatre Project for covering Spring Course</description>
     <url>http://maven.apache.org</url>
 
     <properties>
