@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class UserAccountDAO extends BaseDAO<UserAccount> {
 
     private static final String USER_ACCOUNT_TABLE_NAME = "t_useraccount";
-    private static final String accountFields[] = {"balance", "user_id"};
+    private static final String[] accountFields = {"balance", "user_id"};
 
     public UserAccountDAO() {
         super(UserAccount.class, USER_ACCOUNT_TABLE_NAME, Arrays.asList(accountFields));

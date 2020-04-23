@@ -7,41 +7,42 @@ import java.util.Collection;
 
 import static java.util.stream.Collectors.toList;
 
-public abstract class BaseRepository<T extends BaseEntity, E extends BaseDAO<T>> {
+public abstract class BaseRepository<E extends BaseEntity, DAO extends BaseDAO<E>> {
 
-    private E dao;
+    private DAO dao;
 
-    public E getDao() {
+    public DAO getDao() {
         return dao;
     }
 
-    public void setDao(E dao) {
+    public void setDao(DAO dao) {
         this.dao = dao;
     }
 
-    public long put(T entity) {
+
+    public long put(E entity) {
         return dao.save(preSave(entity));
     }
 
-    public void remove(T entity) {
+    public void remove(E entity) {
         dao.delete(entity);
     }
 
-    public T getById(long id) {
+    public E getById(long id) {
         return postLoad(dao.getById(id));
     }
 
-    public T getByName(String name) {
+    public E getByName(String name) {
         return postLoad(dao.getByName(name));
     }
 
-    public Collection<T> getAll() {
+    public Collection<E> getAll() {
         return dao.getAll().stream()
                 .map(this::postLoad)
                 .collect(toList());
     }
 
-    public void putAll(Collection<T> entities) {
+    public void putAll(Collection<E> entities) {
         dao.saveAll(entities.stream()
                 .map(this::postLoad)
                 .collect(toList()));
@@ -51,7 +52,7 @@ public abstract class BaseRepository<T extends BaseEntity, E extends BaseDAO<T>>
         return dao.getTotalCount();
     }
 
-    public abstract T preSave(T entity);
+    public abstract E preSave(E entity);
 
-    public abstract T postLoad(T entity);
+    public abstract E postLoad(E entity);
 }

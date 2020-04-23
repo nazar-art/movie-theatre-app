@@ -18,14 +18,12 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
 
     private final String tableName;
     private final Class<ENTITY> entityClass;
-    private final List<String> fields;
     private final String insertSQL;
     private final String updateSQL;
 
     public BaseDAO(Class<ENTITY> entityClass, String tableName, List<String> fields) {
         this.entityClass = entityClass;
         this.tableName = tableName;
-        this.fields = fields;
 
         // init SQLs
         StringBuilder sbInsertSQL = new StringBuilder();
@@ -81,7 +79,7 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
             Logger.debug("QUERY is: " + sql);
 
             entity = getNamedParameterJdbcTemplate()
-                    .queryForObject(sql, parameterSource, new BeanPropertyRowMapper<ENTITY>(entityClass));
+                    .queryForObject(sql, parameterSource, new BeanPropertyRowMapper<>(entityClass));
         }
         return entity;
     }
@@ -127,14 +125,9 @@ public abstract class BaseDAO<ENTITY extends BaseEntity> extends NamedParameterJ
 
     @Override
     public int getTotalCount() {
-//        String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_FROM_TABLE, tableName);
-//        int rowCount = getJdbcTemplate().queryForInt(sql, new BeanPropertyRowMapper<ENTITY>(entityClass), Integer.class);
-
-        int rowCount = getAll().size();
-        Logger.debug(StringUtilities.appendStrings("Total table count: %d for table: %s", rowCount, tableName));
-        return rowCount;
+        String sql = StringUtilities.appendStrings(SQLStatements.TOTAL_COUNT_FROM_TABLE, tableName);
+        return getJdbcTemplate().queryForObject(sql, Integer.class);
     }
-
 
     private long insert(ENTITY entity) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
