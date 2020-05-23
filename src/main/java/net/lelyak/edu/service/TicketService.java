@@ -65,12 +65,12 @@ public class TicketService {
     public List<Ticket> getTicketsForUser(User user) {
         Logger.debug("TicketService.getTicketsForUser");
         List<Ticket> tickets = ticketRepository.getAll().stream()
-                .filter(e -> e != null)
+                .filter(Objects::nonNull)
                 .filter(t -> Objects.equals(t.getUser().getId(), user.getId()))
                 .collect(Collectors.toList());
         Logger.debug("COLLECTED TICKETS: " + tickets);
         if (tickets == null) {
-            tickets = Collections.<Ticket>emptyList();
+            tickets = Collections.emptyList();
         }
         return tickets;
     }
@@ -87,11 +87,11 @@ public class TicketService {
 
     public List<Ticket> getTicketsForEvent(Event event) {
         List<Ticket> tickets = ticketRepository.getAll().stream()
-                .filter(e -> e != null)
+                .filter(Objects::nonNull)
                 .filter(t -> t.getEvent().equals(event))
                 .collect(Collectors.toList());
         if (tickets == null) {
-            tickets = Collections.<Ticket>emptyList();
+            tickets = Collections.emptyList();
         }
         return tickets;
     }
@@ -103,7 +103,7 @@ public class TicketService {
                 .collect(Collectors.toList());
 
         if (tickets == null) {
-            tickets = Collections.<Ticket>emptyList();
+            tickets = Collections.emptyList();
         }
         return tickets;
     }

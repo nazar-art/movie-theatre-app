@@ -50,9 +50,7 @@ public abstract class BaseEntity {
         BaseEntity other = (BaseEntity) obj;
         if (id == null) {
             return false;
-        } else if (!id.equals(other.getId()))
-            return false;
-        return true;
+        } else return id.equals(other.getId());
     }
 
     @Override
